@@ -1,0 +1,43 @@
+.login-register {
+    background: url(../images/login-register.jpg) center center/cover no-repeat!important;
+}
+
+.mb-25 {
+	margin-bottom: 25px;
+}
+
+.mxw-200 {
+	max-width: 200px;
+}
+
+.img_wrp {
+	display: inline-block;
+	position: relative;
+}
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.tooltip-text-padding {
+	padding: 1.31em 1.21em 1.21em 1.21em;
+}
+
+.remove-op {
+	border-left: 0; border-right: 0; background-color: red; color: #fff;
+}
+
+.hide-ops {
+	border-left: 0; border-right: 0; background-color: #fac235;
+}
+
+.remove-label {
+	color: #fff;
+	background-color: #f29576;
+}
+
+.remove-op:hover, .hide-ops:hover, .remove-label:hover, .remove-variation:hover, .copy-label:hover {
+	cursor: pointer;
+}

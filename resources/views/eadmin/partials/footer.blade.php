@@ -1,0 +1,1 @@
+<footer class="footer text-center"> 2018 &copy; SeaLinks Admin All rights reserved.</footer>
