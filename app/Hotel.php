@@ -10,7 +10,7 @@ class Hotel extends Model
     //
     public $timestamps = true;
 
-    protected $fillable = ['id', 'category', 'name', 'archive', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'name', 'category', 'double', 'triple', 'quad', 'quint', 'room_basis', 'distance_from_haram', 'archive', 'created_at', 'updated_at'];
 
     public static $categories = [];
 
@@ -18,10 +18,6 @@ class Hotel extends Model
     *
     * Database Relations
     */
-
-    public function rooms(){
-        return $this->hasMany('App\Room', 'hotel_id', 'id');
-    }
 
     public static function getHotels(){
     	$query = Hotel::where('archive', 0);
@@ -39,6 +35,15 @@ class Hotel extends Model
         $categories[3] = '3 Star';
         $categories[4] = '4 Star';
         $categories[5] = '5 Star';
+        return $categories;
+    }
+
+    public static function getHotelRoomCategories(){
+        $categories = [];
+        $categories['double'] = 'Double';
+        $categories['triple'] = 'Triple';
+        $categories['quad'] = 'Quad';
+        $categories['quint'] = 'Quint';
         return $categories;
     }
 }

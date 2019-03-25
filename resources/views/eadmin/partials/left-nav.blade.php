@@ -1,4 +1,4 @@
-Left navbar-header -->
+<!-- Left navbar-header -->
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <ul class="nav" id="side-menu">
@@ -37,18 +37,19 @@ Left navbar-header -->
                     <li><a href="{{ route('dashboard.hotels.create') }}">Add New</a></li>
                 </ul>
             </li>
+            
 
             <li>
                 <a href="javascript://" class="waves-effect">
                     <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
-                    <span class="hide-menu">Rooms <span class="fa arrow"></span></span>
+                    <span class="hide-menu">Umrah Forms <span class="fa arrow"></span></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ route('dashboard.rooms.index') }}">View All</a></li>
-                    <li><a href="{{ route('dashboard.rooms.create') }}">Add New</a></li>
+                    <li><a href="{{ route('dashboard.umrah.index') }}">View Proposals</a></li>
+                    <li><a href="{{ route('dashboard.umrah.create') }}">Add New</a></li>
                 </ul>
             </li>
-            
+
             <li>
                 <a href="{{ route('logout') }}" class="waves-effect" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="zmdi zmdi-power zmdi-hc-fw fa-fw"></i>

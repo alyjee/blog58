@@ -19,17 +19,32 @@ Breadcrumbs::register('dashboard.hotels.index', function ($breadcrumbs) {
 	    $breadcrumbs->push('Edit Hotel', route('dashboard.hotels.edit', ['id'=>1]));
 	});
 
-Breadcrumbs::register('dashboard.rooms.index', function ($breadcrumbs) {
+Breadcrumbs::register('dashboard.umrah.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');
-    $breadcrumbs->push('Rooms', route('dashboard.rooms.index'));
+    $breadcrumbs->push('Umrah Forms', route('dashboard.umrah.index'));
 });
 
-	Breadcrumbs::register('dashboard.rooms.create', function ($breadcrumbs) {
-	    $breadcrumbs->parent('dashboard.rooms.index');
-	    $breadcrumbs->push('Add Room', route('dashboard.rooms.create'));
+	Breadcrumbs::register('dashboard.umrah.create', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.umrah.index');
+	    $breadcrumbs->push('Create New Proposal', route('dashboard.umrah.create'));
 	});
 
-	Breadcrumbs::register('dashboard.rooms.edit', function ($breadcrumbs) {
-	    $breadcrumbs->parent('dashboard.rooms.index');
-	    $breadcrumbs->push('Edit Room', route('dashboard.rooms.edit', ['id'=>1]));
+	Breadcrumbs::register('dashboard.umrah.edit', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.umrah.index');
+	    $breadcrumbs->push('Edit Room', route('dashboard.umrah.edit', ['id'=>1]));
 	});
+
+// Breadcrumbs::register('dashboard.rooms.index', function ($breadcrumbs) {
+//     $breadcrumbs->parent('dashboard.index');
+//     $breadcrumbs->push('Rooms', route('dashboard.rooms.index'));
+// });
+
+// 	Breadcrumbs::register('dashboard.rooms.create', function ($breadcrumbs) {
+// 	    $breadcrumbs->parent('dashboard.rooms.index');
+// 	    $breadcrumbs->push('Add Room', route('dashboard.rooms.create'));
+// 	});
+
+// 	Breadcrumbs::register('dashboard.rooms.edit', function ($breadcrumbs) {
+// 	    $breadcrumbs->parent('dashboard.rooms.index');
+// 	    $breadcrumbs->push('Edit Room', route('dashboard.rooms.edit', ['id'=>1]));
+// 	});

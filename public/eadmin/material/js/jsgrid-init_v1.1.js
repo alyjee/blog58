@@ -120,6 +120,91 @@
                     type: "text",
                     width: 70
                 }, {
+                    name: "double",
+                    title: "Double",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "triple",
+                    title: "Triple",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "quad",
+                    title: "Quad",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "quint",
+                    title: "Quint",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "actions",
+                    title: "Actions",
+                    type: "text",
+                    width: 100
+                }, {
+                    type: "control",
+                    editButton: false,
+                    deleteButton: false,
+                    modeSwitchButton: false
+                }]
+            })
+        }(),
+        function() {
+            $("#proposedFormsGrid").jsGrid({
+                height: "500px",
+                width: "100%",
+                filtering: !0,
+                editing: 0,
+                sorting: !0,
+                paging: !0,
+                autoload: !0,
+                pageSize: 15,
+                pageButtonCount: 5,
+                controller: proposedForms,
+                fields: [{
+                    name: "ref_num",
+                    title: "ID",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "person_name",
+                    title: "Name",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "adults",
+                    title: "Adults",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "childs",
+                    title: "Childs",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "infants",
+                    title: "Infants",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "makkah_hotel",
+                    title: "Makkah Hotel",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "madinah_hotel",
+                    title: "Madinah Hotel",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "total_package_price",
+                    title: "Total (PKR)",
+                    type: "text",
+                    width: 70
+                }, {
                     name: "actions",
                     title: "Actions",
                     type: "text",

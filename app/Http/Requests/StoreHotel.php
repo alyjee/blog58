@@ -32,13 +32,25 @@ class StoreHotel extends FormRequest
         if(strpos(Request::path(), 'update')!==false){
             return [
                 'category' => 'required|int',
-                'name' => 'required|max:500'
+                'name' => 'required|max:500',
+                'double' => 'required',
+                'triple' => 'required',
+                'quad' => 'required',
+                'quint' => 'required',
+                'room_basis' => 'required',
+                'distance_from_haram' => 'required',
             ];
         }
 
         return [
             'category' => 'required|int',
-            'name' => 'required|max:500'
+            'name' => 'required|max:500',
+            'double' => 'required',
+            'triple' => 'required',
+            'quad' => 'required',
+            'quint' => 'required',
+            'room_basis' => 'required',
+            'distance_from_haram' => 'required'
         ];
     }
 }
