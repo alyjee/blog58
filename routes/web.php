@@ -31,13 +31,14 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     Route::get('/umrah/proposals', ['as' =>'umrah.index', 'uses'=>'Admin\UmrahController@index']);
     Route::get('/umrah/create', ['as' =>'umrah.create', 'uses'=>'Admin\UmrahController@create']);
     Route::post('/umrah/phase1/store', ['as' =>'umrah.phase1.store', 'uses'=>'Admin\UmrahController@storePhase1']);
-    Route::get('/umrah/phase1/edit/{id}', ['as' =>'umrah.phase1.edit', 'uses'=>'Admin\UmrahController@create']);
-    Route::post('/umrah/phase1/update', ['as' =>'umrah.phase1.update', 'uses'=>'Admin\UmrahController@create']);
+    Route::get('/umrah/phase1/edit/{id}', ['as' =>'umrah.phase1.edit', 'uses'=>'Admin\UmrahController@editPhase1']);
+    Route::post('/umrah/phase1/update/{id}', ['as' =>'umrah.phase1.update', 'uses'=>'Admin\UmrahController@updatePhase1']);
+    Route::post('/umrah/phase1/archive/{id}', ['as' =>'umrah.phase1.archive', 'uses'=>'Admin\UmrahController@archivePhase1']);
 
-    Route::post('/umrah/store', ['as' =>'umrah.store', 'uses'=>'Admin\UmrahController@store']);
-    Route::get('/umrah/edit/{id}', ['as' =>'umrah.edit', 'uses'=>'Admin\UmrahController@edit']);
-    Route::post('/umrah/update/{id}', ['as' =>'umrah.update', 'uses'=>'Admin\UmrahController@update']);
-    Route::get('/umrah/archive/{id}', ['as' =>'umrah.archive', 'uses'=>'Admin\UmrahController@archive']);
+    Route::get('/umrah/final/forms', ['as' =>'umrah.phase2.index', 'uses'=>'Admin\UmrahController@phase2Index']);
+    Route::get('/umrah/phase2/{id}/create', ['as' =>'umrah.phase2.create', 'uses'=>'Admin\UmrahController@createPhase2']);
+    Route::post('/umrah/phase2/{id}/store', ['as' =>'umrah.phase2.store', 'uses'=>'Admin\UmrahController@storePhase2']);
+
 
     // Route::get('/rooms', ['as' =>'rooms.index', 'uses'=>'Admin\RoomController@index']);
     // Route::get('/rooms/create', ['as' =>'rooms.create', 'uses'=>'Admin\RoomController@create']);

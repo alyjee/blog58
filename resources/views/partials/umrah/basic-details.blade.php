@@ -2,7 +2,7 @@
 	<div class="col-sm-6">
 		<div class="form-group form-group {{ $errors->has('date') ? ' has-error' : '' }}">
     		{!! Form::label('date', 'Date') !!}
-    		{!! Form::text('date', $form_creation_date,['placeholder'=>'Date', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
+    		{!! Form::text('', $form_creation_date,['placeholder'=>'Date', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
     		@if ($errors->has('date'))
                 <div class="form-control-feedback">{{ $errors->first('date') }}</div>
             @endif
@@ -51,7 +51,7 @@
 	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('from_date') ? ' has-error' : '' }}">
     		{!! Form::label('from_date', 'From') !!}
-    		{!! Form::text('from_date', null,['placeholder'=>'From Date', 'class'=>'form-control']) !!}
+    		{!! Form::text('from_date', null,['placeholder'=>'From Date', 'class'=>'form-control mydatepicker']) !!}
     		@if ($errors->has('from_date'))
                 <div class="form-control-feedback">{{ $errors->first('from_date') }}</div>
             @endif
@@ -61,7 +61,7 @@
 	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('to_date') ? ' has-error' : '' }}">
     		{!! Form::label('to_date', 'To') !!}
-    		{!! Form::text('to_date', null,['placeholder'=>'To Date', 'class'=>'form-control']) !!}
+    		{!! Form::text('to_date', null,['placeholder'=>'To Date', 'class'=>'form-control mydatepicker']) !!}
     		@if ($errors->has('to_date'))
                 <div class="form-control-feedback">{{ $errors->first('to_date') }}</div>
             @endif

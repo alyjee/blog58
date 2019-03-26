@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 use Request;
 
-class StorePhase1 extends FormRequest
+class StorePhase2 extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -58,7 +58,8 @@ class StorePhase1 extends FormRequest
                 'infant_ticket_price' => 'required',
                 'total_umrah_price' => 'required',
                 'total_ticket_price' => 'required',
-                'total_package_price' => 'required'
+                'total_package_price' => 'required',
+                'persons.*.surname' => 'required'
             ];
         }
 
@@ -90,7 +91,12 @@ class StorePhase1 extends FormRequest
             'infant_ticket_price' => 'required',
             'total_umrah_price' => 'required',
             'total_ticket_price' => 'required',
-            'total_package_price' => 'required'
+            'total_package_price' => 'required',
+            'persons.*.given_name' => 'required',
+            'persons.*.dob' => 'required|date',
+            'persons.*.passport_num' => 'required',
+            'persons.*.passport_issue_date' => 'required|date',
+            'persons.*.passport_expiry_date' => 'required|date'
         ];
     }
 }

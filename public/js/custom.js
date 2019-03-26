@@ -136,4 +136,26 @@ $(document).ready(function(){
 		$('#total_ticket_price').val(total_tickets_price);
 		$('#total_package_price').val(total_package_price);
 	}
+
+
+	$('.passport_expiry_date').on('change', function(){
+		console.log('asdsasdas');
+		var passport_expiry_date = $(this).val();
+
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+
+		today = yyyy + '-' + mm + '-' +  dd ;
+
+		var date1 = new Date(today);
+		var date2 = new Date(passport_expiry_date);
+		var diffDays = parseInt((date2 - date1) / (1000 * 60 * 60 * 24)); 
+
+		if( diffDays < 185 ){
+			alert('Passport Expiry is less than six months');
+			return false;
+		}
+	});
 });

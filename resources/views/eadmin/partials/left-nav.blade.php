@@ -45,8 +45,9 @@
                     <span class="hide-menu">Umrah Forms <span class="fa arrow"></span></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ route('dashboard.umrah.index') }}">View Proposals</a></li>
                     <li><a href="{{ route('dashboard.umrah.create') }}">Add New</a></li>
+                    <li><a href="{{ route('dashboard.umrah.index') }}">View Proposals</a></li>
+                    <li><a href="{{ route('dashboard.umrah.phase2.index') }}">Final Proposals</a></li>
                 </ul>
             </li>
 

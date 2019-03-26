@@ -29,10 +29,20 @@ Breadcrumbs::register('dashboard.umrah.index', function ($breadcrumbs) {
 	    $breadcrumbs->push('Create New Proposal', route('dashboard.umrah.create'));
 	});
 
-	Breadcrumbs::register('dashboard.umrah.edit', function ($breadcrumbs) {
+	Breadcrumbs::register('dashboard.umrah.phase1.edit', function ($breadcrumbs) {
 	    $breadcrumbs->parent('dashboard.umrah.index');
-	    $breadcrumbs->push('Edit Room', route('dashboard.umrah.edit', ['id'=>1]));
+	    $breadcrumbs->push('Edit Proposal', route('dashboard.umrah.phase1.edit', ['id'=>1]));
 	});
+
+	Breadcrumbs::register('dashboard.umrah.phase2.create', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.umrah.index');
+	    $breadcrumbs->push('Finalize Proposal', route('dashboard.umrah.phase2.create', ['id'=>1]));
+	});
+
+Breadcrumbs::register('dashboard.umrah.phase2.index', function ($breadcrumbs) {
+    $breadcrumbs->parent('dashboard.index');
+    $breadcrumbs->push('Final Umrah Forms', route('dashboard.umrah.phase2.index'));
+});
 
 // Breadcrumbs::register('dashboard.rooms.index', function ($breadcrumbs) {
 //     $breadcrumbs->parent('dashboard.index');

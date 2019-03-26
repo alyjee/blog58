@@ -9,19 +9,40 @@
 	        <div class="row">
 	            <div class="col-sm-12 col-xs-12">
 	            	@if(\Request::route()->getName() == 'dashboard.umrah.phase1.edit')
-	            		{!! Form::model($hotel, ['route' => ['dashboard.umrah.phase1.update', 'id'=>$hotel->id], 'method' => 'post', 'files'=>false]) !!}
+	            		{!! Form::model($proposedForm, ['route' => ['dashboard.umrah.phase1.update', 'id'=>$proposedForm->id], 'method' => 'post', 'files'=>false]) !!}
+	            	@elseif(\Request::route()->getName() == 'dashboard.umrah.phase2.create')
+	            		{!! Form::model($proposedForm, ['route' => ['dashboard.umrah.phase2.store', 'id'=>$proposedForm->id], 'method' => 'post', 'files'=>false]) !!}
 	            	@else
 	            		{!! Form::open(['route' => 'dashboard.umrah.phase1.store', 'method' => 'post', 'files'=>false]) !!}
 	            	@endif
 
 	            	@include('partials/umrah/basic-details')
 	            	@include('partials/umrah/iternary-details')
-	            	{{-- @include('partials/umrah/personal-details') --}}
+
+	            	@if(\Request::route()->getName() == 'dashboard.umrah.phase2.create')
+	            		@include('partials/umrah/personal-details')
+	            	@endif
+
 	            	@include('partials/umrah/total-package-price-details')
 	            	{{-- @include('partials/umrah/terms-and-conditions') --}}
-	            	@include('partials/umrah/signature')
+	            	{{-- @include('partials/umrah/signature') --}}
 
-	            	<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+	            	
+	            	<div class="row">
+	            		@if(\Request::route()->getName() == 'dashboard.umrah.phase1.edit')
+		            		<div class="col-sm-6">
+		            			<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Update</button>
+		            		</div>
+
+		            		<div class="col-sm-6 text-right">
+		            			<a href="{{ route('dashboard.umrah.phase2.create', ['id'=>1]) }}" class="btn btn-primary waves-effect waves-light m-r-10">Next ></a>
+		            		</div>
+		            	@else
+		            		<div class="col-sm-6">
+		            			<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+		            		</div>
+		            	@endif
+	            	</div>
 	            	{!! Form::close() !!}
 	            </div>
             </div><!-- ./ row -->
