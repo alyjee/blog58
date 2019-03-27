@@ -57,8 +57,10 @@ class UmrahController extends Controller
         $today_date = Carbon::today()->format('d M Y');
         $form_ref_number = UmrahForm::getRefNum();
         $hotelSelect = Hotel::getHotelsForSelect();
+        $flightTypeSelect = UmrahForm::getFlightTypes();
 
-        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels]);
+
+        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect]);
     }
 
     /**

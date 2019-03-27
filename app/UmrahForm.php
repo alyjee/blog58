@@ -33,5 +33,12 @@ class UmrahForm extends Model
         return $query->get();
     }
 
+    public static function getFlightTypes(){
+        $categories = [];
+        $categories['direct'] = 'Direct';
+        $categories['indirect'] = 'In Direct';
+        return $categories;
+    }
+
     
 }

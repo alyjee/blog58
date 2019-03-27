@@ -157,7 +157,7 @@
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
     		{!! Form::label('flight_type', 'Flight Type') !!}
-    		{!! Form::text('flight_type', null,['placeholder'=>'Select Flight Type', 'class'=>'form-control']) !!}
+            {!! Form::select('flight_type', $flightTypeSelect, null, ['placeholder'=>'Select Flight Type', 'class'=>'form-control']) !!}
     		@if ($errors->has('flight_type'))
                 <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
             @endif

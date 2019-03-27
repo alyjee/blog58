@@ -23,7 +23,7 @@
 
 	            		<div class="form-group {{ $errors->has('category') ? ' has-error' : '' }}">
 		            		{!! Form::label('category', 'Category') !!}
-		            		{!! Form::select('category', $categories, null, ['placeholder'=>'Select Hotel Categort', 'class'=>'form-control']) !!}
+		            		{!! Form::select('category', $categories, null, ['placeholder'=>'Select Hotel Category', 'class'=>'form-control']) !!}
 		            		@if ($errors->has('category'))
 	                            <div class="form-control-feedback">{{ $errors->first('category') }}</div>
 	                        @endif

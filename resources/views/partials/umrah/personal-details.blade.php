@@ -13,6 +13,11 @@ hr.p-hr {
 @foreach($personalDetails as $i => $pd)
     <div class="personal-detail-holder">
         <div class="row">
+            <div class="col-sm-12">
+                <h4 class="btn btn-primary waves-effect waves-light m-r-10">Passenger#{{++$i}}</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <div class="form-group {{ $errors->has('persons['.$i.'][sur_name]') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][sur_name]', 'Surname') !!}
@@ -134,8 +139,10 @@ hr.p-hr {
     <div class="personal-detail-holder">
         <div class="row">
             <div class="col-sm-12">
-                <h4 class="btn btn-primary waves-effect waves-light m-r-10">Person#{{$i}}</h4>
+                <h4 class="btn btn-primary waves-effect waves-light m-r-10">Passenger#{{$i}}</h4>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <div class="form-group {{ $errors->has('persons['.$i.'][sur_name]') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][sur_name]', 'Surname') !!}

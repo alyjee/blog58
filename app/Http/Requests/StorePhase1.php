@@ -29,14 +29,22 @@ class StorePhase1 extends FormRequest
      */
     public function rules()
     {
+        $from_date = $this->get('from_date');
+        $daystosum = $this->get('total_days', 0) - 1;
+        $expected_to_date = date('d-m-Y', strtotime($from_date.' + '.$daystosum.' days'));
+        $to_date_rule = 'required|date|date_equals:'.$expected_to_date;
+
+        $total_persons =($this->get('adults', 0)+$this->get('childs', 0)+$this->get('infants', 0));
+        $total_passengers_rule = 'required|int|min:'.$total_persons;
+
         if(strpos(Request::path(), 'update')!==false){
             return [
                 'ref_num' => 'required',
                 'person_name' => 'required|max:500',
                 'total_days' => 'required|int',
                 'from_date' => 'required',
-                'to_date' => 'required',
-                'total_passengers' => 'required',
+                'to_date' => $to_date_rule,
+                'total_passengers' => $total_passengers_rule,
                 'adults' => 'required|int',
                 'childs' => 'required|int',
                 'infants' => 'required|int',
@@ -66,9 +74,9 @@ class StorePhase1 extends FormRequest
             'ref_num' => 'required',
             'person_name' => 'required|max:500',
             'total_days' => 'required|int',
-            'from_date' => 'required',
-            'to_date' => 'required',
-            'total_passengers' => 'required',
+            'from_date' => 'required|date',
+            'to_date' => $to_date_rule,
+            'total_passengers' => $total_passengers_rule,
             'adults' => 'required|int',
             'childs' => 'required|int',
             'infants' => 'required|int',
