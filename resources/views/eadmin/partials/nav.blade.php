@@ -19,7 +19,7 @@
             <li class="dropdown">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{ asset(Auth::guard()->user()->image) }}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ Auth::guard()->user()->name }}</b> </a>
                 <ul class="dropdown-menu dropdown-user scale-up">
-                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                    <!-- <li><a href="#"><i class="ti-user"></i> My Profile</a></li> -->
                     <li role="separator" class="divider"></li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

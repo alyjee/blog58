@@ -36,6 +36,12 @@
 </script>
 @endisset
 
+@isset($packages)
+<script type="text/javascript">
+	packages.data = {!! $packages !!};	
+</script>
+@endisset
+
 @isset($proposedForms)
 <script type="text/javascript">
 	proposedForms.data = {!! $proposedForms !!};	

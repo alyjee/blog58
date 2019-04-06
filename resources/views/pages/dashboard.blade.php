@@ -9,7 +9,7 @@
                 <div class="col-lg-3 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
-                            <h5 class="text-muted vb">RESTAURANT ADMINS</h5>
+                            <h5 class="text-muted vb">Hotels</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <h3 class="counter text-right m-t-15 text-danger">{{ $data['ra_count'] }}</h3>
@@ -24,7 +24,7 @@
                 <div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
-                            <h5 class="text-muted vb">Total Categories</h5>
+                            <h5 class="text-muted vb">Proposals</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <h3 class="counter text-right m-t-15 text-megna">{{ $data['fc_count'] }}</h3>
@@ -39,7 +39,7 @@
                 <div class="col-lg-3 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
-                            <h5 class="text-muted vb">TOTAL MENU ITEMS</h5>
+                            <h5 class="text-muted vb">Final</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <h3 class="counter text-right m-t-15 text-primary">{{ $data['m_count'] }}</h3>
@@ -54,7 +54,7 @@
                 <div class="col-lg-3 col-sm-6  b-0">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe016;"></i>
-                            <h5 class="text-muted vb">All Restaurants</h5>
+                            <h5 class="text-muted vb">Month Sale</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <h3 class="counter text-right m-t-15 text-success">{{ $data['r_count'] }}</h3>

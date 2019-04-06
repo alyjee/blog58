@@ -115,12 +115,14 @@
 	<div class="col-sm-6">
 		<div class="form-group form-group {{ $errors->has('package_category') ? ' has-error' : '' }}">
     		{!! Form::label('package_category', 'Package Category') !!}
-    		{!! Form::select('package_category', $categoriesSelect, null, ['placeholder'=>'Select Package Category', 'class'=>'form-control']) !!}
+    		{!! Form::select('package_category', $packageSelect, null, ['placeholder'=>'Select Package Category', 'class'=>'form-control']) !!}
     		@if ($errors->has('package_category'))
                 <div class="form-control-feedback">{{ $errors->first('package_category') }}</div>
             @endif
 		</div>
 	</div>
+
+    {!! Form::hidden('psf', null,['placeholder'=>'Infants e.g. 0', 'class'=>'form-control']) !!}
 
 	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('room_category') ? ' has-error' : '' }}">

@@ -38,9 +38,9 @@
             @endif
 		</div>
 
-        <div class="form-group form-group {{ $errors->has('makkah_hotel_room_price') ? ' has-error' : '' }}">
+        <div class="form-group form-group hide {{ $errors->has('makkah_hotel_room_price') ? ' has-error' : '' }}">
             {!! Form::label('makkah_hotel_room_price', 'Room Price') !!}
-            {!! Form::text('makkah_hotel_room_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
+            {!! Form::hidden('makkah_hotel_room_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
             @if ($errors->has('makkah_hotel_room_price'))
                 <div class="form-control-feedback">{{ $errors->first('makkah_hotel_room_price') }}</div>
             @endif
@@ -80,9 +80,9 @@
             @endif
 		</div>
 
-        <div class="form-group form-group {{ $errors->has('madinah_hotel_room_price') ? ' has-error' : '' }}">
+        <div class="form-group form-group hide {{ $errors->has('madinah_hotel_room_price') ? ' has-error' : '' }}">
             {!! Form::label('madinah_hotel_room_price', 'Room Price') !!}
-            {!! Form::text('madinah_hotel_room_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
+            {!! Form::hidden('madinah_hotel_room_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
             @if ($errors->has('madinah_hotel_room_price'))
                 <div class="form-control-feedback">{{ $errors->first('madinah_hotel_room_price') }}</div>
             @endif

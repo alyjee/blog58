@@ -55,6 +55,31 @@
     window.hotel = hotel;
 
     /***********************************************************************/
+    var packages = {
+
+        loadData: function(filter) {
+            return $.grep(this.data, function(client) {
+                return (!filter.id || client.id === filter.id)
+                    && (!filter.name || client.name.indexOf(filter.name) > -1)
+                    && (!filter.price || client.price === filter.price);
+            });
+        },
+
+        insertItem: function(insertingClient) {
+            this.clients.push(insertingClient);
+        },
+
+        updateItem: function(updatingClient) { },
+
+        deleteItem: function(deletingClient) {
+            var clientIndex = $.inArray(deletingClient, this.clients);
+            this.clients.splice(clientIndex, 1);
+        }
+
+    };
+
+    window.packages = packages;
+    /**************************************************************************/
     var proposedForms = {
 
         loadData: function(filter) {

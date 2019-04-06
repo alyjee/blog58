@@ -30,6 +30,17 @@
             <li>
                 <a href="javascript://" class="waves-effect">
                     <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
+                    <span class="hide-menu">Packages <span class="fa arrow"></span></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('dashboard.packages.index') }}">View All</a></li>
+                    <li><a href="{{ route('dashboard.packages.create') }}">Add New</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript://" class="waves-effect">
+                    <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
                     <span class="hide-menu">Hotels <span class="fa arrow"></span></span>
                 </a>
                 <ul class="nav nav-second-level">
@@ -45,7 +56,7 @@
                     <span class="hide-menu">Umrah Forms <span class="fa arrow"></span></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ route('dashboard.umrah.create') }}">Add New</a></li>
+                    <li><a href="{{ route('dashboard.umrah.create') }}">Add New Proposal</a></li>
                     <li><a href="{{ route('dashboard.umrah.index') }}">View Proposals</a></li>
                     <li><a href="{{ route('dashboard.umrah.phase2.index') }}">Final Proposals</a></li>
                 </ul>

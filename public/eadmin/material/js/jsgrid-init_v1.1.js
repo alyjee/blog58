@@ -153,6 +153,46 @@
             })
         }(),
         function() {
+            $("#packagesGrid").jsGrid({
+                height: "500px",
+                width: "100%",
+                filtering: !0,
+                editing: 0,
+                sorting: !0,
+                paging: !0,
+                autoload: !0,
+                pageSize: 15,
+                pageButtonCount: 5,
+                controller: packages,
+                fields: [{
+                    name: "id",
+                    title: "ID",
+                    type: "number",
+                    width: 25
+                }, {
+                    name: "name",
+                    title: "Name",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "price",
+                    title: "PSF (PKR)",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "actions",
+                    title: "Actions",
+                    type: "text",
+                    width: 100
+                }, {
+                    type: "control",
+                    editButton: false,
+                    deleteButton: false,
+                    modeSwitchButton: false
+                }]
+            })
+        }(),
+        function() {
             $("#proposedFormsGrid").jsGrid({
                 height: "500px",
                 width: "100%",

@@ -4,6 +4,21 @@ Breadcrumbs::register('dashboard.index', function ($breadcrumbs) {
     $breadcrumbs->push('Dashboard', route('dashboard.index'));
 });
 
+Breadcrumbs::register('dashboard.packages.index', function ($breadcrumbs) {
+    $breadcrumbs->parent('dashboard.index');
+    $breadcrumbs->push('Packages', route('dashboard.packages.index'));
+});
+
+	Breadcrumbs::register('dashboard.packages.create', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.packages.index');
+	    $breadcrumbs->push('Add Package', route('dashboard.packages.create'));
+	});
+
+	Breadcrumbs::register('dashboard.packages.edit', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.packages.index');
+	    $breadcrumbs->push('Edit Hotel', route('dashboard.packages.edit', ['id'=>1]));
+	});
+
 Breadcrumbs::register('dashboard.hotels.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');
     $breadcrumbs->push('Hotels', route('dashboard.hotels.index'));
@@ -32,6 +47,11 @@ Breadcrumbs::register('dashboard.umrah.index', function ($breadcrumbs) {
 	Breadcrumbs::register('dashboard.umrah.phase1.edit', function ($breadcrumbs) {
 	    $breadcrumbs->parent('dashboard.umrah.index');
 	    $breadcrumbs->push('Edit Proposal', route('dashboard.umrah.phase1.edit', ['id'=>1]));
+	});
+
+	Breadcrumbs::register('dashboard.umrah.phase1.print', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.umrah.index');
+	    $breadcrumbs->push('Print Proposal', route('dashboard.umrah.phase1.print', ['id'=>1]));
 	});
 
 	Breadcrumbs::register('dashboard.umrah.phase2.create', function ($breadcrumbs) {

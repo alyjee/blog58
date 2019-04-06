@@ -31,6 +31,19 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#package_category').on('change', function(){
+		var package_category_id = $(this).val();
+
+		if( package_category_id ){
+			packages.data.forEach(function(package, key){
+				if( package_category_id == package.id ){
+					console.log(package.price)
+					$('#psf').val(package.price);
+				}
+			});
+		}
+	});
+
 	function validateHotel($hotel, hotel_name){
 		hotel_id = $hotel.val()
 		var res = true;
@@ -95,6 +108,13 @@ $(document).ready(function(){
 		hotel_price += madinah_hotel_nights * madinah_hotel_room_price;
 
 		var umrah_per_person_price = (hotel_price/total_passengers).toFixed(2);
+
+		var psf = parseFloat($('#psf').val());
+
+		console.log(psf);
+		console.log(umrah_per_person_price);
+
+		umrah_per_person_price = umrah_per_person_price+psf;
 
 		$("#umrah_per_person").val(umrah_per_person_price);
 		$('#total_umrah_price').val(hotel_price);

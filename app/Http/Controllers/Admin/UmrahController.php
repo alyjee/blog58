@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePhase1;
 use App\Http\Requests\StorePhase2;
 use App\Hotel;
+use App\Package;
 use App\UmrahForm;
 use App\PersonalDetail;
 
@@ -27,6 +28,11 @@ class UmrahController extends Controller
         if($forms->count() > 0){
             $forms->map(function($form){
                 $actions = '
+                <a href="'.route('dashboard.umrah.phase1.print', ['id' => $form->id]).'">
+                    <span class="label label-info m-l-5"><i class="fa fa-print"></i></span>
+                </a>';
+
+                $actions .= '
                 <a href="'.route('dashboard.umrah.phase1.edit', ['id' => $form->id]).'">
                     <span class="label label-info m-l-5"><i class="fa fa-eye"></i></span>
                 </a>';
@@ -57,10 +63,11 @@ class UmrahController extends Controller
         $today_date = Carbon::today()->format('d M Y');
         $form_ref_number = UmrahForm::getRefNum();
         $hotelSelect = Hotel::getHotelsForSelect();
+        $packageSelect = Package::getPackagesForSelect();
         $flightTypeSelect = UmrahForm::getFlightTypes();
+        $packages = Package::getPackages();
 
-
-        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect]);
+        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages]);
     }
 
     /**
@@ -79,6 +86,35 @@ class UmrahController extends Controller
     }
 
     /**
+     * Print the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function printPhase1($id)
+    {
+        try {
+            $hotels = Hotel::getHotels();
+            $categoriesSelect = Hotel::getHotelCategories();
+            $roomCategoriesSelect = Hotel::getHotelRoomCategories();
+
+            $hotelSelect = Hotel::getHotelsForSelect();
+            $flightTypeSelect = UmrahForm::getFlightTypes();
+            $packages = Package::getPackages();
+            $packageSelect = Package::getPackagesForSelect();
+            $proposedForm = UmrahForm::where('id', $id)->first();
+
+
+            $today_date = $proposedForm->created_at->format('d M Y');
+            $form_ref_number = $proposedForm->ref_num;
+
+            return view('pages.umrah.print_phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -93,8 +129,12 @@ class UmrahController extends Controller
             $today_date = Carbon::today()->format('d M Y');
             $form_ref_number = UmrahForm::getRefNum();
             $hotelSelect = Hotel::getHotelsForSelect();
+            $flightTypeSelect = UmrahForm::getFlightTypes();
+            $packages = Package::getPackages();
+            $packageSelect = Package::getPackagesForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
-            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm]);
+
+            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
@@ -102,7 +142,7 @@ class UmrahController extends Controller
 
     /**
      * Update the specified resource.
-     *proposedForm
+     *
      * @param  \App\Http\Requests\StorePhase1  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -184,9 +224,13 @@ class UmrahController extends Controller
             $form_ref_number = UmrahForm::getRefNum();
             $hotelSelect = Hotel::getHotelsForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
+            $flightTypeSelect = UmrahForm::getFlightTypes();
             $personalDetails = PersonalDetail::where('form_id', $id)->get();
 
-            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails]);
+            $packages = Package::getPackages();
+            $packageSelect = Package::getPackagesForSelect();
+
+            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }

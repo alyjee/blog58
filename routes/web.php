@@ -21,7 +21,14 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
 	// All routes related to admin
 	Route::get('/', ['as' =>'index', 'uses'=>'Admin\DashboardController@index']);
 
-	Route::get('/hotels', ['as' =>'hotels.index', 'uses'=>'Admin\HotelController@index']);
+	Route::get('/packages', ['as' =>'packages.index', 'uses'=>'Admin\PackageController@index']);
+    Route::get('/packages/create', ['as' =>'packages.create', 'uses'=>'Admin\PackageController@create']);
+    Route::post('/packages/store', ['as' =>'packages.store', 'uses'=>'Admin\PackageController@store']);
+    Route::get('/packages/edit/{id}', ['as' =>'packages.edit', 'uses'=>'Admin\PackageController@edit']);
+    Route::post('/packages/update/{id}', ['as' =>'packages.update', 'uses'=>'Admin\PackageController@update']);
+    Route::get('/packages/archive/{id}', ['as' =>'packages.archive', 'uses'=>'Admin\PackageController@archive']);
+
+    Route::get('/hotels', ['as' =>'hotels.index', 'uses'=>'Admin\HotelController@index']);
     Route::get('/hotels/create', ['as' =>'hotels.create', 'uses'=>'Admin\HotelController@create']);
     Route::post('/hotels/store', ['as' =>'hotels.store', 'uses'=>'Admin\HotelController@store']);
     Route::get('/hotels/edit/{id}', ['as' =>'hotels.edit', 'uses'=>'Admin\HotelController@edit']);
@@ -32,6 +39,7 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     Route::get('/umrah/create', ['as' =>'umrah.create', 'uses'=>'Admin\UmrahController@create']);
     Route::post('/umrah/phase1/store', ['as' =>'umrah.phase1.store', 'uses'=>'Admin\UmrahController@storePhase1']);
     Route::get('/umrah/phase1/edit/{id}', ['as' =>'umrah.phase1.edit', 'uses'=>'Admin\UmrahController@editPhase1']);
+    Route::get('/umrah/phase1/print/{id}', ['as' =>'umrah.phase1.print', 'uses'=>'Admin\UmrahController@printPhase1']);
     Route::post('/umrah/phase1/update/{id}', ['as' =>'umrah.phase1.update', 'uses'=>'Admin\UmrahController@updatePhase1']);
     Route::post('/umrah/phase1/archive/{id}', ['as' =>'umrah.phase1.archive', 'uses'=>'Admin\UmrahController@archivePhase1']);
 
