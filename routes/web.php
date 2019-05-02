@@ -36,6 +36,7 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     Route::get('/hotels/edit/{id}', ['as' =>'hotels.edit', 'uses'=>'Admin\HotelController@edit']);
     Route::post('/hotels/update/{id}', ['as' =>'hotels.update', 'uses'=>'Admin\HotelController@update']);
     Route::get('/hotels/archive/{id}', ['as' =>'hotels.archive', 'uses'=>'Admin\HotelController@archive']);
+    Route::get('/hotels/getHotelFeatures', ['as' =>'hotels.getHotelFeatures', 'uses'=>'Admin\HotelController@getHotelFeatures']);
     
     Route::get('/hotels/{hid}/pricing-period/create', ['as' =>'hotels.pricing_period.create', 'uses'=>'Admin\PricingPeriodController@create']);
     Route::post('/hotels/{hid}/pricing-period/store', ['as' =>'hotels.pricing_period.store', 'uses'=>'Admin\PricingPeriodController@store']);

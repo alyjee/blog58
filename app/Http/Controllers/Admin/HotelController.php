@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHotel;
 use App\Hotel;
+use App\PricingPeriod;
 
 class HotelController extends Controller
 {
@@ -123,6 +124,29 @@ class HotelController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
+    }
+
+    public function getHotelFeatures(Request $request){
+        try {
+            $hotel_id = $request->get('hotel_id');
+            $from_date = $request->get('from_date');
+            $to_date = $request->get('to_date');
+            $hotel = Hotel::where('id', $hotel_id)->first();
+            if(!$hotel){
+                return response()->json(['success'=>false, 'message'=>'Hotel not found.']);
+            }
+            $pp = PricingPeriod::getPricingPeriodByDates($hotel->id, $from_date, $to_date);
+
+            if(!$pp){
+                return response()->json(['success'=>false, 'message'=>'Pricings not found for given dates.']);
+            }
+
+            $data = ['pp'=>$pp];
+            return response()->json(['success'=>true, 'message'=>'Pricing Feature Found Successfully.', 'data'=>$data]);
+        } catch (\Exception $e) {
+            return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
+        }
+        
     }
 
 }

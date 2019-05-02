@@ -40,5 +40,12 @@ class UmrahForm extends Model
         return $categories;
     }
 
+    public static function getTransportTypes(){
+        $categories = [];
+        $categories['private'] = 'Private';
+        $categories['sharing'] = 'Sharing';
+        return $categories;
+    }
+
     
 }

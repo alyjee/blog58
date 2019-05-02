@@ -38,15 +38,6 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-6">
-		<div class="form-group form-group {{ $errors->has('total_days') ? ' has-error' : '' }}">
-    		{!! Form::label('total_days', 'No. of Days') !!}
-    		{!! Form::number('total_days', null,['placeholder'=>'Enter total days here', 'class'=>'form-control readonly']) !!}
-    		@if ($errors->has('total_days'))
-                <div class="form-control-feedback">{{ $errors->first('total_days') }}</div>
-            @endif
-		</div>
-	</div>
 
 	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('from_date') ? ' has-error' : '' }}">
@@ -67,6 +58,17 @@
             @endif
 		</div>
 	</div>
+
+    <div class="col-sm-6">
+        <div class="form-group form-group {{ $errors->has('total_days') ? ' has-error' : '' }}">
+            {!! Form::label('total_days', 'No. of Nights/Days') !!}
+            {!! Form::number('total_days', null,['placeholder'=>'Enter total days here', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
+            @if ($errors->has('total_days'))
+                <div class="form-control-feedback">{{ $errors->first('total_days') }}</div>
+            @endif
+        </div>
+    </div>
+
 </div>
 
 <div class="row">
@@ -125,24 +127,15 @@
     {!! Form::hidden('psf', null,['placeholder'=>'Infants e.g. 0', 'class'=>'form-control']) !!}
 
 	<div class="col-sm-3">
-		<div class="form-group {{ $errors->has('room_category') ? ' has-error' : '' }}">
-    		{!! Form::label('room_category', 'Room Category') !!}
-    		{!! Form::select('room_category', $roomCategoriesSelect, null, ['placeholder'=>'Select Room Category', 'class'=>'form-control']) !!}
-    		@if ($errors->has('room_category'))
-                <div class="form-control-feedback">{{ $errors->first('room_category') }}</div>
-            @endif
-		</div>
-	</div>
-
-	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('transport') ? ' has-error' : '' }}">
-    		{!! Form::label('transport', 'Transport') !!}
-    		{!! Form::text('transport', null,['placeholder'=>'Transport', 'class'=>'form-control']) !!}
+    		{!! Form::label('transport', 'Transport Type') !!}
+    		{!! Form::select('transport', $transportTypeSelect, null, ['placeholder'=>'Select Transport Type', 'class'=>'form-control']) !!}
     		@if ($errors->has('transport'))
                 <div class="form-control-feedback">{{ $errors->first('transport') }}</div>
             @endif
 		</div>
 	</div>
+
 </div>
 
 <div class="row">

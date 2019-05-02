@@ -19,5 +19,8 @@ class PricingPeriod extends Model
     * Database Relations
     */
 
+    public static function getPricingPeriodByDates($hid, $fdate, $tdate){
+    	return PricingPeriod::where('hotel_id', $hid)->where('from_date', '<=', $fdate)->where('to_date', '>=', $tdate)->where('archive', 0)->first();
+    }
     
 }

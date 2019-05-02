@@ -65,9 +65,10 @@ class UmrahController extends Controller
         $hotelSelect = Hotel::getHotelsForSelect();
         $packageSelect = Package::getPackagesForSelect();
         $flightTypeSelect = UmrahForm::getFlightTypes();
+        $transportTypeSelect = UmrahForm::getTransportTypes();
         $packages = Package::getPackages();
 
-        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages]);
+        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect]);
     }
 
     /**

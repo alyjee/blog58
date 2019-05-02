@@ -66,7 +66,10 @@ class StorePhase1 extends FormRequest
                 'infant_ticket_price' => 'required',
                 'total_umrah_price' => 'required',
                 'total_ticket_price' => 'required',
-                'total_package_price' => 'required'
+                'total_package_price' => 'required',
+                'transport' => 'required',
+                'makkah_from_date' => 'required',
+                'makkah_to_date' => 'required'
             ];
         }
 
@@ -98,7 +101,10 @@ class StorePhase1 extends FormRequest
             'infant_ticket_price' => 'required',
             'total_umrah_price' => 'required',
             'total_ticket_price' => 'required',
-            'total_package_price' => 'required'
+            'total_package_price' => 'required',
+            'transport' => 'required',
+            'makkah_from_date' => 'required',
+            'makkah_to_date' => 'required'
         ];
     }
 }

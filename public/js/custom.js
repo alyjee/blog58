@@ -1,18 +1,150 @@
-$(document).ready(function(){
-	$('#makkah_hotel').on('change', function(){
-		var prefix = 'makkah_hotel_';
-		var makkah_hotel = $(this).val();
-		if( validateHotel($(this), 'makkah_hotel') ){
-			var selected_room_category = $('#room_category').val();
-			hotel.data.forEach(function(hotel, key){
-				if( makkah_hotel == hotel.id ){
-					$('#'+prefix+'category').val(hotel.category);
-					$('#'+prefix+'meal_plan').val(hotel.room_basis);
-					$('#'+prefix+'room_price').val(hotel[selected_room_category]);
-				}
-			});
-			calculateHotelsPricings();
+$(document).ready(function() {
+	function get_total_nights(from_date, to_date){
+		var date1 = new Date(from_date);
+		var date2 = new Date(to_date);
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		return numberOfNights;
+	}
+
+	$('#to_date').on('change', function(){
+		var from_date = $('#from_date').val();
+		if( from_date=='' || from_date==undefined ){
+			alert('Please select From Date first');
+			$(this).val('');
+			return false;
+		} 
+		var to_date = $(this).val();
+		var numberOfNights = get_total_nights(from_date, to_date);
+		$('#total_days') .val(numberOfNights); 
+	});
+
+	$('#makkah_to_date').on('change', function(){
+		var from_date = $('#makkah_from_date').val();
+		if( from_date=='' || from_date==undefined ){
+			alert('Please select Makkah From Date first');
+			$(this).val('');
+			return false;
 		}
+		var to_date = $(this).val();
+		var numberOfNights = get_total_nights(from_date, to_date);
+		$('#makkah_hotel_nights') .val(numberOfNights); 
+	});
+
+	$('#madinah_to_date').on('change', function(){
+		var from_date = $('#madinah_from_date').val();
+		if( from_date=='' || from_date==undefined ){
+			alert('Please select Madinah From Date first');
+			$(this).val('');
+			return false;
+		}
+		var to_date = $(this).val();
+		var numberOfNights = get_total_nights(from_date, to_date);
+		$('#madinah_hotel_nights') .val(numberOfNights); 
+	});
+
+
+	$('#makkah_hotel').on('change', function(){
+		$('div.feature-div').addClass('hide');
+		$('div.feature-div :input').val('');
+		var makkah_to_date = $('#makkah_to_date').val();
+		var makkah_from_date = $('#makkah_from_date').val();
+		if( makkah_to_date=='' || makkah_to_date==undefined || makkah_from_date=='' || makkah_from_date==undefined ){
+			alert('Please select Makkah From Date and To Date first');
+			$(this).val('');
+			return false;
+		}
+		var hotel_id = $(this).val();
+
+		$.ajax({
+			url: siteUrl + '/dashboard/hotels/getHotelFeatures',
+			type: 'GET',
+			// dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				hotel_id : hotel_id,
+				from_date : makkah_from_date,
+				to_date : makkah_to_date
+			},
+			success: function(res){
+				if(res.success){
+
+					var div_selector = '';
+					var input_selector = '';
+					$.each(res.data.pp, function(key, value){
+						if( value!='' || value!=undefined || value!=0) {
+							div_selector = '#makkah_'+key+'_div';
+							input_selector = '#makkah_'+key+'_price';
+							$(div_selector).removeClass('hide');
+							$(input_selector).val(value);
+						}
+					});
+
+				} else {
+					alert(res.message);
+				}
+			},
+			error: function(res){
+				alert('Whoops! Something went wrong!')
+			}
+		})
+	});
+
+	$('#madinah_hotel').on('change', function(){
+		$('div.feature-div').addClass('hide');
+		$('div.feature-div :input').val('');
+		var madinah_to_date = $('#madinah_to_date').val();
+		var madinah_from_date = $('#madinah_from_date').val();
+		if( madinah_to_date=='' || madinah_to_date==undefined || madinah_from_date=='' || madinah_from_date==undefined ){
+			alert('Please select Madinah From Date and To Date first');
+			$(this).val('');
+			return false;
+		}
+		var hotel_id = $(this).val();
+
+		$.ajax({
+			url: siteUrl + '/dashboard/hotels/getHotelFeatures',
+			type: 'GET',
+			// dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				hotel_id : hotel_id,
+				from_date : madinah_from_date,
+				to_date : madinah_to_date
+			},
+			success: function(res){
+				if(res.success){
+
+					var div_selector = '';
+					var input_selector = '';
+					$.each(res.data.pp, function(key, value){
+						if( value!='' || value!=undefined || value!=0) {
+							div_selector = '#madinah_'+key+'_div';
+							input_selector = '#madinah_'+key+'_price';
+							$(div_selector).removeClass('hide');
+							$(input_selector).val(value);
+						}
+					});
+
+				} else {
+					alert(res.message);
+				}
+			},
+			error: function(res){
+				alert('Whoops! Something went wrong!')
+			}
+		})
+		// var prefix = 'makkah_hotel_';
+		// var makkah_hotel = $(this).val();
+		// if( validateHotel($(this), 'makkah_hotel') ){
+		// 	var selected_room_category = $('#room_category').val();
+		// 	hotel.data.forEach(function(hotel, key){
+		// 		if( makkah_hotel == hotel.id ){
+		// 			$('#'+prefix+'category').val(hotel.category);
+		// 			$('#'+prefix+'meal_plan').val(hotel.room_basis);
+		// 			$('#'+prefix+'room_price').val(hotel[selected_room_category]);
+		// 		}
+		// 	});
+		// 	calculateHotelsPricings();
+		// }
 	});
 
 	$('#madinah_hotel').on('change', function(){
@@ -62,6 +194,7 @@ $(document).ready(function(){
 	}
 
 	function validateRequiredFields(hotel_name){
+		return true;
 		var required_inputs = ['total_days', 'from_date', 'to_date', 'total_passengers', 'adults', 'childs', 'infants', 'package_category', 'room_category', hotel_name+'_nights'];
 		
 		var validate = true;
