@@ -19,7 +19,9 @@ Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
 	// All routes related to admin
-	Route::get('/', ['as' =>'index', 'uses'=>'Admin\DashboardController@index']);
+    Route::get('/', ['as' =>'index', 'uses'=>'Admin\DashboardController@index']);
+	
+    Route::any('/settings', ['as' =>'settings', 'uses'=>'Admin\DashboardController@settings']);
 
 	Route::get('/packages', ['as' =>'packages.index', 'uses'=>'Admin\PackageController@index']);
     Route::get('/packages/create', ['as' =>'packages.create', 'uses'=>'Admin\PackageController@create']);
@@ -34,6 +36,12 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     Route::get('/hotels/edit/{id}', ['as' =>'hotels.edit', 'uses'=>'Admin\HotelController@edit']);
     Route::post('/hotels/update/{id}', ['as' =>'hotels.update', 'uses'=>'Admin\HotelController@update']);
     Route::get('/hotels/archive/{id}', ['as' =>'hotels.archive', 'uses'=>'Admin\HotelController@archive']);
+    
+    Route::get('/hotels/{hid}/pricing-period/create', ['as' =>'hotels.pricing_period.create', 'uses'=>'Admin\PricingPeriodController@create']);
+    Route::post('/hotels/{hid}/pricing-period/store', ['as' =>'hotels.pricing_period.store', 'uses'=>'Admin\PricingPeriodController@store']);
+    Route::get('/hotels/{hid}/pricing-period/edit/{id}', ['as' =>'hotels.pricing_period.edit', 'uses'=>'Admin\PricingPeriodController@edit']);
+    Route::post('/hotels/{hid}/pricing-period/update/{id}', ['as' =>'hotels.pricing_period.update', 'uses'=>'Admin\PricingPeriodController@update']);
+    Route::get('/hotels/{hid}/pricing-period/archive/{id}', ['as' =>'hotels.pricing_period.archive', 'uses'=>'Admin\PricingPeriodController@archive']);
 
     Route::get('/umrah/proposals', ['as' =>'umrah.index', 'uses'=>'Admin\UmrahController@index']);
     Route::get('/umrah/create', ['as' =>'umrah.create', 'uses'=>'Admin\UmrahController@create']);

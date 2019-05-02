@@ -18,9 +18,12 @@ class Hotel extends Model
     *
     * Database Relations
     */
+    public function pricings(){
+        return $this->hasMany('\App\PricingPeriod', 'hotel_id')->where('archive', 0);
+    }
 
     public static function getHotels(){
-    	$query = Hotel::where('archive', 0);
+    	$query = Hotel::where('archive', 0)->orderby('id', 'desc');
     	return $query->get();
     }
 

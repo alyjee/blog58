@@ -29,46 +29,6 @@
 	                        @endif
 	            		</div>
 
-	            		<div class="form-group {{ $errors->has('double') ? ' has-error' : '' }}">
-		            		{!! Form::label('double', 'Double') !!}
-		            		{!! Form::text('double', null,['placeholder'=>'Enter Double Price', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('double'))
-	                            <div class="form-control-feedback">{{ $errors->first('double') }}</div>
-	                        @endif
-	            		</div>
-
-	            		<div class="form-group {{ $errors->has('triple') ? ' has-error' : '' }}">
-		            		{!! Form::label('triple', 'Triple') !!}
-		            		{!! Form::text('triple', null,['placeholder'=>'Enter Triple Price', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('triple'))
-	                            <div class="form-control-feedback">{{ $errors->first('triple') }}</div>
-	                        @endif
-	            		</div>
-
-	            		<div class="form-group {{ $errors->has('quad') ? ' has-error' : '' }}">
-		            		{!! Form::label('quad', 'Quad') !!}
-		            		{!! Form::text('quad', null,['placeholder'=>'Enter Quad Price', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('quad'))
-	                            <div class="form-control-feedback">{{ $errors->first('quad') }}</div>
-	                        @endif
-	            		</div>
-
-	            		<div class="form-group {{ $errors->has('quint') ? ' has-error' : '' }}">
-		            		{!! Form::label('quint', 'Quint') !!}
-		            		{!! Form::text('quint', null,['placeholder'=>'Enter Quint Price', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('quint'))
-	                            <div class="form-control-feedback">{{ $errors->first('quint') }}</div>
-	                        @endif
-	            		</div>
-
-	            		<div class="form-group {{ $errors->has('distance_from_haram') ? ' has-error' : '' }}">
-		            		{!! Form::label('distance_from_haram', 'Haram Distance (miles)') !!}
-		            		{!! Form::number('distance_from_haram', null,['placeholder'=>'Enter Distance from Haram in miles', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('distance_from_haram'))
-	                            <div class="form-control-feedback">{{ $errors->first('distance_from_haram') }}</div>
-	                        @endif
-	            		</div>
-
 	            		<div class="form-group {{ $errors->has('room_basis') ? ' has-error' : '' }}">
 		            		{!! Form::label('room_basis', 'Room Basis') !!}
 		            		{!! Form::text('room_basis', null,['placeholder'=>'Enter Room Basis e.g. BB, Room only Basis', 'class'=>'form-control']) !!}
@@ -77,9 +37,76 @@
 	                        @endif
 	            		</div>
 
+	            		<div class="form-group {{ $errors->has('distance_from_haram') ? ' has-error' : '' }}">
+		            		{!! Form::label('distance_from_haram', 'Haram Distance') !!}
+		            		{!! Form::text('distance_from_haram', null,['placeholder'=>'Enter Room Basis e.g. BB, Room only Basis', 'class'=>'form-control']) !!}
+		            		@if ($errors->has('distance_from_haram'))
+	                            <div class="form-control-feedback">{{ $errors->first('distance_from_haram') }}</div>
+	                        @endif
+	            		</div>
+
 	            		<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
 
 	            	{!! Form::close() !!}
+
+	            </div>
+	            <div class="col-sm-12 text-right">
+	            	<a href="{{ route('dashboard.hotels.pricing_period.create', ['id'=>$hotel->id]) }}">
+            			<button type="button" class="btn btn-primary waves-effect waves-light m-r-10">Add New Pricing</button>
+        			</a>	
+	            </div>
+
+	            <div class="col-sm-12 text-right">
+
+	            	<div class="table-responsive">
+                        <table class="table color-table info-table">
+                            <thead>
+                                <tr>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Double</th>
+                                    <th>Triple</th>
+                                    <th>Quad</th>
+                                    <th>Quint</th>
+                                    <th>Sharing</th>
+                                    <th>Weekend</th>
+                                    <th>H-View</th>
+                                    <th>BF/pax/day</th>
+                                    <th>FB/pax/day</th>
+                                    <th>4-Nights</th>
+                                    <th>Extra Bed</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	@foreach($hotel->pricings()->get()  as $pp)
+				            		<tr>
+	                                    <td>{{ $pp->from_date }}</td>
+	                                    <td>{{ $pp->to_date }}</td>
+	                                    <td>{{ $pp->double }}</td>
+	                                    <td>{{ $pp->triple }}</td>
+	                                    <td>{{ $pp->quad }}</td>
+	                                    <td>{{ $pp->quint }}</td>
+	                                    <td>{{ $pp->sharing }}</td>
+	                                    <td>{{ $pp->weekend_price }}</td>
+	                                    <td>{{ $pp->haram_view_price }}</td>
+	                                    <td>{{ $pp->bf_per_pax_per_day }}</td>
+	                                    <td>{{ $pp->full_board_per_pax_per_day }}</td>
+	                                    <td>{{ $pp->four_nights_price }}</td>
+	                                    <td>{{ $pp->extra_bed_price }}</td>
+	                                    <td>
+	                                    	<a href="{{ route('dashboard.hotels.pricing_period.edit', ['hid'=>$pp->hotel_id, 'id'=>$pp->id]) }}">
+							                    <span class="label label-info m-l-5"><i class="fa fa-eye"></i></span>
+							                </a>
+							                <a href="{{ route('dashboard.hotels.pricing_period.archive', ['hid'=>$pp->hotel_id, 'id'=>$pp->id]) }}">
+							                    <span class="label label-danger m-l-5"><i class="fa fa-trash"></i></span>
+							                </a>
+	                                    </td>
+	                                </tr>
+				            	@endforeach
+                            </tbody>
+                        </table>
+                    </div>
 	            </div>
 	        </div>
 	    </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 // use App\Http\Requests\StoreUpdate;
 // use App\HPUpdate;
 use App\User;
+use App\Setting;
 use Auth;
 // use App\Order;
 // use App\FoodCategory;
@@ -33,6 +34,24 @@ class DashboardController extends Controller
         $data['sum'] = 0;
         $recentOrders = [];
         return view('pages.dashboard', compact('data', 'recentOrders'));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function settings(Request $request)
+    {
+        $inputs = $request->except('_token');
+        if(!empty($inputs)){
+            unset($inputs['id']);
+            $setting = Setting::where('archive', 0)->update($inputs);
+        }
+        $setting = Setting::where('archive', 0)->first();
+        $data['visa_charges'] = ($setting) ? $setting->visa_charges : 0;
+        $data['private_transport_charges'] = ($setting) ? $setting->private_transport_charges : 0;
+        return view('pages.settings', compact('setting'));
     }
 
     /**

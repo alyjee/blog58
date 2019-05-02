@@ -4,6 +4,10 @@ Breadcrumbs::register('dashboard.index', function ($breadcrumbs) {
     $breadcrumbs->push('Dashboard', route('dashboard.index'));
 });
 
+Breadcrumbs::register('dashboard.settings', function ($breadcrumbs) {
+    $breadcrumbs->push('Settings', route('dashboard.settings'));
+});
+
 Breadcrumbs::register('dashboard.packages.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');
     $breadcrumbs->push('Packages', route('dashboard.packages.index'));
@@ -33,6 +37,17 @@ Breadcrumbs::register('dashboard.hotels.index', function ($breadcrumbs) {
 	    $breadcrumbs->parent('dashboard.hotels.index');
 	    $breadcrumbs->push('Edit Hotel', route('dashboard.hotels.edit', ['id'=>1]));
 	});
+
+	Breadcrumbs::register('dashboard.hotels.pricing_period.create', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.hotels.index');
+	    $breadcrumbs->push('Add Pricing Period', route('dashboard.hotels.pricing_period.create', ['hid'=>1, 'id'=>1]));
+	});
+
+	Breadcrumbs::register('dashboard.hotels.pricing_period.edit', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.hotels.index');
+	    $breadcrumbs->push('Edit Pricing Period', route('dashboard.hotels.pricing_period.edit', ['hid'=>1, 'id'=>1]));
+	});
+
 
 Breadcrumbs::register('dashboard.umrah.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');

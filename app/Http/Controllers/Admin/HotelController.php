@@ -77,7 +77,9 @@ class HotelController extends Controller
         try {
             $categories = Hotel::getHotelCategories();
             $hotel = Hotel::where('id', $id)->first();
-            return view('pages.hotel.create', ['hotel' => $hotel, 'categories'=>$categories]);
+            if($hotel)
+                return view('pages.hotel.create', ['hotel' => $hotel, 'categories'=>$categories]);
+            return redirect()->back()->withErrors(['Failed to find hotel'])->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }

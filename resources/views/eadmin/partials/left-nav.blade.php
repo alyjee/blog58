@@ -28,6 +28,13 @@
             </li>
 
             <li>
+                <a href="{{ route('dashboard.settings') }}" class="waves-effect active">
+                    <i class="zmdi zmdi-view-dashboard zmdi-hc-fw fa-fw" ></i>
+                    <span class="hide-menu"> General Settings</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="javascript://" class="waves-effect">
                     <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
                     <span class="hide-menu">Packages <span class="fa arrow"></span></span>
