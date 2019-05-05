@@ -51,7 +51,7 @@
     @endif
 </div>
 
-<div class="row feature-div hide" id="madinah_double_div">
+<div class="row madinah-feature-div hide" id="madinah_double_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_double_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_double_price', 'Double') !!}
         {!! Form::text('madinah_double_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -69,7 +69,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="madinah_triple_div">
+<div class="row madinah-feature-div hide" id="madinah_triple_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_triple_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_triple_price', 'Triple') !!}
         {!! Form::text('madinah_triple_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -87,7 +87,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="madinah_quad_div">
+<div class="row madinah-feature-div hide" id="madinah_quad_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_quad_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_quad_price', 'Quad') !!}
         {!! Form::text('madinah_quad_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -105,7 +105,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="madinah_quint_div">
+<div class="row madinah-feature-div hide" id="madinah_quint_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_quint_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_quint_price', 'Quint') !!}
         {!! Form::text('madinah_quint_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -122,7 +122,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_sharing_div">
+<div class="row madinah-feature-div hide" id="madinah_sharing_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_sharing_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_sharing_price', 'Sharing') !!}
         {!! Form::text('madinah_sharing_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -139,7 +139,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_weekend_price_div">
+<div class="row madinah-feature-div hide" id="madinah_weekend_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_weekend_price_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_weekend_price_price', 'Weekend Price') !!}
         {!! Form::text('madinah_weekend_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -156,7 +156,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_haram_view_price_div">
+<div class="row madinah-feature-div hide" id="madinah_haram_view_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_haram_view_price_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_haram_view_price_price', 'Haram View Price') !!}
         {!! Form::text('madinah_haram_view_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -173,7 +173,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_full_board_per_pax_per_day_div">
+<div class="row madinah-feature-div hide" id="madinah_full_board_per_pax_per_day_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_full_board_per_pax_per_day_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_full_board_per_pax_per_day_price', 'Full Board/pax/Day') !!}
         {!! Form::text('madinah_full_board_per_pax_per_day_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -190,7 +190,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_four_nights_price_div">
+<div class="row madinah-feature-div hide" id="madinah_four_nights_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_four_nights_price_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_four_nights_price_price', 'Four Nights') !!}
         {!! Form::text('madinah_four_nights_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="madinah_extra_bed_price_div">
+<div class="row madinah-feature-div hide" id="madinah_extra_bed_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('madinah_extra_bed_price_price') ? ' has-error' : '' }}">
         {!! Form::label('madinah_extra_bed_price_price', 'Extra Bed') !!}
         {!! Form::text('madinah_extra_bed_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}

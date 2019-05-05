@@ -22,8 +22,8 @@
 	            		</div>
 
 	            		<div class="form-group {{ $errors->has('price') ? ' has-error' : '' }}">
-		            		{!! Form::label('price', 'PSF') !!}
-		            		{!! Form::text('price', null,['placeholder'=>'Enter PSF Price', 'class'=>'form-control']) !!}
+		            		{!! Form::label('price', 'PSF (SAR)') !!}
+		            		{!! Form::text('price', null,['placeholder'=>'Enter PSF Price (SAR)', 'class'=>'form-control']) !!}
 		            		@if ($errors->has('price'))
 	                            <div class="form-control-feedback">{{ $errors->first('price') }}</div>
 	                        @endif

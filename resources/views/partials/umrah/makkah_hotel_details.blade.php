@@ -52,7 +52,7 @@
     @endif
 </div>
 
-<div class="row feature-div hide" id="makkah_double_div">
+<div class="row makkah-feature-div hide" id="makkah_double_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_double_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_double_price', 'Double') !!}
         {!! Form::text('makkah_double_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -70,7 +70,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="makkah_triple_div">
+<div class="row makkah-feature-div hide" id="makkah_triple_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_triple_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_triple_price', 'Triple') !!}
         {!! Form::text('makkah_triple_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -88,7 +88,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="makkah_quad_div">
+<div class="row makkah-feature-div hide" id="makkah_quad_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_quad_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_quad_price', 'Quad') !!}
         {!! Form::text('makkah_quad_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -106,7 +106,7 @@
 </div>
 
 
-<div class="row feature-div hide" id="makkah_quint_div">
+<div class="row makkah-feature-div hide" id="makkah_quint_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_quint_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_quint_price', 'Quint') !!}
         {!! Form::text('makkah_quint_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -123,7 +123,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_sharing_div">
+<div class="row makkah-feature-div hide" id="makkah_sharing_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_sharing_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_sharing_price', 'Sharing') !!}
         {!! Form::text('makkah_sharing_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -140,7 +140,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_weekend_price_div">
+<div class="row makkah-feature-div hide" id="makkah_weekend_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_weekend_price_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_weekend_price_price', 'Weekend Price') !!}
         {!! Form::text('makkah_weekend_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_haram_view_price_div">
+<div class="row makkah-feature-div hide" id="makkah_haram_view_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_haram_view_price_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_haram_view_price_price', 'Haram View Price') !!}
         {!! Form::text('makkah_haram_view_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -174,7 +174,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_full_board_per_pax_per_day_div">
+<div class="row makkah-feature-div hide" id="makkah_full_board_per_pax_per_day_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_full_board_per_pax_per_day_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_full_board_per_pax_per_day_price', 'Full Board/pax/Day') !!}
         {!! Form::text('makkah_full_board_per_pax_per_day_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -191,7 +191,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_four_nights_price_div">
+<div class="row makkah-feature-div hide" id="makkah_four_nights_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_four_nights_price_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_four_nights_price_price', 'Four Nights') !!}
         {!! Form::text('makkah_four_nights_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}
@@ -208,7 +208,7 @@
     </div>
 </div>
 
-<div class="row feature-div hide" id="makkah_extra_bed_price_div">
+<div class="row makkah-feature-div hide" id="makkah_extra_bed_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('makkah_extra_bed_price_price') ? ' has-error' : '' }}">
         {!! Form::label('makkah_extra_bed_price_price', 'Extra Bed') !!}
         {!! Form::text('makkah_extra_bed_price_price', null,['placeholder'=>'', 'class'=>'form-control', 'readonly'=>'readonly']) !!}

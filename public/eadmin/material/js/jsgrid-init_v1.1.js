@@ -120,23 +120,8 @@
                     type: "text",
                     width: 70
                 }, {
-                    name: "double",
-                    title: "Double",
-                    type: "text",
-                    width: 70
-                }, {
-                    name: "triple",
-                    title: "Triple",
-                    type: "text",
-                    width: 70
-                }, {
-                    name: "quad",
-                    title: "Quad",
-                    type: "text",
-                    width: 70
-                }, {
-                    name: "quint",
-                    title: "Quint",
+                    name: "distance_from_haram",
+                    title: "Haram Distance",
                     type: "text",
                     width: 70
                 }, {
@@ -176,7 +161,7 @@
                     width: 70
                 }, {
                     name: "price",
-                    title: "PSF (PKR)",
+                    title: "PSF (SAR)",
                     type: "text",
                     width: 70
                 }, {

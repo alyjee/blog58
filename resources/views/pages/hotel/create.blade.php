@@ -50,11 +50,13 @@
 	            	{!! Form::close() !!}
 
 	            </div>
-	            <div class="col-sm-12 text-right">
-	            	<a href="{{ route('dashboard.hotels.pricing_period.create', ['id'=>$hotel->id]) }}">
-            			<button type="button" class="btn btn-primary waves-effect waves-light m-r-10">Add New Pricing</button>
-        			</a>	
-	            </div>
+	            @if(\Request::route()->getName() == 'dashboard.hotels.edit')
+            		<div class="col-sm-12 text-right">
+		            	<a href="{{ route('dashboard.hotels.pricing_period.create', ['id'=>$hotel->id]) }}">
+	            			<button type="button" class="btn btn-primary waves-effect waves-light m-r-10">Add New Pricing</button>
+	        			</a>	
+		            </div>
+	            
 
 	            <div class="col-sm-12 text-right">
 
@@ -108,6 +110,8 @@
                         </table>
                     </div>
 	            </div>
+	            
+            	@endif
 	        </div>
 	    </div>
     </div>
