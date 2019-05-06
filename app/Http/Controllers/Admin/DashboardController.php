@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Setting;
 use Auth;
+use App\Hotel;
+use App\UmrahForm;
 // use App\Order;
 // use App\FoodCategory;
 // use App\Menu;
@@ -26,10 +28,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data['ra_count'] = 0;
-        $data['fc_count'] = 0;
-        $data['m_count'] = 0;
-        $data['r_count'] = 0;
+        $data['hotels_count'] = Hotel::where('archive', 0)->count();
+        $data['proposals'] = UmrahForm::where('archive', 0)->where('stage', 'proposed')->count();
+        $data['final'] = UmrahForm::where('archive', 0)->where('stage', 'final')->count();
+        $data['month_sale'] = UmrahForm::where('archive', 0)->where('stage', 'final')->sum('total_package_price_pkr');
         $recentOrders = [];
         $data['sum'] = 0;
         $recentOrders = [];
