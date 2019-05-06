@@ -12,7 +12,7 @@
                             <h5 class="text-muted vb">Hotels</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-danger">{{ $data['ra_count'] }}</h3>
+                            <h3 class="counter text-right m-t-15 text-danger">{{ $data['hotels_count'] }}</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="progress">
@@ -27,7 +27,7 @@
                             <h5 class="text-muted vb">Proposals</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-megna">{{ $data['fc_count'] }}</h3>
+                            <h3 class="counter text-right m-t-15 text-megna">{{ $data['proposals'] }}</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="progress">
@@ -42,7 +42,7 @@
                             <h5 class="text-muted vb">Final</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-primary">{{ $data['m_count'] }}</h3>
+                            <h3 class="counter text-right m-t-15 text-primary">{{ $data['final'] }}</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="progress">
@@ -57,7 +57,7 @@
                             <h5 class="text-muted vb">Month Sale</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-success">{{ $data['r_count'] }}</h3>
+                            <h3 class="counter text-right m-t-15 text-success">{{ $data['month_sale'] }}</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="progress">
@@ -74,7 +74,7 @@
 
 
 
-<div class="row">
+<div class="row hide">
     <div class="col-md-12 col-lg-12 col-sm-12">
         <div class="white-box">
             <h3 class="box-title">Recent sales</h3>

@@ -27,5 +27,10 @@ class Package extends Model
     public static function getPackagesForSelect(){
         return Package::where('archive',0)->pluck('name', 'id')->toArray();
     }
+
+    public static function getPackageById($id){
+        $query = Package::where('archive', 0)->where('id', $id);
+        return $query->first();
+    }
     
 }

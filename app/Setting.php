@@ -16,4 +16,12 @@ class Setting extends Model
     *
     * Database Relations
     */
+
+    public static function getPrivateTransportPrice(){
+    	return Setting::where('archive', 0)->first()->private_transport_charges;
+    }
+
+    public static function getVisaCharges(){
+        return Setting::where('archive', 0)->first()->visa_charges;
+    }
 }

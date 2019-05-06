@@ -215,17 +215,12 @@
                     type: "text",
                     width: 70
                 }, {
-                    name: "makkah_hotel",
-                    title: "Makkah Hotel",
-                    type: "text",
-                    width: 70
-                }, {
-                    name: "madinah_hotel",
-                    title: "Madinah Hotel",
-                    type: "text",
-                    width: 70
-                }, {
                     name: "total_package_price",
+                    title: "Total (SAR)",
+                    type: "text",
+                    width: 70
+                }, {
+                    name: "total_package_price_pkr",
                     title: "Total (PKR)",
                     type: "text",
                     width: 70
@@ -233,7 +228,7 @@
                     name: "actions",
                     title: "Actions",
                     type: "text",
-                    width: 100
+                    width: 150
                 }, {
                     type: "control",
                     editButton: false,

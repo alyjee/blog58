@@ -72,6 +72,11 @@
 
 <body>
     <div id="wrapper">
+        <div class="row">
+            <div class="col-sm-12 text-center" style="padding: 20px;">
+                <img src="{{ asset('public/images/sealinks-logo.jpg') }}" alt="home" style="max-width: 100px;">
+            </div>
+        </div>
         <div class="container-fluid">
             @yield('content')
         </div>

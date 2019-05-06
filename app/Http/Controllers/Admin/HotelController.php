@@ -142,6 +142,7 @@ class HotelController extends Controller
             }
 
             $data = ['pp'=>$pp];
+            $data['hotel'] = $hotel;
             return response()->json(['success'=>true, 'message'=>'Pricing Feature Found Successfully.', 'data'=>$data]);
         } catch (\Exception $e) {
             return response()->json(['success'=>false, 'message'=>$e->getMessage()]);

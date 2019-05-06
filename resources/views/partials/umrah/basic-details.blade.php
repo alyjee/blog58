@@ -75,7 +75,7 @@
 	<div class="col-sm-6">
 		<div class="form-group form-group {{ $errors->has('total_passengers') ? ' has-error' : '' }}">
     		{!! Form::label('total_passengers', 'Total Passengers') !!}
-    		{!! Form::number('total_passengers', null,['placeholder'=>'Enter total passengers here e.g. 3', 'class'=>'form-control readonly']) !!}
+    		{!! Form::number('total_passengers', null,['placeholder'=>'Enter total passengers here e.g. 3', 'class'=>'form-control readonly pricing-input']) !!}
     		@if ($errors->has('total_passengers'))
                 <div class="form-control-feedback">{{ $errors->first('total_passengers') }}</div>
             @endif
@@ -85,7 +85,7 @@
 	<div class="col-sm-2">
 		<div class="form-group {{ $errors->has('adults') ? ' has-error' : '' }}">
     		{!! Form::label('adults', 'Adult/s') !!}
-    		{!! Form::number('adults', null,['placeholder'=>'Adults e.g. 2', 'class'=>'form-control']) !!}
+    		{!! Form::number('adults', null,['placeholder'=>'Adults e.g. 2', 'class'=>'form-control pricing-input']) !!}
     		@if ($errors->has('adults'))
                 <div class="form-control-feedback">{{ $errors->first('adults') }}</div>
             @endif
@@ -95,7 +95,7 @@
 	<div class="col-sm-2">
 		<div class="form-group {{ $errors->has('childs') ? ' has-error' : '' }}">
     		{!! Form::label('childs', 'Child/s') !!}
-    		{!! Form::number('childs', null,['placeholder'=>'Children e.g. 1', 'class'=>'form-control']) !!}
+    		{!! Form::number('childs', null,['placeholder'=>'Children e.g. 1', 'class'=>'form-control pricing-input']) !!}
     		@if ($errors->has('childs'))
                 <div class="form-control-feedback">{{ $errors->first('childs') }}</div>
             @endif
@@ -105,7 +105,7 @@
 	<div class="col-sm-2">
 		<div class="form-group {{ $errors->has('infants') ? ' has-error' : '' }}">
     		{!! Form::label('infants', 'Infant/s') !!}
-    		{!! Form::number('infants', null,['placeholder'=>'Infants e.g. 0', 'class'=>'form-control']) !!}
+    		{!! Form::number('infants', null,['placeholder'=>'Infants e.g. 0', 'class'=>'form-control pricing-input']) !!}
     		@if ($errors->has('infants'))
                 <div class="form-control-feedback">{{ $errors->first('infants') }}</div>
             @endif
@@ -117,7 +117,7 @@
 	<div class="col-sm-6">
 		<div class="form-group form-group {{ $errors->has('package_category') ? ' has-error' : '' }}">
     		{!! Form::label('package_category', 'Package Category') !!}
-    		{!! Form::select('package_category', $packageSelect, null, ['placeholder'=>'Select Package Category', 'class'=>'form-control']) !!}
+    		{!! Form::select('package_category', $packageSelect, null, ['placeholder'=>'Select Package Category', 'class'=>'form-control pricing-input']) !!}
     		@if ($errors->has('package_category'))
                 <div class="form-control-feedback">{{ $errors->first('package_category') }}</div>
             @endif
@@ -129,7 +129,7 @@
 	<div class="col-sm-3">
 		<div class="form-group {{ $errors->has('transport') ? ' has-error' : '' }}">
     		{!! Form::label('transport', 'Transport Type') !!}
-    		{!! Form::select('transport', $transportTypeSelect, null, ['placeholder'=>'Select Transport Type', 'class'=>'form-control']) !!}
+    		{!! Form::select('transport', $transportTypeSelect, null, ['placeholder'=>'Select Transport Type', 'class'=>'form-control pricing-input']) !!}
     		@if ($errors->has('transport'))
                 <div class="form-control-feedback">{{ $errors->first('transport') }}</div>
             @endif

@@ -78,6 +78,9 @@ $(document).ready(function() {
 							$(input_selector).val(value);
 						}
 					});
+					$('#makkah_hotel_category').val(res.data.hotel.category)
+					$('#makkah_hotel_distance_from_haram').val(res.data.hotel.distance_from_haram)
+					$('#makkah_hotel_meal_plan').val(res.data.hotel.room_basis)
 
 				} else {
 					alert(res.message);
@@ -112,18 +115,19 @@ $(document).ready(function() {
 			},
 			success: function(res){
 				if(res.success){
-
 					var div_selector = '';
 					var input_selector = '';
 					$.each(res.data.pp, function(key, value){
-						if( value!='' || value!=undefined || value!=0) {
+						if( value!='' && value!=undefined && value!=0 && value!=null) {
 							div_selector = '#madinah_'+key+'_div';
 							input_selector = '#madinah_'+key+'_price';
 							$(div_selector).removeClass('hide');
 							$(input_selector).val(value);
 						}
 					});
-
+					$('#madinah_hotel_category').val(res.data.hotel.category)
+					$('#madinah_hotel_distance_from_haram').val(res.data.hotel.distance_from_haram)
+					$('#madinah_hotel_meal_plan').val(res.data.hotel.room_basis)
 				} else {
 					alert(res.message);
 				}
@@ -147,21 +151,56 @@ $(document).ready(function() {
 		// }
 	});
 
-	$('#madinah_hotel').on('change', function(){
-		var prefix = 'madinah_hotel_';
-		var madinah_hotel = $(this).val();
-		if( validateHotel($(this), 'madinah_hotel') ){
-			var selected_room_category = $('#room_category').val();
-			hotel.data.forEach(function(hotel, key){
-				if( madinah_hotel == hotel.id ){
-					$('#'+prefix+'category').val(hotel.category);
-					$('#'+prefix+'meal_plan').val(hotel.room_basis);
-					$('#'+prefix+'room_price').val(hotel[selected_room_category]);
+	$('.pricing-input').on('change', function(){
+		$.ajax({
+			url: siteUrl + '/dashboard/umrah/calculatePricing',
+			type: 'GET',
+			data: $("form").serialize(),
+			success: function(res){
+				console.log(res);
+				if(res.success){
+					$('#umrah_per_person').val(res.data.umrah_price_per_person);
+					$('#total_umrah_price').val(res.data.total_umrah_price);
+					$('#total_package_price').val(res.data.total_package_price);
+					$('#total_package_price_pkr').val(res.data.total_package_price_pkr);
+				} else {
+					console.log(res.message);
+					$('#umrah_per_person').val('');
+					$('#total_umrah_price').val('');
+					$('#total_package_price').val('');
+					$('#total_package_price_pkr').val('');
 				}
-			});
-			calculateHotelsPricings();
-		}
+			},
+			error: function(request, status, error){
+				if(request.status==422){
+					var obj = JSON.parse(request.responseText);
+
+					$.each(obj.errors, function(key, value) {
+						// console.log(key, value);
+					});
+
+				} else {
+					alert('Whoops! Something went wrong!');
+				}
+			}
+		})
 	});
+
+	// $('#madinah_hotel').on('change', function(){
+	// 	var prefix = 'madinah_hotel_';
+	// 	var madinah_hotel = $(this).val();
+	// 	if( validateHotel($(this), 'madinah_hotel') ){
+	// 		var selected_room_category = $('#room_category').val();
+	// 		hotel.data.forEach(function(hotel, key){
+	// 			if( madinah_hotel == hotel.id ){
+	// 				$('#'+prefix+'category').val(hotel.category);
+	// 				$('#'+prefix+'meal_plan').val(hotel.room_basis);
+	// 				$('#'+prefix+'room_price').val(hotel[selected_room_category]);
+	// 			}
+	// 		});
+	// 		calculateHotelsPricings();
+	// 	}
+	// });
 
 	$('#package_category').on('change', function(){
 		var package_category_id = $(this).val();
