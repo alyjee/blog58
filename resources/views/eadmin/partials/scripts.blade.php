@@ -91,6 +91,10 @@
 			format: 'yyyy-mm-dd'
 		};
 		jQuery('.mydatepicker, #datepicker').datepicker(options);
+
+		$(document).on('focus',".mydatepicker", function(){
+			$(this).datepicker(options);
+		});
 	});
 </script>
 <script src="{{ asset('public/js/custom.js') }}"></script>

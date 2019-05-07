@@ -186,6 +186,53 @@ $(document).ready(function() {
 		})
 	});
 
+	$(document).on('change', '.received_amount_input', function(){
+		var received_amount = parseFloat($(this).val());
+		var pending_amount = parseFloat($(this).parents('.col-sm-3').siblings().find('.pending_amount_input').val());
+		if( received_amount == null || received_amount == '' ) {
+			return false;
+		}
+
+		if( pending_amount == null || pending_amount == '' || pending_amount == 0 ) {
+			alert('Pending amount cannot be empty or ZERO.')
+			return false;
+		}
+
+		if( received_amount > pending_amount ) {
+			alert('Received Amount (' + received_amount + ') cannot be greater than Pending Amount (' + pending_amount + ').')
+			return false;
+		}
+
+		var remaining_amount = pending_amount - received_amount;
+		remaining_amount = parseFloat(remaining_amount).toFixed(2);
+
+		var pending_amount = parseFloat($(this).parents('.col-sm-3').siblings().find('.remaining_amount_input').val(remaining_amount));
+
+	});
+
+	$('.add-new-payment').on('click', function(){
+		var received_amount = $('.payment-detail-row:last').find('.received_amount_input').val();
+		var remaining_amount = $('.payment-detail-row:last').find('.remaining_amount_input').val();
+		var receiving_date = $('.payment-detail-row:last').find('.mydatepicker').val();
+
+		if(
+			received_amount == '' || received_amount == null ||
+			remaining_amount == '' || remaining_amount == null ||
+			receiving_date == '' || receiving_date == null
+		){
+			alert('Please fill the last added payment detail entry.');
+			return false;
+		}
+
+		var html = $('.payment-detail-row:last')[0].outerHTML;
+		
+		$.when( $('.payment-detail-row:last').after(html) ).done(function(){
+			$('.payment-detail-row:last').find('input').val('');
+			$('.payment-detail-row:last').find('.pending_amount_input').val(remaining_amount);
+		});
+
+	});
+
 	// $('#madinah_hotel').on('change', function(){
 	// 	var prefix = 'madinah_hotel_';
 	// 	var madinah_hotel = $(this).val();

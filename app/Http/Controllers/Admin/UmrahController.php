@@ -11,6 +11,7 @@ use App\Package;
 use App\UmrahForm;
 use App\PersonalDetail;
 use App\Setting;
+use App\PaymentDetail;
 
 use Illuminate\Support\Carbon;
 
@@ -257,6 +258,7 @@ class UmrahController extends Controller
             $proposedForm = UmrahForm::where('id', $id)->first();
             $flightTypeSelect = UmrahForm::getFlightTypes();
             $personalDetails = PersonalDetail::where('form_id', $id)->get();
+            $paymentlDetails = PaymentDetail::where('form_id', $id)->get();
 
             $packages = Package::getPackages();
             $packageSelect = Package::getPackagesForSelect();
@@ -264,7 +266,7 @@ class UmrahController extends Controller
             $transportTypeSelect = UmrahForm::getTransportTypes();
             $featureclass = '';
 
-            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass]);
+            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'paymentlDetails'=>$paymentlDetails]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
@@ -278,17 +280,36 @@ class UmrahController extends Controller
      */
     public function storePhase2(StorePhase2 $request, $id)
     {
-        $persons = $request->get('persons');
-        foreach ($persons as $key => $person) {
-            $persons[$key]['docs'] = (isset($person['docs'])) ? json_encode($person['docs']) : json_encode([]);
-            $persons[$key]['form_id'] = $id;
-            $persons[$key]['created_at'] = Carbon::now();
-            $persons[$key]['updated_at'] = Carbon::now();
+        try {
+            DB::beginTransaction();
+            $inputs = $request->except('_token');
+            $persons = $request->get('persons');
+            foreach ($persons as $key => $person) {
+                $persons[$key]['docs'] = (isset($person['docs'])) ? json_encode($person['docs']) : json_encode([]);
+                $persons[$key]['form_id'] = $id;
+                $persons[$key]['created_at'] = Carbon::now();
+                $persons[$key]['updated_at'] = Carbon::now();
+            }
+            PersonalDetail::where('form_id', $id)->delete();
+            PersonalDetail::insert($persons);
+
+            $payment_detail_data = [];
+            foreach ($inputs['received_amount'] as $key => $received_amount) {
+                $payment_detail_data[$key]['form_id'] = $id;
+                $payment_detail_data[$key]['received_amount'] = $received_amount;
+                $payment_detail_data[$key]['receiving_date'] = $inputs['receiving_date'][$key];
+                $payment_detail_data[$key]['created_at'] = Carbon::now();
+                $payment_detail_data[$key]['updated_at'] = Carbon::now();
+            }
+            PaymentDetail::where('form_id', $id)->delete();
+            PaymentDetail::insert($payment_detail_data);
+
+            UmrahForm::where('id', $id)->update(['stage'=>'final']);
+            DB::commit();
+            return redirect()->route('dashboard.umrah.phase2.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
         }
-        PersonalDetail::where('form_id', $id)->delete();
-        PersonalDetail::insert($persons);
-        UmrahForm::where('id', $id)->update(['stage'=>'final']);
-        return redirect()->route('dashboard.umrah.phase2.index');
     }
 
     /**
