@@ -11,35 +11,35 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset('public/eadmin/material/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/eadmin/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css') }}" rel="stylesheet">
     
     <!-- Editable CSS -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('public/eadmin/plugins/bower_components/jsgrid/dist/jsgrid.min.css') }}" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('public/eadmin/plugins/bower_components/jsgrid/dist/jsgrid-theme.min.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('eadmin/plugins/bower_components/jsgrid/dist/jsgrid.min.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('eadmin/plugins/bower_components/jsgrid/dist/jsgrid-theme.min.css') }}" />
 
 
     <!-- Menu CSS -->
-    <link href="{{ asset('public/eadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
 
     <!--alerts CSS -->
-    <link href="{{ asset('public/eadmin/plugins/bower_components/sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('eadmin/plugins/bower_components/sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css">
 
     <!-- toast CSS -->
-    <link href="{{ asset('public/eadmin/plugins/bower_components/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/plugins/bower_components/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
 
     <!-- Date picker plugins css -->
-    <link href="{{ asset('public/eadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('eadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- morris CSS -->
-    <link href="{{ asset('public/eadmin/plugins/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/plugins/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
     <!-- animation CSS -->
-    <link href="{{ asset('public/eadmin/material/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{ asset('public/eadmin/material/css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/style.css')}}" rel="stylesheet">
     <link href="{{ asset('public/css/custom.css')}}" rel="stylesheet">
     <!-- color CSS -->
-    <link href="{{ asset('public/eadmin/material/css/colors/default.css')}}" id="theme" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/colors/default.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

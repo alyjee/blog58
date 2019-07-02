@@ -10,15 +10,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
     <title>SeaLinks - Admin</title>
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset('public/eadmin/material/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/eadmin/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('eadmin/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css') }}" rel="stylesheet">
 
     <!-- animation CSS -->
-    <link href="{{ asset('public/eadmin/material/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{ asset('public/eadmin/material/css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/style.css')}}" rel="stylesheet">
     <!-- color CSS -->
-    <link href="{{ asset('public/eadmin/material/css/colors/default.css')}}" id="theme" rel="stylesheet">
+    <link href="{{ asset('eadmin/material/css/colors/default.css')}}" id="theme" rel="stylesheet">
     <link href="{{ asset('public/css/custom.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,19 +35,19 @@
     @yield('content')
 
     <!-- jQuery -->
-    <script src="{{ asset('public/eadmin/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('eadmin/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ asset('public/eadmin/material/bootstrap/dist/js/tether.min.js') }}"></script>
-    <script src="{{ asset('public/eadmin/material/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('public/eadmin/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js') }}"></script>
+    <script src="{{ asset('eadmin/material/bootstrap/dist/js/tether.min.js') }}"></script>
+    <script src="{{ asset('eadmin/material/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('eadmin/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js') }}"></script>
     <!-- Menu Plugin JavaScript -->
-    <script src="{{ asset('public/eadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+    <script src="{{ asset('eadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
     <!--slimscroll JavaScript -->
-    <script src="{{ asset('public/eadmin/material/js/jquery.slimscroll.js') }}"></script>
+    <script src="{{ asset('eadmin/material/js/jquery.slimscroll.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{ asset('public/eadmin/material/js/waves.js') }}"></script>
+    <script src="{{ asset('eadmin/material/js/waves.js') }}"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="{{ asset('public/eadmin/material/js/custom.min.js') }}"></script>
+    <script src="{{ asset('eadmin/material/js/custom.min.js') }}"></script>
 </body>
 
 </html>
