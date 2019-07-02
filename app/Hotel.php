@@ -10,7 +10,7 @@ class Hotel extends Model
     //
     public $timestamps = true;
 
-    protected $fillable = ['id', 'name', 'category', 'double', 'triple', 'quad', 'quint', 'room_basis', 'distance_from_haram', 'archive', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'name', 'category', 'room_basis', 'distance_from_haram', 'archive', 'created_at', 'updated_at'];
 
     public static $categories = [];
 
