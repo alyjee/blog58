@@ -41,3 +41,8 @@
 .remove-op:hover, .hide-ops:hover, .remove-label:hover, .remove-variation:hover, .copy-label:hover {
 	cursor: pointer;
 }
+
+.iternary-holder {
+    margin: 10px 0;
+    border-bottom: 1px solid #eee;
+}
