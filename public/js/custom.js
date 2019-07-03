@@ -32,12 +32,9 @@ $(document).ready(function() {
 			type: 'POST',
 			data: $("form").serialize(),
 			success: function(res){
-				console.log(res);
 				if(res.success){
-					$('#umrah_per_person').val(res.data.umrah_price_per_person);
-					$('#total_umrah_price').val(res.data.total_umrah_price);
-					$('#total_package_price').val(res.data.total_package_price);
-					$('#total_package_price_pkr').val(res.data.total_package_price_pkr);
+					alert(res.message);
+					window.location.replace(res.data.redirect_url);
 				} else {
 					alert(res.message);
 				}

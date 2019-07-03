@@ -11,7 +11,7 @@
 
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('adult_ticket_price') ? ' has-error' : '' }}">
-    		{!! Form::label('adult_ticket_price', 'Adult/s Ticket Price (SAR)') !!}
+    		{!! Form::label('adult_ticket_price', 'Adult/s Ticket Price (PKR)') !!}
     		{!! Form::number('adult_ticket_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control pricing-input', 'step'=>'.01']) !!}
     		@if ($errors->has('adult_ticket_price'))
                 <div class="form-control-feedback">{{ $errors->first('adult_ticket_price') }}</div>
@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="form-group {{ $errors->has('child_ticket_price') ? ' has-error' : '' }}">
-    		{!! Form::label('child_ticket_price', 'Child/s Ticket Price (SAR)') !!}
+    		{!! Form::label('child_ticket_price', 'Child/s Ticket Price (PKR)') !!}
     		{!! Form::number('child_ticket_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control pricing-input', 'step'=>'.01']) !!}
     		@if ($errors->has('child_ticket_price'))
                 <div class="form-control-feedback">{{ $errors->first('child_ticket_price') }}</div>
@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="form-group {{ $errors->has('infant_ticket_price') ? ' has-error' : '' }}">
-    		{!! Form::label('infant_ticket_price', 'Infant/s Ticket Price (SAR)') !!}
+    		{!! Form::label('infant_ticket_price', 'Infant/s Ticket Price (PKR)') !!}
     		{!! Form::number('infant_ticket_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control pricing-input', 'step'=>'.01']) !!}
     		@if ($errors->has('infant_ticket_price'))
                 <div class="form-control-feedback">{{ $errors->first('infant_ticket_price') }}</div>
@@ -49,7 +49,7 @@
 
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('total_ticket_price') ? ' has-error' : '' }}">
-    		{!! Form::label('total_ticket_price', 'Total Ticket/s Price (SAR)') !!}
+    		{!! Form::label('total_ticket_price', 'Total Ticket/s Price (PKR)') !!}
     		{!! Form::number('total_ticket_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control', 'step'=>'.01']) !!}
     		@if ($errors->has('total_ticket_price'))
                 <div class="form-control-feedback">{{ $errors->first('total_ticket_price') }}</div>
