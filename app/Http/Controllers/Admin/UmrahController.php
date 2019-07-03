@@ -82,21 +82,25 @@ class UmrahController extends Controller
      */
     public function storePhase1(StorePhase1 $request)
     {
-        $inputs = $request->except('_token');
-        $package = Package::getPackageById($inputs['package_category']);
-        $per_person_psf = $package->price;
-        $inputs['psf'] = $per_person_psf;
-        $inputs['transport_charges'] = 0;
-        if( $inputs['transport'] == 'private' ){
-            $transport_price = Setting::getPrivateTransportPrice();
-            $inputs['transport_charges'] = $transport_price;
+        try {
+            $inputs = $request->except('_token');
+            $package = Package::getPackageById($inputs['package_category']);
+            $per_person_psf = $package->price;
+            $inputs['psf'] = $per_person_psf;
+            $inputs['transport_charges'] = 0;
+            if( $inputs['transport'] == 'private' ){
+                $transport_price = Setting::getPrivateTransportPrice();
+                $inputs['transport_charges'] = $transport_price;
+            }
+            $inputs['visa_charges'] = Setting::getVisaCharges();
+            $umrahForm = UmrahForm::create($inputs);
+            if($umrahForm->exists){
+                return redirect()->route('dashboard.umrah.index');
+            }
+            return redirect()->back()->withErrors(['Failed to create new Umrah Proposal'])->withInput();
+        } catch (\Exception $e) {
+            return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
         }
-        $inputs['visa_charges'] = Setting::getVisaCharges();
-        $umrahForm = UmrahForm::create($inputs);
-        if($umrahForm->exists){
-            return redirect()->route('dashboard.umrah.index');
-        }
-        return redirect()->back()->withErrors(['Failed to create new Umrah Proposal'])->withInput();
     }
 
     /**
@@ -341,7 +345,7 @@ class UmrahController extends Controller
         $total_package_price = 0;
         $total_package_price_pkr = 0;
         $all_iternaries_total = 0;
-        
+
         foreach ($inputs['iternary_from_date'] as $key => $value) {
             $iternary_total = 0;
             $iternary_double_total = 0;

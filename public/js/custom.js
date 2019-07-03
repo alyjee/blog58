@@ -7,6 +7,69 @@ $(document).ready(function() {
 		return numberOfNights;
 	}
 
+
+	$('#to_date').on('change', function(){
+		var from_date = $('#from_date').val();
+		if( from_date=='' || from_date==undefined ){
+			alert('Please select From Date first');
+			$(this).val('');
+			return false;
+		} 
+		var to_date = $(this).val();
+		var numberOfNights = get_total_nights(from_date, to_date);
+		$('#total_days') .val(numberOfNights); 
+	});
+
+
+	$(document).on('click', '.submit-form', function(e){
+		e.preventDefault();
+		var $form = $(this).parents('form');
+		var form_action = $form.attr('action');
+		$form.find('input').parents('.form-group').removeClass('has-error');
+		$form.find('select').parents('.form-group').removeClass('has-error');
+		$.ajax({
+			url: form_action,
+			type: 'POST',
+			data: $("form").serialize(),
+			success: function(res){
+				console.log(res);
+				if(res.success){
+					$('#umrah_per_person').val(res.data.umrah_price_per_person);
+					$('#total_umrah_price').val(res.data.total_umrah_price);
+					$('#total_package_price').val(res.data.total_package_price);
+					$('#total_package_price_pkr').val(res.data.total_package_price_pkr);
+				} else {
+					alert(res.message);
+				}
+			},
+			error: function(request, status, error){
+				if(request.status==422){
+					var obj = JSON.parse(request.responseText);
+					$.each(obj.errors, function(key, value) {
+						// check for array inputs
+						var chunks = key.split(".");
+
+						// add has-error class to parent with a class form-group
+						// add form-control-feedback and add text in it
+						if( chunks.length == 2 ) {
+							// input is an array input
+							var elements = $('.'+chunks[0]);
+							var element_index = chunks[1];
+							$(elements[element_index]).parents('.form-group').addClass('has-error');
+						} else {
+							$('#'+key).parents('.form-group').addClass('has-error');
+						}
+
+					});
+
+				} else {
+					alert('Whoops! Something went wrong!');
+				}
+			}
+		});
+
+	});
+
 	$(".add-new-iternary").on('click', function(){
 		var $iternaryHolder = $(".iternary-holder:last-child");
 		var html = $("<div />").append($iternaryHolder.clone()).html();

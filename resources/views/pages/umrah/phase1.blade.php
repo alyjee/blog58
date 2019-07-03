@@ -44,7 +44,7 @@
 		            		</div>
 		            	@else
 		            		<div class="col-sm-6">
-		            			<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+		            			<button type="button" class="btn btn-success waves-effect waves-light m-r-10 submit-form">Submit</button>
 		            		</div>
 		            	@endif
 	            	</div>
