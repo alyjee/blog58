@@ -13,17 +13,17 @@
     		{!! Form::open(['route' => 'dashboard.umrah.phase1.store', 'method' => 'post', 'files'=>false]) !!}
     	@endif
 
-    	@include('partials/umrah/basic-details')
-    	@include('partials/umrah/iternary-details')
+    	@include('partials/print/umrah/basic-details')
+    	@include('partials/print/umrah/iternary-details')
 
     	@if(\Request::route()->getName() == 'dashboard.umrah.phase2.create')
-    		@include('partials/umrah/personal-details')
+    		@include('partials/print/umrah/personal-details')
     	@endif
 
-    	@include('partials/umrah/total-package-price-details')
-    	@include('partials/umrah/terms-and-conditions')
+    	@include('partials/print/umrah/total-package-price-details')
+    	@include('partials/print/umrah/terms-and-conditions')
     	<hr />
-    	@include('partials/umrah/signature')
+    	@include('partials/print/umrah/signature')
 
     	{!! Form::close() !!}
     </div>
