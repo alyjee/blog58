@@ -18,6 +18,11 @@ class UmrahForm extends Model
     *
     * Database Relations
     */
+    public function package(){
+        return $this->hasOne('App\Package', 'id', 'package_category');
+    }
+
+
     public static function getRefNum(){
         $num_str = sprintf("%06d", mt_rand(1, 999999));
         return 'SL'.$num_str;
