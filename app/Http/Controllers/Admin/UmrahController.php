@@ -16,6 +16,7 @@ use App\Itinerary;
 
 use Illuminate\Support\Carbon;
 use DB;
+use PDF;
 
 class UmrahController extends Controller
 {
@@ -144,7 +145,15 @@ class UmrahController extends Controller
 
             $featureclass = '';
 
-            return view('pages.umrah.print_phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass]);
+            $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass];
+            
+            // return view('pages.umrah.print_phase1', $data);
+
+            $pdf = PDF::loadView('pages.umrah.print_phase1', $data);
+            return $pdf->download('invoice.pdf');
+
+            // $html = view('pages.umrah.print_phase1', $data)->render();
+            // return PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->stream('myfile.pdf');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
