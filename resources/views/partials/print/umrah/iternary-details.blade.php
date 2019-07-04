@@ -5,9 +5,7 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-6 iternary-holder">
-        @include('partials/umrah/makkah_hotel_details')
-	</div>
+    @include('partials/print/umrah/makkah_hotel_details')
 </div>
 
 <div class="row">
