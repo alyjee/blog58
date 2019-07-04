@@ -146,14 +146,9 @@ class UmrahController extends Controller
             $featureclass = '';
 
             $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass];
-            
-            // return view('pages.umrah.print_phase1', $data);
 
             $pdf = PDF::loadView('pages.umrah.print_phase1', $data);
             return $pdf->download('invoice.pdf');
-
-            // $html = view('pages.umrah.print_phase1', $data)->render();
-            // return PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->stream('myfile.pdf');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
@@ -209,13 +204,29 @@ class UmrahController extends Controller
                 $inputs['transport_charges'] = $transport_price;
             }
             $inputs['visa_charges'] = Setting::getVisaCharges();
+            DB::beginTransaction();
+            $form_inputs = [];
+            foreach ($inputs as $key => $value) {
+                if( strpos($key, 'iternary_') !== false ){
+                    continue;
+                } else {
+                    $form_inputs[$key] = $value;
+                }
+            }
 
-            $hotel = UmrahForm::where('id', $id)->update($inputs);
-            if($hotel){
+            $form = UmrahForm::where('id', $id)->update($form_inputs);
+            $iternary_pricings = self::getIternaryPricings($inputs, $id);
+            Itinerary::where('form_id', $id)->delete();
+            Itinerary::insert($iternary_pricings['iternaries']);
+
+            if($form){
+                DB::commit();
                 return redirect()->route('dashboard.umrah.index');
             }
+            DB::rollback();
             return redirect()->back()->withErrors(['Failed to update proposal'])->withInput();
         } catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->withErrors([$e->getMessage()])->withInput();
         }
     }
@@ -653,6 +664,15 @@ class UmrahController extends Controller
             $iternary_detail['iternary_total'] = $iternary_total;
             $iternary_detail['form_id'] = $formId;
             
+            $iternary_detail['iternary_hotel'] = $inputs['iternary_hotel'][$key];
+            $iternary_detail['iternary_hotel_category'] = $inputs['iternary_hotel_category'][$key];
+            $iternary_detail['iternary_hotel_distance_from_haram'] = $inputs['iternary_hotel_distance_from_haram'][$key];
+            $iternary_detail['iternary_hotel_meal_plan'] = $inputs['iternary_hotel_meal_plan'][$key];
+            
+            $iternary_detail['iternary_from_date'] = $inputs['iternary_from_date'][$key];
+            $iternary_detail['iternary_to_date'] = $inputs['iternary_to_date'][$key];
+            $iternary_detail['iternary_hotel_nights'] = $inputs['iternary_hotel_nights'][$key];
+            $iternary_detail['iternary_city'] = $inputs['iternary_city'][$key];
             $iternary_detail['created_at'] = Carbon::now();
             $iternary_detail['updated_at'] = Carbon::now();
 

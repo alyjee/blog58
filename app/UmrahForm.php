@@ -22,6 +22,10 @@ class UmrahForm extends Model
         return $this->hasOne('App\Package', 'id', 'package_category');
     }
 
+    public function itineraries(){
+        return $this->hasMany('App\Itinerary', 'form_id', 'id');
+    }
+
 
     public static function getRefNum(){
         $num_str = sprintf("%06d", mt_rand(1, 999999));

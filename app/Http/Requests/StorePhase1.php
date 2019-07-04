@@ -50,19 +50,14 @@ class StorePhase1 extends FormRequest
                 'infants' => 'required|int',
                 'package_category' => 'required',
 
-                'makkah_from_date' => 'required|date',
-                'makkah_to_date' => 'required|date',
-                'makkah_hotel_nights' => 'required|int',
-                'makkah_hotel' => 'required',
-                'makkah_hotel_category' => 'required',
-                'makkah_hotel_meal_plan' => 'required',
 
-                'madinah_from_date' => 'required|date',
-                'madinah_to_date' => 'required|date',
-                'madinah_hotel_nights' => 'required|int',
-                'madinah_hotel' => 'required',
-                'madinah_hotel_category' => 'required',
-                'madinah_hotel_meal_plan' => 'required',
+                'iternary_from_date.*' => 'required|date',
+                'iternary_to_date.*' => 'required|date',
+                'iternary_hotel_nights.*' => 'required|int',
+                'iternary_hotel.*' => 'required',
+                'iternary_hotel_category.*' => 'required',
+                'iternary_hotel_meal_plan.*' => 'required',
+
 
                 'umrah_per_person' => 'required',
                 'adult_ticket_price' => 'required',
