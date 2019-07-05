@@ -16,6 +16,7 @@ use App\Itinerary;
 
 use Illuminate\Support\Carbon;
 use DB;
+use Config;
 use PDF;
 
 class UmrahController extends Controller
@@ -147,7 +148,17 @@ class UmrahController extends Controller
 
             $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass];
 
-            $pdf = PDF::loadView('pages.umrah.print_phase1', $data);
+            // return view('pages.umrah.print_phase1', $data);
+
+            $viewsPath = Config::get('view.paths');
+            $headerPath = $viewsPath[0].'/eadmin/partials/print/header.html';
+            $footerPath = $viewsPath[0].'/eadmin/partials/print/footer.html';
+            
+            $pdf = \App::make('snappy.pdf.wrapper');
+            $pdf->setOption('header-html', $headerPath);
+            $pdf->setOption('footer-html', $footerPath);
+            $pdf->setPaper('a4');
+            $pdf->loadView('pages.umrah.print_phase1', $data);
             return $pdf->download('invoice.pdf');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);

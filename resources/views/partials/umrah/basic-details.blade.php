@@ -160,4 +160,82 @@
 	</div>
 </div>
 
+<div class="row">
+    <div class="col-sm-12 text-right">
+        <button type="button" class="btn btn-primary add-new-flight-detail">Flight +</button>
+    </div>
+</div>
+
+<div class="row airline-details">
+    <div class="col-sm-1">
+        <div class="form-group form-group {{ $errors->has('airline') ? ' has-error' : '' }}">
+            {!! Form::label('airline', 'Day') !!}
+            {!! Form::text('airline', null,['placeholder'=>'Day', 'class'=>'form-control readonly']) !!}
+            @if ($errors->has('airline'))
+                <div class="form-control-feedback">{{ $errors->first('airline') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-1">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'Date') !!}
+            {!! Form::text('airline', null,['placeholder'=>'Date', 'class'=>'form-control mydatepicker']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'DEP/ARR') !!}
+            {!! Form::select('flight_type', $flightTypeSelect, null, ['placeholder'=>'Select Flight Type', 'class'=>'form-control']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'City/Terminal/Stopover City') !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-1">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'Time') !!}
+            {!! Form::text('airline', null,['placeholder'=>'Time', 'class'=>'form-control']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'Fligt/Class/Status') !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
+            {!! Form::label('flight_type', 'STOP/EQP/FLYING TIME/SERVICES') !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            @if ($errors->has('flight_type'))
+                <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
+            @endif
+        </div>
+    </div>
+</div>
+
 <hr />

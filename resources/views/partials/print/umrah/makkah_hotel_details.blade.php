@@ -4,8 +4,16 @@
     </div>
 @else
     @foreach($proposedForm->itineraries()->get() as $itinerary)
-        <div class="col-xs-6 iternary-holder">
-            @include('partials/print/umrah/hotel_detail_attributes', $itinerary->toArray())
+        <div class="col-xs-12 iternary-holder">
+        	<?php
+        		$hotel = $itinerary->hotel()->first()->name;
+        		$hotel_catehory = $itinerary->category()->first()->name;
+        		$itinerary = $itinerary->toArray();
+        		$itinerary['iternary_hotel'] = $hotel;
+        		$itinerary['iternary_hotel_category'] = $hotel_catehory;
+        	?>
+            @include('partials/print/umrah/hotel_detail_attributes', $itinerary)
         </div>
+        <hr />
     @endforeach
 @endif

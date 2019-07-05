@@ -10,14 +10,8 @@
 
 <div class="row">
 	<div class="col-sm-12">
-		<div class="form-group form-group {{ $errors->has('person_name') ? ' has-error' : '' }}">
-    		{!! Form::label('person_name', 'DEAR Mr./Mrs./Ms.') !!}
-    		{!! Form::text('person_name', null,['placeholder'=>'Enter Name Here', 'class'=>'form-control']) !!}
-    		@if ($errors->has('person_name'))
-                <div class="form-control-feedback">{{ $errors->first('person_name') }}</div>
-            @endif
-		</div>
-
+		<p><b>DEAR Mr./Mrs./Ms. </b>{{ $proposedForm->person_name }}</p>
+		
 		<div class="form-group form-group">
     		<p>Great thanks for taking interest to travel with SEA LINKS TRAVEL & TOURS. Your required rates of Umrah and Tickets are mentioned below, after viewing these rates please don't hesitate to contact this office for any inquiry or further clarification.</p>
     		<p>Details as below:</p>
@@ -70,6 +64,7 @@
 
 </div>
 
+@if( !empty($proposedForm->airline) )
 <div class="row">
 	<div class="col-sm-6 col-xs-6">
         <p><b>Airline: </b>{{ $proposedForm->airline }}</p>
@@ -79,5 +74,5 @@
         <p><b>Flight Type: </b>{{ $proposedForm->flight_type }}</p>
 	</div>
 </div>
-
+@endif
 <hr />

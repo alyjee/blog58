@@ -21,7 +21,7 @@ hr.p-hr {
             <div class="col-sm-2">
                 <div class="form-group {{ $errors->has('persons['.$i.'][sur_name]') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][sur_name]', 'Surname') !!}
-                    {!! Form::text('persons['.$i.'][sur_name]', $pd->sur_name,['placeholder'=>'Mr./Mrs./Ms.', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][sur_name]', $pd->sur_name,['placeholder'=>'Mr./Mrs./Ms.', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('persons['.$i.'][sur_name]'))
                         <div class="form-control-feedback">{{ $errors->first('persons['.$i.'][sur_name]') }}</div>
                     @endif
@@ -31,7 +31,7 @@ hr.p-hr {
             <div class="col-sm-5">
                 <div class="form-group {{ $errors->has('given_name') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][given_name]', 'Given Name') !!}
-                    {!! Form::text('persons['.$i.'][given_name]', $pd->given_name,['placeholder'=>'Enter Given Name here', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][given_name]', $pd->given_name,['placeholder'=>'Enter Given Name here', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('given_name'))
                         <div class="form-control-feedback">{{ $errors->first('given_name') }}</div>
                     @endif
@@ -41,7 +41,7 @@ hr.p-hr {
             <div class="col-sm-5">
                 <div class="form-group {{ $errors->has('middle_name') ? ' has-error' : '' }}">
                     {!! Form::label('middle_name', 'Middle Name') !!}
-                    {!! Form::text('persons['.$i.'][middle_name]', $pd->middle_name,['placeholder'=>'Enter Middle Name', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][middle_name]', $pd->middle_name,['placeholder'=>'Enter Middle Name', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('middle_name'))
                         <div class="form-control-feedback">{{ $errors->first('middle_name') }}</div>
                     @endif
@@ -53,7 +53,7 @@ hr.p-hr {
             <div class="col-sm-6">
                 <div class="form-group {{ $errors->has('dob') ? ' has-error' : '' }}">
                     {!! Form::label('dob', 'Date of Birth:') !!}
-                    {!! Form::text('persons['.$i.'][dob]', $pd->dob,['placeholder'=>'Date', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][dob]', $pd->dob,['placeholder'=>'Date', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('dob'))
                         <div class="form-control-feedback">{{ $errors->first('dob') }}</div>
                     @endif
@@ -65,7 +65,7 @@ hr.p-hr {
             <div class="col-sm-6">
                 <div class="form-group {{ $errors->has('passport_num') ? ' has-error' : '' }}">
                     {!! Form::label('passport_num', 'Passport') !!}
-                    {!! Form::text('persons['.$i.'][passport_num]', $pd->passport_num,['placeholder'=>'99999-9999999-9.', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][passport_num]', $pd->passport_num,['placeholder'=>'99999-9999999-9.', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('passport_num'))
                         <div class="form-control-feedback">{{ $errors->first('passport_num') }}</div>
                     @endif
@@ -75,7 +75,7 @@ hr.p-hr {
             <div class="col-sm-3">
                 <div class="form-group {{ $errors->has('passport_issue_date') ? ' has-error' : '' }}">
                     {!! Form::label('passport_issue_date', 'Passport Issue Date') !!}
-                    {!! Form::text('persons['.$i.'][passport_issue_date]', $pd->passport_issue_date,['placeholder'=>'Date', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][passport_issue_date]', $pd->passport_issue_date,['placeholder'=>'Date', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('passport_issue_date'))
                         <div class="form-control-feedback">{{ $errors->first('passport_issue_date') }}</div>
                     @endif
@@ -146,7 +146,7 @@ hr.p-hr {
             <div class="col-sm-2">
                 <div class="form-group {{ $errors->has('persons['.$i.'][sur_name]') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][sur_name]', 'Surname') !!}
-                    {!! Form::text('persons['.$i.'][sur_name]', null,['placeholder'=>'Mr./Mrs./Ms.', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][sur_name]', null,['placeholder'=>'Mr./Mrs./Ms.', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('persons['.$i.'][sur_name]'))
                         <div class="form-control-feedback">{{ $errors->first('persons['.$i.'][sur_name]') }}</div>
                     @endif
@@ -156,7 +156,7 @@ hr.p-hr {
             <div class="col-sm-5">
                 <div class="form-group {{ $errors->has('given_name') ? ' has-error' : '' }}">
                     {!! Form::label('persons['.$i.'][given_name]', 'Given Name') !!}
-                    {!! Form::text('persons['.$i.'][given_name]', null,['placeholder'=>'Enter Given Name here', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][given_name]', null,['placeholder'=>'Enter Given Name here', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('given_name'))
                         <div class="form-control-feedback">{{ $errors->first('given_name') }}</div>
                     @endif
@@ -166,7 +166,7 @@ hr.p-hr {
             <div class="col-sm-5">
                 <div class="form-group {{ $errors->has('middle_name') ? ' has-error' : '' }}">
                     {!! Form::label('middle_name', 'Middle Name') !!}
-                    {!! Form::text('persons['.$i.'][middle_name]', null,['placeholder'=>'Enter Middle Name', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][middle_name]', null,['placeholder'=>'Enter Middle Name', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('middle_name'))
                         <div class="form-control-feedback">{{ $errors->first('middle_name') }}</div>
                     @endif
@@ -190,7 +190,7 @@ hr.p-hr {
             <div class="col-sm-6">
                 <div class="form-group {{ $errors->has('passport_num') ? ' has-error' : '' }}">
                     {!! Form::label('passport_num', 'Passport') !!}
-                    {!! Form::text('persons['.$i.'][passport_num]', null,['placeholder'=>'99999-9999999-9.', 'class'=>'form-control']) !!}
+                    {!! Form::text('persons['.$i.'][passport_num]', null,['placeholder'=>'99999-9999999-9.', 'class'=>'form-control persons']) !!}
                     @if ($errors->has('passport_num'))
                         <div class="form-control-feedback">{{ $errors->first('passport_num') }}</div>
                     @endif

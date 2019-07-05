@@ -68,7 +68,7 @@
     @endif
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_double_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_double_qty) && $iternary_double_qty==0) ? 'hide' : '' }} iternary_triple_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_double_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_double_price', 'Double') !!}
         {!! Form::text('iternary_double_price[]', (isset($iternary_double_price)) ? $iternary_double_price : null,['placeholder'=>'', 'class'=>'form-control iternary_double_price', 'readonly'=>'readonly']) !!}
@@ -86,7 +86,7 @@
 </div>
 
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_triple_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_triple_qty) && $iternary_triple_qty==0) ? 'hide' : '' }} iternary_triple_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_triple_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_triple_price', 'Triple') !!}
         {!! Form::text('iternary_triple_price[]', (isset($iternary_triple_price)) ? $iternary_triple_price : null,['placeholder'=>'', 'class'=>'form-control iternary_triple_price', 'readonly'=>'readonly']) !!}
@@ -104,7 +104,7 @@
 </div>
 
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_quad_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_quad_qty) && $iternary_quad_qty==0) ? 'hide' : '' }} iternary_quad_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_quad_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_quad_price', 'Quad') !!}
         {!! Form::text('iternary_quad_price[]', (isset($iternary_quad_price)) ? $iternary_quad_price : null,['placeholder'=>'', 'class'=>'form-control iternary_quad_price', 'readonly'=>'readonly']) !!}
@@ -122,7 +122,7 @@
 </div>
 
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_quint_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_quad_qty) && $iternary_quad_qty==0) ? 'hide' : '' }} iternary_quint_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_quint_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_quint_price', 'Quint') !!}
         {!! Form::text('iternary_quint_price[]', (isset($iternary_quint_price)) ? $iternary_quint_price : null,['placeholder'=>'', 'class'=>'form-control iternary_quint_price', 'readonly'=>'readonly']) !!}
@@ -139,7 +139,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_sharing_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_sharing_qty) && $iternary_sharing_qty==0) ? 'hide' : '' }} iternary_sharing_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_sharing_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_sharing_price', 'Sharing') !!}
         {!! Form::text('iternary_sharing_price[]', (isset($iternary_sharing_price)) ? $iternary_sharing_price : null,['placeholder'=>'', 'class'=>'form-control iternary_sharing_price', 'readonly'=>'readonly']) !!}
@@ -156,7 +156,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_weekend_price_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_weekend_price_qty) && $iternary_weekend_price_qty==0) ? 'hide' : '' }} iternary_weekend_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_weekend_price_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_weekend_price_price', 'Weekend Price') !!}
         {!! Form::text('iternary_weekend_price_price[]', (isset($iternary_weekend_price_price)) ? $iternary_weekend_price_price : null,['placeholder'=>'', 'class'=>'form-control pricing-input iternary_weekend_price_price', 'readonly'=>'readonly']) !!}
@@ -173,7 +173,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_haram_view_price_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_haram_view_price_qty) && $iternary_haram_view_price_qty==0) ? 'hide' : '' }} iternary_haram_view_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_haram_view_price_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_haram_view_price_price', 'Haram View Price') !!}
         {!! Form::text('iternary_haram_view_price_price[]', (isset($iternary_haram_view_price_price)) ? $iternary_haram_view_price_price : null,['placeholder'=>'', 'class'=>'form-control iternary_haram_view_price_price', 'readonly'=>'readonly']) !!}
@@ -190,7 +190,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_full_board_per_pax_per_day_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_full_board_per_pax_per_day_qty) && $iternary_full_board_per_pax_per_day_qty==0) ? 'hide' : '' }} iternary_full_board_per_pax_per_day_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_full_board_per_pax_per_day_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_full_board_per_pax_per_day_price', 'Full Board/pax/Day') !!}
         {!! Form::text('iternary_full_board_per_pax_per_day_price[]', (isset($iternary_full_board_per_pax_per_day_price)) ? $iternary_full_board_per_pax_per_day_price : null,['placeholder'=>'', 'class'=>'form-control iternary_full_board_per_pax_per_day_price', 'readonly'=>'readonly']) !!}
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_four_nights_price_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_four_nights_price_qty) && $iternary_four_nights_price_qty==0) ? 'hide' : '' }} iternary_four_nights_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_four_nights_price_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_four_nights_price_price', 'Four Nights') !!}
         {!! Form::text('iternary_four_nights_price_price[]', (isset($iternary_four_nights_price_price)) ? $iternary_four_nights_price_price : null,['placeholder'=>'', 'class'=>'form-control iternary_four_nights_price_price', 'readonly'=>'readonly']) !!}
@@ -224,7 +224,7 @@
     </div>
 </div>
 
-<div class="row makkah-feature-div {{$featureclass}} iternary_extra_bed_price_div">
+<div class="row makkah-feature-div {{$featureclass}} {{ (isset($iternary_extra_bed_price_qty    ) && $iternary_extra_bed_price_qty==0) ? 'hide' : '' }} iternary_extra_bed_price_div">
     <div class="form-group form-group col-sm-6 {{ $errors->has('iternary_extra_bed_price_price') ? ' has-error' : '' }}">
         {!! Form::label('iternary_extra_bed_price_price', 'Extra Bed') !!}
         {!! Form::text('iternary_extra_bed_price_price[]', (isset($iternary_extra_bed_price_price)) ? $iternary_extra_bed_price_price : null,['placeholder'=>'', 'class'=>'form-control iternary_extra_bed_price_price', 'readonly'=>'readonly']) !!}

@@ -1,4 +1,13 @@
 $(document).ready(function() {
+	
+	$(".add-new-flight-detail").on('click', function(){
+		var $iternaryHolder = $(".airline-details:last-child");
+		var html = $("<div />").append($iternaryHolder.clone()).html();
+		$iternaryHolder.after(html);
+		// $(".airline-details:last-child div.makkah-feature-div").addClass('hide');
+	});
+
+	
 	function get_total_nights(from_date, to_date){
 		var date1 = new Date(from_date);
 		var date2 = new Date(to_date);
@@ -43,9 +52,9 @@ $(document).ready(function() {
 				if(request.status==422){
 					var obj = JSON.parse(request.responseText);
 					$.each(obj.errors, function(key, value) {
+						console.log(key);
 						// check for array inputs
 						var chunks = key.split(".");
-
 						// add has-error class to parent with a class form-group
 						// add form-control-feedback and add text in it
 						if( chunks.length == 2 ) {
