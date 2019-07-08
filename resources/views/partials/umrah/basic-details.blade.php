@@ -190,7 +190,7 @@
     <div class="col-sm-2">
         <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
             {!! Form::label('flight_type', 'DEP/ARR') !!}
-            {!! Form::select('flight_type', $flightTypeSelect, null, ['placeholder'=>'Select Flight Type', 'class'=>'form-control']) !!}
+            {!! Form::select('flight_type', $flightStatusSelect, null, ['placeholder'=>'Select Flight Status', 'class'=>'form-control']) !!}
             @if ($errors->has('flight_type'))
                 <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
             @endif
@@ -200,7 +200,7 @@
     <div class="col-sm-2">
         <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
             {!! Form::label('flight_type', 'City/Terminal/Stopover City') !!}
-            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'rows'=>'1', 'class'=>'form-control readonly']) !!}
             @if ($errors->has('flight_type'))
                 <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
             @endif
@@ -220,7 +220,7 @@
     <div class="col-sm-2">
         <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
             {!! Form::label('flight_type', 'Fligt/Class/Status') !!}
-            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'rows'=>'1', 'class'=>'form-control readonly']) !!}
             @if ($errors->has('flight_type'))
                 <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
             @endif
@@ -230,7 +230,7 @@
     <div class="col-sm-2">
         <div class="form-group {{ $errors->has('flight_type') ? ' has-error' : '' }}">
             {!! Form::label('flight_type', 'STOP/EQP/FLYING TIME/SERVICES') !!}
-            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'class'=>'form-control readonly']) !!}
+            {!! Form::textarea('airline', null,['placeholder'=>'Airline', 'rows'=>'1', 'class'=>'form-control readonly']) !!}
             @if ($errors->has('flight_type'))
                 <div class="form-control-feedback">{{ $errors->first('flight_type') }}</div>
             @endif

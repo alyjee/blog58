@@ -71,11 +71,12 @@ class UmrahController extends Controller
         $hotelSelect = Hotel::getHotelsForSelect();
         $packageSelect = Package::getPackagesForSelect();
         $flightTypeSelect = UmrahForm::getFlightTypes();
+        $flightStatusSelect = UmrahForm::getFlightStatuses();
         $transportTypeSelect = UmrahForm::getTransportTypes();
         $packages = Package::getPackages();
         $featureclass = 'hide';
 
-        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass]);
+        return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'flightStatusSelect'=>$flightStatusSelect]);
     }
 
     /**
@@ -134,6 +135,7 @@ class UmrahController extends Controller
 
             $hotelSelect = Hotel::getHotelsForSelect();
             $flightTypeSelect = UmrahForm::getFlightTypes();
+            $flightStatusSelect = UmrahForm::getFlightStatuses();
             $packages = Package::getPackages();
             $packageSelect = Package::getPackagesForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
@@ -146,7 +148,7 @@ class UmrahController extends Controller
 
             $featureclass = '';
 
-            $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass];
+            $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'flightStatusSelect'=>$flightStatusSelect];
 
             // return view('pages.umrah.print_phase1', $data);
 
@@ -181,6 +183,7 @@ class UmrahController extends Controller
             $form_ref_number = UmrahForm::getRefNum();
             $hotelSelect = Hotel::getHotelsForSelect();
             $flightTypeSelect = UmrahForm::getFlightTypes();
+            $flightStatusSelect = UmrahForm::getFlightStatuses();
             $packages = Package::getPackages();
             $packageSelect = Package::getPackagesForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
@@ -188,7 +191,7 @@ class UmrahController extends Controller
             $transportTypeSelect = UmrahForm::getTransportTypes();
             $featureclass = '';
 
-            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass]);
+            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'flightTypeSelect'=>$flightTypeSelect, 'packageSelect'=>$packageSelect, 'packages'=>$packages, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'flightStatusSelect'=>$flightStatusSelect]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }

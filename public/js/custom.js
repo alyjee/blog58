@@ -1,10 +1,9 @@
 $(document).ready(function() {
 	
 	$(".add-new-flight-detail").on('click', function(){
-		var $iternaryHolder = $(".airline-details:last-child");
+		var $iternaryHolder = $(".airline-details").last();
 		var html = $("<div />").append($iternaryHolder.clone()).html();
 		$iternaryHolder.after(html);
-		// $(".airline-details:last-child div.makkah-feature-div").addClass('hide');
 	});
 
 	

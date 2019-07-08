@@ -49,6 +49,13 @@ class UmrahForm extends Model
         return $categories;
     }
 
+    public static function getFlightStatuses(){
+        $data = [];
+        $data['arr'] = 'ARR';
+        $data['dep'] = 'DEP';
+        return $data;
+    }
+
     public static function getTransportTypes(){
         $categories = [];
         $categories['private'] = 'Private';
