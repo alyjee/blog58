@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-xs-6 text-left">
-		<p><b>Date: </b>{{ $form_creation_date }}</p>
+		<p><b>Date: </b>{{ date('j F, Y', strtotime($form_creation_date)) }}</p>
 	</div>
 
 	<div class="col-xs-6 text-right">
@@ -22,11 +22,11 @@
 <div class="row">
 
 	<div class="col-xs-3">
-        <p><b>From Date: </b>{{ $proposedForm->from_date }}</p>
+        <p><b>From Date: </b>{{ date('j F, Y', strtotime($proposedForm->from_date)) }}</p>
 	</div>
 
 	<div class="col-xs-3">
-		<p><b>To Date: </b>{{ $proposedForm->to_date }}</p>
+		<p><b>To Date: </b>{{ date('j F, Y', strtotime($proposedForm->to_date)) }}</p>
 	</div>
 
     <div class="col-xs-6">
@@ -71,8 +71,30 @@
 	</div>
 
 	<div class="col-sm-6 col-xs-6">
-        <p><b>Flight Type: </b>{{ $proposedForm->flight_type }}</p>
+        <p style="text-transform: capitalize;"><b>Flight Type: </b>{{ $proposedForm->flight_type }}</p>
 	</div>
+	@if(isset($proposedForm) && $proposedForm->flight_details()->count() > 0)
+		<div class="col-sm-12 col-xs-12">
+			<table class="table" >
+				<thead>
+					<tr>
+						<th>Day</th>
+						<th>Date</th>
+						<th>---</th>
+						<th>City/Terminal<br />/Stopover City</th>
+						<th>Time</th>
+						<th>Flight/Class/Status</th>
+						<th>Stop/EQP/Flying Time Services</th>
+					</tr>
+				</thead>
+				<tbody>
+				    @foreach($proposedForm->flight_details()->get() as $flight_detail)
+				        @include('partials/print/umrah/flight-details', $flight_detail->toArray())
+				    @endforeach
+			    </tbody>
+			</table>
+		</div>
+	@endif
 </div>
 @endif
 <hr />

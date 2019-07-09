@@ -29,8 +29,6 @@
 	            	@if(\Request::route()->getName() == 'dashboard.umrah.phase2.create')
 	            		@include('partials/umrah/payment-details')
 	            	@endif
-	            	{{-- @include('partials/umrah/terms-and-conditions') --}}
-	            	{{-- @include('partials/umrah/signature') --}}
 
 	            	
 	            	<div class="row">

@@ -14,6 +14,5 @@
         	?>
             @include('partials/print/umrah/hotel_detail_attributes', $itinerary)
         </div>
-        <hr />
     @endforeach
 @endif

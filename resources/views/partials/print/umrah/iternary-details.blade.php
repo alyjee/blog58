@@ -10,3 +10,5 @@
 		<p><b>Includes: </b> Visa Charges</p>
 	</div>
 </div>
+
+<hr />

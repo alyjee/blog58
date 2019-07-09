@@ -74,6 +74,11 @@ Breadcrumbs::register('dashboard.umrah.index', function ($breadcrumbs) {
 	    $breadcrumbs->push('Finalize Proposal', route('dashboard.umrah.phase2.create', ['id'=>1]));
 	});
 
+	Breadcrumbs::register('dashboard.umrah.phase2.print', function ($breadcrumbs) {
+	    $breadcrumbs->parent('dashboard.umrah.index');
+	    $breadcrumbs->push('Print Proposal', route('dashboard.umrah.phase2.print', ['id'=>1]));
+	});
+
 Breadcrumbs::register('dashboard.umrah.phase2.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');
     $breadcrumbs->push('Final Umrah Forms', route('dashboard.umrah.phase2.index'));

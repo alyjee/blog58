@@ -57,6 +57,7 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     Route::get('/umrah/final/forms', ['as' =>'umrah.phase2.index', 'uses'=>'Admin\UmrahController@phase2Index']);
     Route::get('/umrah/phase2/{id}/create', ['as' =>'umrah.phase2.create', 'uses'=>'Admin\UmrahController@createPhase2']);
     Route::post('/umrah/phase2/{id}/store', ['as' =>'umrah.phase2.store', 'uses'=>'Admin\UmrahController@storePhase2']);
+    Route::get('/umrah/phase2/print/{id}', ['as' =>'umrah.phase2.print', 'uses'=>'Admin\UmrahController@printPhase2']);
 
 
     // Route::get('/rooms', ['as' =>'rooms.index', 'uses'=>'Admin\RoomController@index']);

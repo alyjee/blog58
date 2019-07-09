@@ -67,6 +67,7 @@ $(document).ready(function() {
 				if(request.status==422){
 					var obj = JSON.parse(request.responseText);
 					$.each(obj.errors, function(key, value) {
+						console.log(key);
 						// check for array inputs
 						var chunks = key.split(".");
 						// add has-error class to parent with a class form-group
@@ -76,6 +77,10 @@ $(document).ready(function() {
 							var elements = $('.'+chunks[0]);
 							var element_index = chunks[1];
 							$(elements[element_index]).parents('.form-group').addClass('has-error');
+						} else if ( chunks.length == 3 ) {
+							console.log(chunks);
+							var selector = "input[name='" + chunks[0] + "[" + chunks[1] + "][" + chunks[2] + "]" +"']";
+							$(selector).parents('.form-group').addClass('has-error');
 						} else {
 							$('#'+key).parents('.form-group').addClass('has-error');
 						}

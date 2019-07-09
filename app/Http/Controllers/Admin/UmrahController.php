@@ -289,6 +289,11 @@ class UmrahController extends Controller
         if($forms->count() > 0){
             $forms->map(function($form){
                 $actions = '
+                <a href="'.route('dashboard.umrah.phase2.print', ['id' => $form->id]).'">
+                    <span class="label label-info m-l-5"><i class="fa fa-print"></i></span>
+                </a>';
+
+                $actions .= '
                 <a href="'.route('dashboard.umrah.phase2.create', ['id' => $form->id]).'">
                     <span class="label label-info m-l-5"><i class="fa fa-eye"></i></span>
                 </a>';
@@ -323,6 +328,7 @@ class UmrahController extends Controller
             $hotelSelect = Hotel::getHotelsForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
             $flightTypeSelect = UmrahForm::getFlightTypes();
+            $flightStatusSelect = UmrahForm::getFlightStatuses();
             $personalDetails = PersonalDetail::where('form_id', $id)->get();
             $paymentlDetails = PaymentDetail::where('form_id', $id)->get();
 
@@ -332,7 +338,51 @@ class UmrahController extends Controller
             $transportTypeSelect = UmrahForm::getTransportTypes();
             $featureclass = '';
 
-            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'paymentlDetails'=>$paymentlDetails]);
+            return view('pages.umrah.phase1', ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'paymentlDetails'=>$paymentlDetails, 'flightStatusSelect'=>$flightStatusSelect]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+    }
+
+    /**
+     * Show the form for phase2 progress.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function printPhase2($id)
+    {
+        try {
+            $hotels = Hotel::getHotels();
+            $categoriesSelect = Hotel::getHotelCategories();
+            $roomCategoriesSelect = Hotel::getHotelRoomCategories();
+            $today_date = Carbon::today()->format('d M Y');
+            $form_ref_number = UmrahForm::getRefNum();
+            $hotelSelect = Hotel::getHotelsForSelect();
+            $proposedForm = UmrahForm::where('id', $id)->first();
+            $flightTypeSelect = UmrahForm::getFlightTypes();
+            $flightStatusSelect = UmrahForm::getFlightStatuses();
+            $personalDetails = PersonalDetail::where('form_id', $id)->get();
+            $paymentlDetails = PaymentDetail::where('form_id', $id)->get();
+
+            $packages = Package::getPackages();
+            $packageSelect = Package::getPackagesForSelect();
+
+            $transportTypeSelect = UmrahForm::getTransportTypes();
+            $featureclass = '';
+
+            $data = ['categoriesSelect'=>$categoriesSelect, 'roomCategoriesSelect'=>$roomCategoriesSelect, 'form_creation_date' => $today_date, 'form_ref_number'=>$form_ref_number, 'hotelSelect'=>$hotelSelect, 'hotels'=>$hotels, 'proposedForm'=>$proposedForm, 'personalDetails'=>$personalDetails, 'flightTypeSelect'=>$flightTypeSelect, 'packages'=>$packages, 'packageSelect'=>$packageSelect, 'transportTypeSelect'=>$transportTypeSelect, 'featureclass'=>$featureclass, 'paymentlDetails'=>$paymentlDetails, 'flightStatusSelect'=>$flightStatusSelect];
+
+            $viewsPath = Config::get('view.paths');
+            $headerPath = $viewsPath[0].'/eadmin/partials/print/header.html';
+            $footerPath = $viewsPath[0].'/eadmin/partials/print/footer.html';
+            
+            $pdf = \App::make('snappy.pdf.wrapper');
+            $pdf->setOption('header-html', $headerPath);
+            $pdf->setOption('footer-html', $footerPath);
+            $pdf->setPaper('a4');
+            $pdf->loadView('pages.umrah.print_phase1', $data);
+            return $pdf->download('invoice.pdf');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
         }
@@ -361,21 +411,32 @@ class UmrahController extends Controller
 
             $payment_detail_data = [];
             foreach ($inputs['received_amount'] as $key => $received_amount) {
+                if(empty($received_amount))
+                    continue;
                 $payment_detail_data[$key]['form_id'] = $id;
                 $payment_detail_data[$key]['received_amount'] = $received_amount;
                 $payment_detail_data[$key]['receiving_date'] = $inputs['receiving_date'][$key];
                 $payment_detail_data[$key]['created_at'] = Carbon::now();
                 $payment_detail_data[$key]['updated_at'] = Carbon::now();
             }
-            PaymentDetail::where('form_id', $id)->delete();
-            PaymentDetail::insert($payment_detail_data);
 
-            UmrahForm::where('id', $id)->update(['stage'=>'final']);
+            if( !empty($payment_detail_data) ) {
+                PaymentDetail::where('form_id', $id)->delete();
+                PaymentDetail::insert($payment_detail_data);
+            }
+
+            $umrahForm = UmrahForm::where('id', $id)->update(['stage'=>'final']);
             DB::commit();
-            return redirect()->route('dashboard.umrah.phase2.index');
+
+            $data = [];
+            $data['redirect_url'] = route('dashboard.umrah.phase2.index');
+            $data['umrah_form'] = $umrahForm;
+            return response()->json(['success'=> true, 'message'=>'Success! Umrah Proposal saved successfully!', 'data'=>$data]);
+            return response()->json(['success'=>true, 'message'=>'Success! Umrah Proposal saved successfully!']);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors([$e->getMessage()]);
+            return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
         }
+
     }
 
     /**

@@ -1,7 +1,8 @@
-<h5>{{ $iternary_from_date }} - {{ $iternary_to_date }} - {{ $iternary_hotel.' : '.$iternary_city }}</h5>
-<p>{{ $iternary_hotel_category }} {{ $iternary_hotel_distance_from_haram }} {{ $iternary_hotel_meal_plan }}</p>
+<h5 style="font-weight: bold;">{{ date('j F, Y', strtotime($iternary_from_date)) }} <i>to</i> {{ date('j F, Y', strtotime($iternary_to_date)) }} <i>stay in</i> {{ $iternary_hotel.', '.$iternary_city }} City</h5>
 
-<table class="table">
+<p>{{ $iternary_hotel_category }}, {{ $iternary_hotel_distance_from_haram }}, {{ $iternary_hotel_meal_plan }}</p>
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th class="{{ (isset($iternary_double_qty) && $iternary_double_qty==0) ? 'hide' : '' }}">
