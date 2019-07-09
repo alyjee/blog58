@@ -13,6 +13,7 @@ use App\PersonalDetail;
 use App\Setting;
 use App\PaymentDetail;
 use App\Itinerary;
+use App\FlightDetail;
 
 use Illuminate\Support\Carbon;
 use DB;
@@ -104,7 +105,12 @@ class UmrahController extends Controller
             DB::beginTransaction();
             $umrahForm = UmrahForm::create($inputs);
             $iternary_pricings = self::getIternaryPricings($inputs, $umrahForm->id);
+            $flight_details = self::getFlightDetails($inputs, $umrahForm->id);
+            
             Itinerary::insert($iternary_pricings['iternaries']);
+            if( !empty($flight_details) ){
+                FlightDetail::insert($flight_details);
+            }
 
             if($umrahForm->exists){
                 DB::commit();
@@ -699,6 +705,30 @@ class UmrahController extends Controller
         $data = [];
         $data['iternaries'] = $iternaries;
         $data['all_iternaries_total'] = round($all_iternaries_total, 2);
+        return $data;
+    }
+
+    public static function getFlightDetails($inputs, $formId)
+    {
+        $data = [];
+        foreach ($inputs['date'] as $key => $date) {
+            if( empty($date) ) {
+                continue;
+            }
+            $flight_detail = [];
+            $flight_detail['form_id'] = $formId;
+            $flight_detail['day'] = $inputs['day'][$key];
+            $flight_detail['date'] = $inputs['date'][$key];
+            $flight_detail['flight_status'] = $inputs['flight_status'][$key];
+            $flight_detail['city_terminal_stopover'] = $inputs['city_terminal_stopover'][$key];
+            $flight_detail['time'] = $inputs['time'][$key];
+            $flight_detail['flight_class_status'] = $inputs['flight_class_status'][$key];
+            $flight_detail['stop_eqp_flts'] = $inputs['stop_eqp_flts'][$key];
+            $flight_detail['created_at'] = Carbon::now();
+            $flight_detail['updated_at'] = Carbon::now();
+
+            $data[] = $flight_detail;
+        }
         return $data;
     }
 

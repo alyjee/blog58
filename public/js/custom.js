@@ -1,9 +1,18 @@
 $(document).ready(function() {
+
+	$(document).on("change", ".flight-date", function(){
+		var weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+		var a = new Date($(this).val());
+		var day = weekday[a.getDay()];
+		$(this).parents('.airline-details').find('.flight-day').val(day);
+	});
 	
 	$(".add-new-flight-detail").on('click', function(){
-		var $iternaryHolder = $(".airline-details").last();
-		var html = $("<div />").append($iternaryHolder.clone()).html();
-		$iternaryHolder.after(html);
+		var $lastFlightDetail = $(".airline-details").last();
+		var html = $("<div />").append($lastFlightDetail.clone()).html();
+		$lastFlightDetail.after(html);
+		var $newLastFlightDetail = $(".airline-details").last();
+		$newLastFlightDetail.find('input, textarea, select').val('');
 	});
 
 	
@@ -80,6 +89,7 @@ $(document).ready(function() {
 		var html = $("<div />").append($iternaryHolder.clone()).html();
 		$iternaryHolder.after(html);
 		$(".iternary-holder:last-child div.makkah-feature-div").addClass('hide');
+		$(".iternary-holder:last-child").find('input,textarea, select').val('');
 	});
 
 

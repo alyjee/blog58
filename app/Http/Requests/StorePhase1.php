@@ -92,6 +92,14 @@ class StorePhase1 extends FormRequest
             'iternary_hotel_category.*' => 'required',
             'iternary_hotel_meal_plan.*' => 'required',
 
+            'day.*' => 'required_with:airline',
+            'date.*' => 'required_with:airline',
+            'flight_status.*' => 'required_with:airline',
+            'city_terminal_stopover.*' => 'required_with:airline',
+            'time.*' => 'required_with:airline',
+            'flight_class_status.*' => 'required_with:airline',
+            'stop_eqp_flts.*' => 'required_with:airline',
+
             'umrah_per_person' => 'required',
             'adult_ticket_price' => 'required',
             'child_ticket_price' => 'required',
