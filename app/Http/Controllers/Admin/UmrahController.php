@@ -229,6 +229,8 @@ class UmrahController extends Controller
             foreach ($inputs as $key => $value) {
                 if( strpos($key, 'iternary_') !== false ){
                     continue;
+                } else if ( in_array($key, FlightDetail::$all_fields) ) {
+                    continue;
                 } else {
                     $form_inputs[$key] = $value;
                 }
@@ -238,6 +240,12 @@ class UmrahController extends Controller
             $iternary_pricings = self::getIternaryPricings($inputs, $id);
             Itinerary::where('form_id', $id)->delete();
             Itinerary::insert($iternary_pricings['iternaries']);
+
+            $flight_details = self::getFlightDetails($inputs, $id);
+            if( !empty($flight_details) ){
+                FlightDetail::where('form_id', $id)->delete();
+                FlightDetail::insert($flight_details);
+            }
 
             if($form){
                 DB::commit();

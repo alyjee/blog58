@@ -1,4 +1,11 @@
 $(document).ready(function() {
+	$(document).on("click", ".remove-flight-detail", function(){
+		if( $(".airline-details").length > 1 ) {
+			$(this).parents(".airline-details").remove();
+		} else {
+			return;
+		}
+	});
 
 	$(document).on("change", ".flight-date", function(){
 		var weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -60,7 +67,6 @@ $(document).ready(function() {
 				if(request.status==422){
 					var obj = JSON.parse(request.responseText);
 					$.each(obj.errors, function(key, value) {
-						console.log(key);
 						// check for array inputs
 						var chunks = key.split(".");
 						// add has-error class to parent with a class form-group

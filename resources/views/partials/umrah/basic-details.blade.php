@@ -161,7 +161,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12 text-right">
+    <div class="col-sm-12 text-right" style="margin-bottom: 15px;">
         <button type="button" class="btn btn-primary add-new-flight-detail">Flight +</button>
     </div>
 </div>
