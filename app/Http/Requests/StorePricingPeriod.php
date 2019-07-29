@@ -32,7 +32,7 @@ class StorePricingPeriod extends FormRequest
         if(strpos(Request::path(), 'update')!==false){
             return [
                 'from_date' => 'required|date',
-                'to_date' => 'required|date'
+                'to_date' => 'required|date|after_or_equal:from_date'
             ];
         }
 

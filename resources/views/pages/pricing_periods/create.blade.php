@@ -38,7 +38,40 @@
 	            		</div>
             		</div>
 
-	            	<div class="row feature-row">
+            		@foreach($pp->pricing_features()->get() as $pf)
+            			<div class="row feature-row">
+		            		<div class="form-group col-sm-5 {{ $errors->has('feature[name][]') ? ' has-error' : '' }}">
+			            		{!! Form::label('feature[name][]', 'Feature Name') !!}
+			            		{!! Form::text('feature[name][]', $pf->name,['placeholder'=>'Enter Feature Name', 'class'=>'form-control']) !!}
+			            		@if ($errors->has('feature[name][]'))
+		                            <div class="form-control-feedback">{{ $errors->first('feature[name][]') }}</div>
+		                        @endif
+		            		</div>
+
+		            		<div class="form-group col-sm-3 {{ $errors->has('feature[price][]') ? ' has-error' : '' }}">
+			            		{!! Form::label('feature[price][]', 'Feature Price - Weekdays') !!}
+			            		{!! Form::text('feature[price][]', $pf->price,['placeholder'=>'Feature Weekdays Price', 'class'=>'form-control']) !!}
+			            		@if ($errors->has('feature[price][]'))
+		                            <div class="form-control-feedback">{{ $errors->first('feature[price][]') }}</div>
+		                        @endif
+		            		</div>
+
+		            		<div class="form-group col-sm-3 {{ $errors->has('feature[weekend_price][]') ? ' has-error' : '' }}">
+			            		{!! Form::label('feature[weekend_price][]', 'Feature Price - Weekends') !!}
+			            		{!! Form::text('feature[weekend_price][]', $pf->weekend_price,['placeholder'=>'Feature Weekends Price', 'class'=>'form-control']) !!}
+			            		@if ($errors->has('feature[weekend_price][]'))
+		                            <div class="form-control-feedback">{{ $errors->first('feature[weekend_price][]') }}</div>
+		                        @endif
+		            		</div>
+
+		            		<div class="form-group col-sm-1">
+					            <label for="Remove">Remove</label>
+					            <button type="button" class="btn btn-danger remove-feature">X</button>
+					        </div>
+	            		</div>
+            		@endforeach
+
+            		<div class="row feature-row">
 	            		<div class="form-group col-sm-5 {{ $errors->has('feature[name][]') ? ' has-error' : '' }}">
 		            		{!! Form::label('feature[name][]', 'Feature Name') !!}
 		            		{!! Form::text('feature[name][]', null,['placeholder'=>'Enter Feature Name', 'class'=>'form-control']) !!}
@@ -55,11 +88,11 @@
 	                        @endif
 	            		</div>
 
-	            		<div class="form-group col-sm-3 {{ $errors->has('feature[price][]') ? ' has-error' : '' }}">
-		            		{!! Form::label('feature[price][]', 'Feature Price - Weekends') !!}
-		            		{!! Form::text('feature[price][]', null,['placeholder'=>'Feature Weekends Price', 'class'=>'form-control']) !!}
-		            		@if ($errors->has('feature[price][]'))
-	                            <div class="form-control-feedback">{{ $errors->first('feature[price][]') }}</div>
+	            		<div class="form-group col-sm-3 {{ $errors->has('feature[weekend_price][]') ? ' has-error' : '' }}">
+		            		{!! Form::label('feature[weekend_price][]', 'Feature Price - Weekends') !!}
+		            		{!! Form::text('feature[weekend_price][]', null,['placeholder'=>'Feature Weekends Price', 'class'=>'form-control']) !!}
+		            		@if ($errors->has('feature[weekend_price][]'))
+	                            <div class="form-control-feedback">{{ $errors->first('feature[weekend_price][]') }}</div>
 	                        @endif
 	            		</div>
 

@@ -10,7 +10,7 @@ class PricingPeriod extends Model
     //
     public $timestamps = true;
 
-    protected $fillable = ['id', 'hotel_id', 'from_date', 'to_date', 'double', 'triple', 'quad', 'quint', 'sharing', 'weekend_price', 'haram_view_price', 'bf_per_pax_per_day', 'full_board_per_pax_per_day', 'four_nights_price', 'extra_bed_price', 'archive', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'hotel_id', 'from_date', 'to_date', 'archive', 'created_at', 'updated_at'];
 
     public static $categories = [];
 
@@ -21,6 +21,10 @@ class PricingPeriod extends Model
 
     public static function getPricingPeriodByDates($hid, $fdate, $tdate){
     	return PricingPeriod::where('hotel_id', $hid)->where('from_date', '<=', $fdate)->where('to_date', '>=', $tdate)->where('archive', 0)->first();
+    }
+
+    public function pricing_features(){
+        return $this->hasMany('App\PricingFeature', 'pricing_period_id', 'id');
     }
     
 }

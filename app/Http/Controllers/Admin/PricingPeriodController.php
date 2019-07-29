@@ -9,7 +9,10 @@ use App\Hotel;
 
 use App\Http\Requests\StorePricingPeriod;
 use App\PricingPeriod;
+use App\PricingFeature;
 use Illuminate\Support\Carbon;
+
+use DB;
 
 class PricingPeriodController extends Controller
 {
@@ -25,7 +28,7 @@ class PricingPeriodController extends Controller
         try {
             $hotel = Hotel::where('id', $hid)->first();
             if($hotel){
-                return view('pages.pricing_periods.create', ['hotel' => $hotel]);
+                return view('pages.pricing_periods.create', ['hotel' => $hotel, 'pp' => new PricingPeriod]);
             }
             return redirect()->back()->withErrors(['Failed to find hotel.'])->withInput();
         } catch (\Exception $e) {
@@ -52,20 +55,37 @@ class PricingPeriodController extends Controller
             $feature['name'] = $inputs['feature']['name'][$key];
             $feature['price'] = $inputs['feature']['price'][$key];
             $feature['weekend_price'] = (!empty($inputs['feature']['weekend_price'][$key])) ? $inputs['feature']['weekend_price'][$key] : $inputs['feature']['price'][$key];
-            $feature['created_at'] = Carbon::now();
-            $feature['updated_at'] = Carbon::now();
-
             $features[] = $feature;
         }
+
+        $features = self::makeFeatureData($inputs);
         
-        dd($features);
+        if( empty($features) ) {
+            return response()->json(['success'=>false, 'message'=>'At least one feature is required to add a pricing period!']);
+        }
+
+        unset($inputs['feature']);
 
         $inputs['hotel_id'] = $hid;
+
+        DB::beginTransaction();
+
         $pp = PricingPeriod::create($inputs);
+
         if($pp->exists){
-            return redirect()->route('dashboard.hotels.edit', ['id'=>$hid]);
+            foreach ($features as $key => $feature) {
+                $features[$key]['pricing_period_id'] = $pp->id;
+            }
+            PricingFeature::where(['pricing_period_id' => $pp->id])->delete();
+            PricingFeature::insert($features);
+            DB::commit();
+            $data = [];
+            $data['redirect_url'] = route('dashboard.hotels.edit', ['id'=>$hid]);
+            $data['pricing_period'] = $pp;
+            return response()->json(['success'=> true, 'message'=>'Success! Pricing Period saved successfull!', 'data'=>$data]);
         }
-        return redirect()->back()->withErrors(['Failed to add new pricing period'])->withInput();
+        DB::rollBack();
+        return response()->json(['success'=>false, 'message'=>'Failed to save pricing feature!']);
     }
 
     /**
@@ -96,14 +116,54 @@ class PricingPeriodController extends Controller
     {
         try {
             $inputs = $request->except('_token');
-            $pp = PricingPeriod::where('id', $id)->update($inputs);
-            if($pp){
-                return redirect()->route('dashboard.hotels.edit', ['id'=>$hid]);
+
+            $features = self::makeFeatureData($inputs);
+            
+            if( empty($features) ) {
+                return response()->json(['success'=>false, 'message'=>'At least one feature is required to add a pricing period!']);
             }
-            return redirect()->back()->withErrors(['Failed to update pricing period'])->withInput();
+
+            unset($inputs['feature']);
+
+            DB::beginTransaction();
+
+            $pp = PricingPeriod::where('id', $id)->update($inputs);
+
+            foreach ($features as $key => $feature) {
+                $features[$key]['pricing_period_id'] = $id;
+            }
+            PricingFeature::where(['pricing_period_id' => $id])->delete();
+            PricingFeature::insert($features);
+
+            if($pp){
+                DB::commit();
+                $data = [];
+                $data['redirect_url'] = route('dashboard.hotels.edit', ['id'=>$hid]);
+                $data['pricing_period'] = $pp;
+                return response()->json(['success'=> true, 'message'=>'Success! Pricing Period saved successfull!', 'data'=>$data]);
+            }
+            DB::rollBack();
+            return response()->json(['success'=> false, 'message'=>'Failed to save pricing features.']);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors([$e->getMessage()]);
+            DB::rollBack();
+            return response()->json(['success'=> false, 'message'=>$e->getMessage()]);
         }
+    }
+
+    public static function makeFeatureData($inputs){
+        $features = [];
+        foreach ($inputs['feature']['name'] as $key => $featureName) {
+            $feature = [];
+            if( empty($inputs['feature']['name'][$key]) || empty($inputs['feature']['price'][$key]) ){
+                continue;
+            }
+            $feature['name'] = $inputs['feature']['name'][$key];
+            $feature['price'] = $inputs['feature']['price'][$key];
+            $feature['weekend_price'] = (!empty($inputs['feature']['weekend_price'][$key])) ? $inputs['feature']['weekend_price'][$key] : $inputs['feature']['price'][$key];
+            $features[] = $feature;
+        }
+
+        return $features;
     }
 
     /**
