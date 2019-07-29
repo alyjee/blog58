@@ -1,4 +1,20 @@
 $(document).ready(function() {
+	$(document).on('click', '.add-new-feature', function(){
+		var $lastRow = $(".feature-row").last();
+		var html = $("<div />").append($lastRow.clone()).html();
+		$lastRow.after(html);
+		var $newLastRow = $(".feature-row").last();
+		$newLastRow.find('input, textarea, select').val('');
+	});
+
+	$(document).on("click", ".remove-feature", function(){
+		if( $(".feature-row").length > 1 ) {
+			$(this).parents(".feature-row").remove();
+		} else {
+			return;
+		}
+	});
+
 	$(document).on("click", ".remove-flight-detail", function(){
 		if( $(".airline-details").length > 1 ) {
 			$(this).parents(".airline-details").remove();

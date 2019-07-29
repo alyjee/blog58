@@ -9,6 +9,7 @@ use App\Hotel;
 
 use App\Http\Requests\StorePricingPeriod;
 use App\PricingPeriod;
+use Illuminate\Support\Carbon;
 
 class PricingPeriodController extends Controller
 {
@@ -41,6 +42,24 @@ class PricingPeriodController extends Controller
     public function store(StorePricingPeriod $request, $hid)
     {
         $inputs = $request->except('_token');
+
+        $features = [];
+        foreach ($inputs['feature']['name'] as $key => $featureName) {
+            $feature = [];
+            if( empty($inputs['feature']['name'][$key]) || empty($inputs['feature']['price'][$key]) ){
+                continue;
+            }
+            $feature['name'] = $inputs['feature']['name'][$key];
+            $feature['price'] = $inputs['feature']['price'][$key];
+            $feature['weekend_price'] = (!empty($inputs['feature']['weekend_price'][$key])) ? $inputs['feature']['weekend_price'][$key] : $inputs['feature']['price'][$key];
+            $feature['created_at'] = Carbon::now();
+            $feature['updated_at'] = Carbon::now();
+
+            $features[] = $feature;
+        }
+        
+        dd($features);
+
         $inputs['hotel_id'] = $hid;
         $pp = PricingPeriod::create($inputs);
         if($pp->exists){
