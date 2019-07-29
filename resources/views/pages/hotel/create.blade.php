@@ -66,36 +66,16 @@
                                 <tr>
                                     <th>From Date</th>
                                     <th>To Date</th>
-                                    <th>Double</th>
-                                    <th>Triple</th>
-                                    <th>Quad</th>
-                                    <th>Quint</th>
-                                    <th>Sharing</th>
-                                    <th>Weekend</th>
-                                    <th>H-View</th>
-                                    <th>BF/pax/day</th>
-                                    <th>FB/pax/day</th>
-                                    <th>4-Nights</th>
-                                    <th>Extra Bed</th>
+                                    <th>Features</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             	@foreach($hotel->pricings()->get()  as $pp)
-				            		<tr>
+				            		<tr style="text-align: left;">
 	                                    <td>{{ $pp->from_date }}</td>
 	                                    <td>{{ $pp->to_date }}</td>
-	                                    <td>{{ $pp->double }}</td>
-	                                    <td>{{ $pp->triple }}</td>
-	                                    <td>{{ $pp->quad }}</td>
-	                                    <td>{{ $pp->quint }}</td>
-	                                    <td>{{ $pp->sharing }}</td>
-	                                    <td>{{ $pp->weekend_price }}</td>
-	                                    <td>{{ $pp->haram_view_price }}</td>
-	                                    <td>{{ $pp->bf_per_pax_per_day }}</td>
-	                                    <td>{{ $pp->full_board_per_pax_per_day }}</td>
-	                                    <td>{{ $pp->four_nights_price }}</td>
-	                                    <td>{{ $pp->extra_bed_price }}</td>
+	                                    <td>{{ $pp->pricing_features()->get()->pluck('name') }}</td>
 	                                    <td>
 	                                    	<a href="{{ route('dashboard.hotels.pricing_period.edit', ['hid'=>$pp->hotel_id, 'id'=>$pp->id]) }}">
 							                    <span class="label label-info m-l-5"><i class="fa fa-eye"></i></span>

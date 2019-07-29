@@ -149,10 +149,11 @@ $(document).ready(function() {
 		}
 		var hotel_id = $(this).val();
 
+		$iternaryHolder.find('.dynamic-pf-input').parent('.form-group').remove();
+
 		$.ajax({
 			url: siteUrl + '/dashboard/hotels/getHotelFeatures',
 			type: 'GET',
-			// dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
 			data: {
 				hotel_id : hotel_id,
 				from_date : iternary_from_date,
@@ -160,16 +161,8 @@ $(document).ready(function() {
 			},
 			success: function(res){
 				if(res.success){
-					var div_selector = '';
-					var input_selector = '';
-					$.each(res.data.pp, function(key, value){
-						if( value!='' && value!=undefined && value!=0 && value!=null) {
-							div_selector = '.iternary_'+key+'_div';
-							input_selector = '.iternary_'+key+'_price';
-							$iternaryHolder.find(div_selector).removeClass('hide');
-							$iternaryHolder.find(input_selector).val(value);
-						}
-					});
+					$iternaryHolder.append(res.data.pricing_feature_inputs);
+
 					$iternaryHolder.find('.iternary_hotel_category').val(res.data.hotel.category)
 					$iternaryHolder.find('.iternary_hotel_distance_from_haram').val(res.data.hotel.distance_from_haram)
 					$iternaryHolder.find('.iternary_hotel_meal_plan').val(res.data.hotel.room_basis)

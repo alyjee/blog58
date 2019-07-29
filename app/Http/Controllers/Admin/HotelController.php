@@ -141,8 +141,48 @@ class HotelController extends Controller
                 return response()->json(['success'=>false, 'message'=>'Pricings not found for given dates.']);
             }
 
-            $data = ['pp'=>$pp];
+            $pricing_feature_inputs = '';
+            $pricing_features = $pp->pricing_features()->get();
+            foreach ($pricing_features as $key => $pf) {
+                $pricing_feature_inputs .= '<div class="row" >';
+
+                $inputVals = [
+                    'inputLabel' => 'Feature',
+                    'inputName' => 'feature_name[]',
+                    'inputValue' => $pf->name,
+                    'readonly' => 'readonly',
+                    'type' => 'text',
+                    'inputClass' => 'form-control dynamic-pf-input'
+                ];
+                $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
+                
+                $inputVals = [
+                    'inputLabel' => 'Price/Weekend',
+                    'inputName' => 'feature_price[]',
+                    'inputValue' => $pf->price.'/'.$pf->weekend_price,
+                    'readonly' => 'readonly',
+                    'type' => 'text',
+                    'inputClass' => 'form-control dynamic-pf-input'
+                ];
+                $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
+
+                $inputVals = [
+                    'inputLabel'=> 'Quantity',
+                    'inputName'=> 'feature_qty[]',
+                    'inputValue'=> '',
+                    'readonly' => '',
+                    'type' => 'number',
+                    'inputClass'=>'form-control dynamic-pf-input'
+                ];
+                $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
+
+                $pricing_feature_inputs .= '</div>';
+                
+            }
+
+            $data = ['features'=>$pp->pricing_features()->get()];
             $data['hotel'] = $hotel;
+            $data['pricing_feature_inputs'] = $pricing_feature_inputs;
             return response()->json(['success'=>true, 'message'=>'Pricing Feature Found Successfully.', 'data'=>$data]);
         } catch (\Exception $e) {
             return response()->json(['success'=>false, 'message'=>$e->getMessage()]);
