@@ -26,6 +26,14 @@
                             @endif
                         </div>
 
+                        <div class="form-group {{ $errors->has('sharing_transport_charges') ? ' has-error' : '' }}">
+                            {!! Form::label('sharing_transport_charges', 'Sharing Transport Charges in SAR') !!}
+                            {!! Form::text('sharing_transport_charges', null,['placeholder'=>'Enter Price for shraing transport', 'class'=>'form-control']) !!}
+                            @if ($errors->has('sharing_transport_charges'))
+                                <div class="form-control-feedback">{{ $errors->first('sharing_transport_charges') }}</div>
+                            @endif
+                        </div>
+
                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Update</button>
 
                     {!! Form::close() !!}
