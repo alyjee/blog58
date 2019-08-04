@@ -20,7 +20,7 @@
     <div class="container" id="wrapper" >
         <div class="row">
             <div class="col-xs-12 text-center" style="padding: 5px;">
-                <img src="{{ public_path('images/sealinks-logo.jpg') }}" alt="home" style="max-width: 100px;">
+                <img src="{{ public_path('images/sealinks-logo.jpg') }}" alt="home" style="max-width: 200px;">
             </div>
         </div>
         <div class="container">

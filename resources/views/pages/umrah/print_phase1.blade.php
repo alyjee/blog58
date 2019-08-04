@@ -30,6 +30,7 @@
 
     	@include('partials/print/umrah/terms-and-conditions')
     	<hr />
+        <br />
     	@include('partials/print/umrah/signature')
 
     	{!! Form::close() !!}
