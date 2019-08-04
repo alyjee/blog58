@@ -90,6 +90,7 @@ class UmrahController extends Controller
     {
         try {
             $inputs = $request->except('_token');
+
             $package = Package::getPackageById($inputs['package_category']);
             $per_person_psf = $package->price;
             $inputs['psf'] = $per_person_psf;
@@ -97,10 +98,14 @@ class UmrahController extends Controller
             if( $inputs['transport'] == 'private' ){
                 $transport_price = Setting::getPrivateTransportPrice();
                 $inputs['transport_charges'] = $transport_price;
+            } else if( $inputs['transport'] == 'sharing' ){
+                $transport_price = Setting::getSharingTransportPrice();
+                $inputs['transport_charges'] = $transport_price;
             }
             $inputs['visa_charges'] = Setting::getVisaCharges();
             
             $iternary_pricings = self::getIternaryPricings($inputs);
+
             $inputs['all_iternaries_total'] = $iternary_pricings['all_iternaries_total'];
             DB::beginTransaction();
             $umrahForm = UmrahForm::create($inputs);
@@ -108,6 +113,22 @@ class UmrahController extends Controller
             $flight_details = self::getFlightDetails($inputs, $umrahForm->id);
             
             Itinerary::insert($iternary_pricings['iternaries']);
+
+            foreach ($iternary_pricings['iternaries'] as $key => $iternaries) {
+                // dd($iternaries['iternary_from_date']);
+                $itinerary = Itinerary::where('from_id', $umrahForm->id)->where('from_date', $iternaries['iternary_from_date '])->where('from_date', $iternaries['iternary_to_date'])->first();
+
+                $iternary_hotel_nights = $itinerary->iternary_hotel_nights;
+
+                $iternary_from_date = $itinerary->iternary_from_date;
+                $iternary_to_date = $itinerary->iternary_to_date;
+
+                $weekends = self::getWeekendDays($iternary_from_date, $iternary_to_date);
+
+                $data = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends, $itinerary->id);
+                dd($data);
+                $iternary_total = $data['iternary_total_price'];
+            }
             if( !empty($flight_details) ){
                 FlightDetail::insert($flight_details);
             }
@@ -487,9 +508,10 @@ class UmrahController extends Controller
 
             $weekends = self::getWeekendDays($iternary_from_date, $iternary_to_date);
 
-            $iternary_total = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends);
+            $data = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends);
+
+            $iternary_total = $data['iternary_total_price'];
             
-            $iternary_total = $iternary_total * $iternary_hotel_nights;
             $all_iternaries_total += $iternary_total;
 
         }
@@ -516,8 +538,12 @@ class UmrahController extends Controller
         $total_tickets_price = round($total_tickets_price, 2);
 
         $total_package_price = $total_umrah_price ;
+        $umrah_price_per_person_pkr = '';
 
         if( $inputs['conversion_rate'] ) {
+            $umrah_price_per_person_pkr = $umrah_price_per_person * $inputs['conversion_rate'];
+            $umrah_price_per_person_pkr = round($umrah_price_per_person_pkr, 2);
+
             $total_package_price_pkr = $total_package_price * $inputs['conversion_rate'];
             $total_package_price_pkr = $total_package_price_pkr + $total_tickets_price;
             $total_tickets_price_in_sar = $total_tickets_price / $inputs['conversion_rate'];
@@ -532,6 +558,7 @@ class UmrahController extends Controller
         $data['total_psf'] = $total_psf;
         $data['total_umrah_price'] = $total_umrah_price;
         $data['umrah_price_per_person'] = $umrah_price_per_person;
+        $data['umrah_price_per_person_pkr'] = $umrah_price_per_person_pkr;
         $data['total_package_price'] = $total_package_price;
         $data['total_package_price_pkr'] = $total_package_price_pkr;
         return $data;
@@ -547,13 +574,15 @@ class UmrahController extends Controller
         return $weekendDays;
     }
 
-    public static function getIternaryTotal($inputs, $from_date, $totalNights, $weekends) {
+    public static function getIternaryTotal($inputs, $from_date, $totalNights, $weekends, $itineraryId=0) {
+        $features = [];
         $iternary_total_price = 0;
         $_from_date = str_replace('-', '', $from_date);
         $featureNames = $inputs['features'][$_from_date]['feature_name'];
         $weekdays = $totalNights - $weekends;
 
         foreach ($featureNames as $key => $fname) {
+            $feature = [];
             if( !$inputs['features'][$_from_date]['feature_qty'][$key] )
                 continue;
             $fQty = (int) $inputs['features'][$_from_date]['feature_qty'][$key];
@@ -563,10 +592,22 @@ class UmrahController extends Controller
             $weekdays_price = $fQty * $fWeekDayPrice * $weekdays;
             $weekends_price = $fQty * $fWeekendsPrice * $weekends;
 
+            $feature['qty'] = $fQty;
+            $feature['weekday_price'] = $fWeekDayPrice;
+            $feature['weekend_price'] = $fWeekendsPrice;
+            $feature['weekdays'] = $weekdays;
+            $feature['weekends'] = $weekends;
+            $feature['itinerary_id'] = $itineraryId;
+
+
+            $features[] = $feature;
+
             $iternary_total_price += $weekdays_price + $weekends_price;
         }
-
-        return $iternary_total_price;
+        $data = [];
+        $data['iternary_total_price'] = $iternary_total_price;
+        $data['features'] = $features;
+        return $data;
     }
 
     public static function getIternaryPricings($inputs, $formId=0)
@@ -589,142 +630,14 @@ class UmrahController extends Controller
             
             $iternary_hotel_nights = $inputs['iternary_hotel_nights'][$key];
 
-            // define all variables with ZERO
-            $iternary_double_price = 0;
-            $iternary_double_qty = 0;
+            $iternary_from_date = $inputs['iternary_from_date'][$key];
+            $iternary_to_date = $inputs['iternary_to_date'][$key];
 
-            $iternary_triple_price = 0;
-            $iternary_triple_qty = 0;
+            $weekends = self::getWeekendDays($iternary_from_date, $iternary_to_date);
 
-            $iternary_quad_price = 0;
-            $iternary_quad_qty = 0;
-
-            $iternary_quint_price = 0;
-            $iternary_quint_qty = 0 ;
-
-            $iternary_sharing_price = 0;
-            $iternary_sharing_qty = 0;
-
-            $iternary_weekend_price_price = 0;
-            $iternary_weekend_price_qty = 0;
-
-            $iternary_haram_view_price_price = 0;
-            $iternary_haram_view_price_qty = 0;
-
-            $iternary_full_board_per_pax_per_day_price = 0;
-            $iternary_full_board_per_pax_per_day_qty = 0;
-
-            $iternary_four_nights_price_price = 0;
-            $iternary_four_nights_price_qty = 0;
-
-            $iternary_extra_bed_price_price = 0;
-            $iternary_extra_bed_price_qty = 0;
-
-
-            if( isset($inputs['iternary_double_qty'][$key]) && filter_var($inputs['iternary_double_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_double_price = $inputs['iternary_double_price'][$key];
-                $iternary_double_qty = $inputs['iternary_double_qty'][$key];
-                $iternary_double_total = $iternary_double_price * $iternary_double_qty;
-            }
-
-            if( isset($inputs['iternary_triple_qty'][$key]) && filter_var($inputs['iternary_triple_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_triple_price = $inputs['iternary_triple_price'][$key];
-                $iternary_triple_qty = $inputs['iternary_triple_qty'][$key];
-                $iternary_triple_total = $iternary_triple_total * $iternary_triple_qty;
-            }
-
-            if( isset($inputs['iternary_quad_qty'][$key]) && filter_var($inputs['iternary_quad_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_quad_price = $inputs['iternary_quad_price'][$key];
-                $iternary_quad_qty = $inputs['iternary_quad_qty'][$key];
-                $iternary_quad_total = $iternary_quad_price * $iternary_quad_qty;
-            }
-
-            if( isset($inputs['iternary_quint_qty'][$key]) && filter_var($inputs['iternary_quint_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_quint_price = $inputs['iternary_quint_price'][$key];
-                $iternary_quint_qty = $inputs['iternary_quint_qty'][$key];
-                $iternary_quint_total = $iternary_quint_price * $iternary_quint_qty;
-            }
-
-            if( isset($inputs['iternary_sharing_qty'][$key]) && filter_var($inputs['iternary_sharing_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_sharing_price = $inputs['iternary_sharing_price'][$key];
-                $iternary_sharing_qty = $inputs['iternary_sharing_qty'][$key];
-                $iternary_sharing_total = $iternary_sharing_price * $iternary_sharing_qty;
-            }
-
-            if( isset($inputs['iternary_weekend_price_qty'][$key]) && filter_var($inputs['iternary_weekend_price_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_weekend_price_price = $inputs['iternary_weekend_price_price'][$key];
-                $iternary_weekend_price_qty = $inputs['iternary_weekend_price_qty'][$key];
-                $iternary_weekend_price_total = $iternary_weekend_price_price * $iternary_weekend_price_qty;
-            }
-
-            if( isset($inputs['iternary_haram_view_price_qty'][$key]) && filter_var($inputs['iternary_haram_view_price_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_haram_view_price_price = $inputs['iternary_haram_view_price_price'][$key];
-                $iternary_haram_view_price_qty = $inputs['iternary_haram_view_price_qty'][$key];
-                $iternary_haram_view_price_total = $iternary_haram_view_price_price * $iternary_haram_view_price_qty;
-            }
-
-            if( isset($inputs['iternary_full_board_per_pax_per_day_qty'][$key]) && filter_var($inputs['iternary_full_board_per_pax_per_day_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_full_board_per_pax_per_day_price = $inputs['iternary_full_board_per_pax_per_day_price'][$key];
-                $iternary_full_board_per_pax_per_day_qty = $inputs['iternary_full_board_per_pax_per_day_qty'][$key];
-                $iternary_full_board_per_pax_per_day_total = $iternary_full_board_per_pax_per_day_price * $iternary_full_board_per_pax_per_day_qty;
-            }
-
-            if( isset($inputs['iternary_four_nights_price_qty'][$key]) && filter_var($inputs['iternary_four_nights_price_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_four_nights_price_price = $inputs['iternary_four_nights_price_price'][$key];
-                $iternary_four_nights_price_qty = $inputs['iternary_four_nights_price_qty'][$key];
-                $iternary_four_nights_price_total = $iternary_four_nights_price_price * $iternary_four_nights_price_qty;
-            }
-
-            if( isset($inputs['iternary_extra_bed_price_qty'][$key]) && filter_var($inputs['iternary_extra_bed_price_qty'][$key], FILTER_VALIDATE_INT) !== true ){
-                $iternary_extra_bed_price_price = $inputs['iternary_extra_bed_price_price'][$key];
-                $iternary_extra_bed_price_qty = $inputs['iternary_extra_bed_price_qty'][$key];
-                $iternary_extra_bed_price_total = $iternary_extra_bed_price_price * $iternary_extra_bed_price_qty;
-            }
-            // TODO: Handle the weekends in this area
-
-            $iternary_total = $iternary_double_total + $iternary_triple_total + $iternary_quad_total + $iternary_quint_total + $iternary_sharing_total + $iternary_weekend_price_total + $iternary_haram_view_price_total + $iternary_full_board_per_pax_per_day_total + $iternary_four_nights_price_total + $iternary_extra_bed_price_total;
-
-            $iternary_total = $iternary_total * $iternary_hotel_nights;
-            $iternary_detail = [];
-            $iternary_detail['iternary_double_price'] = $iternary_double_price;
-            $iternary_detail['iternary_double_qty'] = $iternary_double_qty;
-            $iternary_detail['iternary_double_total'] = $iternary_double_total;
-
-            $iternary_detail['iternary_triple_price'] = $iternary_triple_price;
-            $iternary_detail['iternary_triple_qty'] = $iternary_triple_qty;
-            $iternary_detail['iternary_triple_total'] = $iternary_triple_total;
-
-            $iternary_detail['iternary_quad_price'] = $iternary_quad_price;
-            $iternary_detail['iternary_quad_qty'] = $iternary_quad_qty;
-            $iternary_detail['iternary_quad_total'] = $iternary_quad_total;
-
-            $iternary_detail['iternary_quint_price'] = $iternary_quint_price;
-            $iternary_detail['iternary_quint_qty'] = $iternary_quint_qty;
-            $iternary_detail['iternary_quint_total'] = $iternary_quint_total;
-
-            $iternary_detail['iternary_sharing_price'] = $iternary_sharing_price;
-            $iternary_detail['iternary_sharing_qty'] = $iternary_sharing_qty;
-            $iternary_detail['iternary_sharing_total'] = $iternary_sharing_total;
-
-            $iternary_detail['iternary_weekend_price_price'] = $iternary_weekend_price_price;
-            $iternary_detail['iternary_weekend_price_qty'] = $iternary_weekend_price_qty;
-            $iternary_detail['iternary_weekend_price_total'] = $iternary_weekend_price_total;
-
-            $iternary_detail['iternary_haram_view_price_price'] = $iternary_haram_view_price_price;
-            $iternary_detail['iternary_haram_view_price_qty'] = $iternary_haram_view_price_qty;
-            $iternary_detail['iternary_haram_view_price_total'] = $iternary_haram_view_price_total;
-
-            $iternary_detail['iternary_full_board_per_pax_per_day_price'] = $iternary_full_board_per_pax_per_day_price;
-            $iternary_detail['iternary_full_board_per_pax_per_day_qty'] = $iternary_full_board_per_pax_per_day_qty;
-            $iternary_detail['iternary_full_board_per_pax_per_day_total'] = $iternary_full_board_per_pax_per_day_total;
-
-            $iternary_detail['iternary_four_nights_price_price'] = $iternary_four_nights_price_price;
-            $iternary_detail['iternary_four_nights_price_qty'] = $iternary_four_nights_price_qty;
-            $iternary_detail['iternary_four_nights_price_total'] = $iternary_four_nights_price_total;
-
-            $iternary_detail['iternary_extra_bed_price_price'] = $iternary_extra_bed_price_price;
-            $iternary_detail['iternary_extra_bed_price_qty'] = $iternary_extra_bed_price_qty;
-            $iternary_detail['iternary_extra_bed_price_total'] = $iternary_extra_bed_price_total;
+            $data = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends);
+            $iternary_total = $data['iternary_total_price'];
+            
 
             $iternary_detail['iternary_total'] = $iternary_total;
             $iternary_detail['form_id'] = $formId;

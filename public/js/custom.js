@@ -185,6 +185,7 @@ $(document).ready(function() {
 			success: function(res){
 				if(res.success){
 					$('#umrah_per_person').val(res.data.umrah_price_per_person);
+					$('#umrah_per_person_pkr').val(res.data.umrah_price_per_person_pkr);
 					$('#total_umrah_price').val(res.data.total_umrah_price);
 					$('#total_package_price').val(res.data.total_package_price);
 					$('#total_package_price_pkr').val(res.data.total_package_price_pkr);

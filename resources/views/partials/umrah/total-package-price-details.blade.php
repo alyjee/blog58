@@ -69,6 +69,21 @@
 
 <div class="row">
 	<div class="col-sm-6">
+        <div class="form-group {{ $errors->has('total_umrah_price') ? ' has-error' : '' }} hidden">
+            {!! Form::label('total_umrah_price', 'Total Umrah Package (SAR)') !!}
+            {!! Form::number('total_umrah_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control', 'step'=>'.01']) !!}
+            @if ($errors->has('total_umrah_price'))
+                <div class="form-control-feedback">{{ $errors->first('total_umrah_price') }}</div>
+            @endif
+        </div>
+
+        <div class="form-group {{ $errors->has('total_package_price') ? ' has-error' : '' }} hidden">
+            {!! Form::label('total_package_price', 'Total Package Price (SAR)') !!}
+            {!! Form::number('total_package_price', null,['placeholder'=>'Enter Price', 'class'=>'form-control', 'step'=>'.01']) !!}
+            @if ($errors->has('total_package_price'))
+                <div class="form-control-feedback">{{ $errors->first('total_package_price') }}</div>
+            @endif
+        </div>
 
         <div class="form-group {{ $errors->has('total_package_price_pkr') ? ' has-error' : '' }}">
             {!! Form::label('total_package_price_pkr', 'Total Package Price (PKR)') !!}

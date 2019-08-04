@@ -60,6 +60,7 @@ class StorePhase1 extends FormRequest
 
 
                 'umrah_per_person' => 'required',
+                'umrah_per_person_pkr' => 'required',
                 'adult_ticket_price' => 'required',
                 'child_ticket_price' => 'required',
                 'infant_ticket_price' => 'required',
@@ -101,6 +102,7 @@ class StorePhase1 extends FormRequest
             'stop_eqp_flts.*' => 'required_with:airline',
 
             'umrah_per_person' => 'required',
+            'umrah_per_person_pkr' => 'required',
             'adult_ticket_price' => 'required',
             'child_ticket_price' => 'required',
             'infant_ticket_price' => 'required',

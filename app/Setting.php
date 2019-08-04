@@ -10,7 +10,7 @@ class Setting extends Model
     //
     public $timestamps = true;
 
-    protected $fillable = ['id', 'visa_charges', 'private_transport_charges', 'archive', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'visa_charges', 'sharing_transport_charges', 'private_transport_charges', 'archive', 'created_at', 'updated_at'];
 
     /*
     *
@@ -19,6 +19,10 @@ class Setting extends Model
 
     public static function getPrivateTransportPrice(){
     	return Setting::where('archive', 0)->first()->private_transport_charges;
+    }
+
+    public static function getSharingTransportPrice(){
+        return Setting::where('archive', 0)->first()->sharing_transport_charges;
     }
 
     public static function getVisaCharges(){
