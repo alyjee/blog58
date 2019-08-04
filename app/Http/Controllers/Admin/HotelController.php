@@ -143,12 +143,16 @@ class HotelController extends Controller
 
             $pricing_feature_inputs = '';
             $pricing_features = $pp->pricing_features()->get();
+
+            $_from_date = str_replace('-', '', $from_date);
+            $prefix = 'features['.$_from_date.']';
+            
             foreach ($pricing_features as $key => $pf) {
                 $pricing_feature_inputs .= '<div class="row" >';
 
                 $inputVals = [
                     'inputLabel' => 'Feature',
-                    'inputName' => 'feature_name[]',
+                    'inputName' => $prefix.'[feature_name][]',
                     'inputValue' => $pf->name,
                     'readonly' => 'readonly',
                     'type' => 'text',
@@ -158,7 +162,7 @@ class HotelController extends Controller
                 
                 $inputVals = [
                     'inputLabel' => 'Price/Weekend',
-                    'inputName' => 'feature_price[]',
+                    'inputName' => $prefix.'[feature_price][]',
                     'inputValue' => $pf->price.'/'.$pf->weekend_price,
                     'readonly' => 'readonly',
                     'type' => 'text',
@@ -167,12 +171,32 @@ class HotelController extends Controller
                 $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
 
                 $inputVals = [
+                    'inputLabel' => 'Price Week Days',
+                    'inputName' => $prefix.'[feature_weekday_price][]',
+                    'inputValue' => $pf->price,
+                    'readonly' => '',
+                    'type' => 'hidden',
+                    'inputClass' => 'form-control dynamic-pf-input'
+                ];
+                $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
+
+                $inputVals = [
+                    'inputLabel' => 'Price Weekend Days',
+                    'inputName' => $prefix.'[feature_weekend_price][]',
+                    'inputValue' => $pf->weekend_price,
+                    'readonly' => '',
+                    'type' => 'hidden',
+                    'inputClass' => 'form-control dynamic-pf-input'
+                ];
+                $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
+
+                $inputVals = [
                     'inputLabel'=> 'Quantity',
-                    'inputName'=> 'feature_qty[]',
+                    'inputName'=> $prefix.'[feature_qty][]',
                     'inputValue'=> '',
                     'readonly' => '',
                     'type' => 'number',
-                    'inputClass'=>'form-control dynamic-pf-input'
+                    'inputClass'=>'form-control pricing-input dynamic-pf-input'
                 ];
                 $pricing_feature_inputs .= view('partials.umrah.pricing_feature', $inputVals)->render();
 
