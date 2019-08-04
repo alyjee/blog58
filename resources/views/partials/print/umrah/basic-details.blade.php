@@ -1,16 +1,18 @@
 <div class="row">
 	<div class="col-xs-6 text-left">
 		<p><b>Date: </b>{{ date('j F, Y', strtotime($form_creation_date)) }}</p>
+		<p><b>Ref# SL/: </b>{{ $form_ref_number }}</p>
 	</div>
 
 	<div class="col-xs-6 text-right">
-		<p><b>Ref# SL/: </b>{{ $form_ref_number }}</p>
+		<p><b>Address: </b>{{ 'Address' }}</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-sm-12">
-		<p><b>DEAR Mr./Mrs./Ms. </b>{{ $proposedForm->person_name }}</p>
+		<p><b>Dear Mr./Mrs./Ms. </b>{{ $proposedForm->person_name }}</p>
+		<p><b>Cell#: </b>{{ 'Address' }}</p>
 		
 		<div class="form-group form-group">
     		<p>Great thanks for taking interest to travel with SEA LINKS TRAVEL & TOURS. Your required rates of Umrah and Tickets are mentioned below, after viewing these rates please don't hesitate to contact this office for any inquiry or further clarification.</p>
@@ -29,16 +31,18 @@
 		<p><b>To Date: </b>{{ date('j F, Y', strtotime($proposedForm->to_date)) }}</p>
 	</div>
 
-    <div class="col-xs-6">
-        <p><b>No. of Nights/Days: </b>{{ $proposedForm->total_days }}</p>
-    </div>
-
 </div>
 
 <div class="row">
-	<div class="col-sm-6 col-xs-6">
+	<div class="col-xs-3">
         <p><b>Total Passengers: </b>{{ $proposedForm->total_passengers }}</p>
+
+        <p style="text-transform: capitalize;"><b>Transport: </b>{{ $proposedForm->transport }}</p>
 	</div>
+
+	<div class="col-xs-3">
+        <p><b>No. of Nights/Days: </b>{{ $proposedForm->total_days }}</p>
+    </div>
 
 	<div class="col-sm-2 col-xs-2">
         <p><b>Adult/s: </b>{{ $proposedForm->adults }}</p>
@@ -54,12 +58,8 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-6 col-xs-6">
+	<div class="col-sm-6 col-xs-6" style="display: none;">
         <p><b>Package Category: </b>{{ $proposedForm->package()->first()->name }}</p>
-	</div>
-
-	<div class="col-sm-3 col-xs-3">
-        <p style="text-transform: capitalize;"><b>Transport: </b>{{ $proposedForm->transport }}</p>
 	</div>
 
 </div>
