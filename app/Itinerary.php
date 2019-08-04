@@ -25,5 +25,9 @@ class Itinerary extends Model
     public function category(){
     	return $this->hasOne('App\Category', 'id', 'iternary_hotel_category');
     }
+
+    public function features(){
+        return $this->hasMany('App\ItineraryFeature', 'itinerary_id', 'id');
+    }
     
 }

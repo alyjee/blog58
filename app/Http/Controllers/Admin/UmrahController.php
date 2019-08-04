@@ -14,6 +14,7 @@ use App\Setting;
 use App\PaymentDetail;
 use App\Itinerary;
 use App\FlightDetail;
+use App\ItineraryFeature;
 
 use Illuminate\Support\Carbon;
 use DB;
@@ -115,9 +116,7 @@ class UmrahController extends Controller
             Itinerary::insert($iternary_pricings['iternaries']);
 
             foreach ($iternary_pricings['iternaries'] as $key => $iternaries) {
-                // dd($iternaries['iternary_from_date']);
-                $itinerary = Itinerary::where('from_id', $umrahForm->id)->where('from_date', $iternaries['iternary_from_date '])->where('from_date', $iternaries['iternary_to_date'])->first();
-
+                $itinerary = Itinerary::where('form_id', $umrahForm->id)->where('iternary_from_date', $iternaries['iternary_from_date'])->where('iternary_to_date', $iternaries['iternary_to_date'])->first();
                 $iternary_hotel_nights = $itinerary->iternary_hotel_nights;
 
                 $iternary_from_date = $itinerary->iternary_from_date;
@@ -126,9 +125,9 @@ class UmrahController extends Controller
                 $weekends = self::getWeekendDays($iternary_from_date, $iternary_to_date);
 
                 $data = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends, $itinerary->id);
-                dd($data);
-                $iternary_total = $data['iternary_total_price'];
+                ItineraryFeature::insert($data['features']);
             }
+
             if( !empty($flight_details) ){
                 FlightDetail::insert($flight_details);
             }
@@ -233,7 +232,7 @@ class UmrahController extends Controller
      */
     public function updatePhase1(StorePhase1 $request, $id)
     {
-        try {
+        // try {
             $inputs = $request->except('_token');
 
             $package = Package::getPackageById($inputs['package_category']);
@@ -243,12 +242,15 @@ class UmrahController extends Controller
             if( $inputs['transport'] == 'private' ){
                 $transport_price = Setting::getPrivateTransportPrice();
                 $inputs['transport_charges'] = $transport_price;
+            } else if( $inputs['transport'] == 'sharing' ){
+                $transport_price = Setting::getSharingTransportPrice();
+                $inputs['transport_charges'] = $transport_price;
             }
             $inputs['visa_charges'] = Setting::getVisaCharges();
             DB::beginTransaction();
             $form_inputs = [];
             foreach ($inputs as $key => $value) {
-                if( strpos($key, 'iternary_') !== false ){
+                if( strpos($key, 'iternary_') !== false || $key == 'features' ){
                     continue;
                 } else if ( in_array($key, FlightDetail::$all_fields) ) {
                     continue;
@@ -257,10 +259,25 @@ class UmrahController extends Controller
                 }
             }
 
-            $form = UmrahForm::where('id', $id)->update($form_inputs);
+            $umrahForm = UmrahForm::where('id', $id)->update($form_inputs);
             $iternary_pricings = self::getIternaryPricings($inputs, $id);
             Itinerary::where('form_id', $id)->delete();
             Itinerary::insert($iternary_pricings['iternaries']);
+
+            foreach ($iternary_pricings['iternaries'] as $key => $iternaries) {
+                $itinerary = Itinerary::where('form_id', $id)->where('iternary_from_date', $iternaries['iternary_from_date'])->where('iternary_to_date', $iternaries['iternary_to_date'])->first();
+
+                $iternary_hotel_nights = $itinerary->iternary_hotel_nights;
+
+                $iternary_from_date = $itinerary->iternary_from_date;
+                $iternary_to_date = $itinerary->iternary_to_date;
+
+                $weekends = self::getWeekendDays($iternary_from_date, $iternary_to_date);
+
+                $data = self::getIternaryTotal($inputs, $iternary_from_date, $iternary_hotel_nights, $weekends, $itinerary->id);
+                ItineraryFeature::where('itinerary_id', $itinerary->itinerary_id)->delete();
+                ItineraryFeature::insert($data['features']);
+            }
 
             $flight_details = self::getFlightDetails($inputs, $id);
             if( !empty($flight_details) ){
@@ -268,16 +285,16 @@ class UmrahController extends Controller
                 FlightDetail::insert($flight_details);
             }
 
-            if($form){
+            if($umrahForm){
                 DB::commit();
                 return redirect()->route('dashboard.umrah.index');
             }
             DB::rollback();
             return redirect()->back()->withErrors(['Failed to update proposal'])->withInput();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->withErrors([$e->getMessage()])->withInput();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return redirect()->back()->withErrors([$e->getMessage()])->withInput();
+        // }
     }
 
     /**
@@ -592,6 +609,7 @@ class UmrahController extends Controller
             $weekdays_price = $fQty * $fWeekDayPrice * $weekdays;
             $weekends_price = $fQty * $fWeekendsPrice * $weekends;
 
+            $feature['name'] = $inputs['features'][$_from_date]['feature_name'][$key];
             $feature['qty'] = $fQty;
             $feature['weekday_price'] = $fWeekDayPrice;
             $feature['weekend_price'] = $fWeekendsPrice;
