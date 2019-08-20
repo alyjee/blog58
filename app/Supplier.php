@@ -19,7 +19,7 @@ class Supplier extends Model
     * Database Relations
     */
     public function hotels(){
-        return $this->hasMany('\App\Hotel');
+        return $this->hasMany('\App\Hotel')->where('archive', 0);
     }
 
     public static function getSuppliers(){
@@ -34,6 +34,21 @@ class Supplier extends Model
     public static function getSupplierById($id){
         $query = Supplier::where('archive', 0)->where('id', $id);
         return $query->first();
+    }
+
+    public static function getHotelsForSelect()
+    {
+        $data = [];
+        $suppliers = Supplier::where('archive', 0)->get();
+        foreach ($suppliers as $key => $supplier) {
+            $hotels = $supplier->hotels()->get();
+            $hotelsData = [];
+            foreach ($hotels as $hKey => $hotel) {
+                $hotelsData[$hotel->id] = $hotel->name;
+            }
+            $data[$supplier->name] = $hotelsData;
+        }
+        return $data;
     }
     
 }
