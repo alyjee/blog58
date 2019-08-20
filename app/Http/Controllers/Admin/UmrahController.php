@@ -160,7 +160,7 @@ class UmrahController extends Controller
             $categoriesSelect = Hotel::getHotelCategories();
             $roomCategoriesSelect = Hotel::getHotelRoomCategories();
 
-            $hotelSelect = Hotel::getHotelsForSelect();
+            $hotelSelect = \App\Supplier::getHotelsForSelect();
             $flightTypeSelect = UmrahForm::getFlightTypes();
             $flightStatusSelect = UmrahForm::getFlightStatuses();
             $packages = Package::getPackages();
@@ -208,7 +208,7 @@ class UmrahController extends Controller
             $roomCategoriesSelect = Hotel::getHotelRoomCategories();
             $today_date = Carbon::today()->format('d M Y');
             $form_ref_number = UmrahForm::getRefNum();
-            $hotelSelect = Hotel::getHotelsForSelect();
+            $hotelSelect = \App\Supplier::getHotelsForSelect();
             $flightTypeSelect = UmrahForm::getFlightTypes();
             $flightStatusSelect = UmrahForm::getFlightStatuses();
             $packages = Package::getPackages();
@@ -364,7 +364,7 @@ class UmrahController extends Controller
             $roomCategoriesSelect = Hotel::getHotelRoomCategories();
             $today_date = Carbon::today()->format('d M Y');
             $form_ref_number = UmrahForm::getRefNum();
-            $hotelSelect = Hotel::getHotelsForSelect();
+            $hotelSelect = \App\Supplier::getHotelsForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
             $flightTypeSelect = UmrahForm::getFlightTypes();
             $flightStatusSelect = UmrahForm::getFlightStatuses();
@@ -397,7 +397,7 @@ class UmrahController extends Controller
             $roomCategoriesSelect = Hotel::getHotelRoomCategories();
             $today_date = Carbon::today()->format('d M Y');
             $form_ref_number = UmrahForm::getRefNum();
-            $hotelSelect = Hotel::getHotelsForSelect();
+            $hotelSelect = \App\Supplier::getHotelsForSelect();
             $proposedForm = UmrahForm::where('id', $id)->first();
             $flightTypeSelect = UmrahForm::getFlightTypes();
             $flightStatusSelect = UmrahForm::getFlightStatuses();
