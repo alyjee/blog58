@@ -1,4 +1,31 @@
 $(document).ready(function() {
+	
+	$(document).on('change', '.iternary_from_date, .iternary_to_date', function(){
+		// main two dates should not be empty and all the itinerary dates must be within them
+		var from_date = $("#from_date").val();
+		var to_date = $("#to_date").val();
+		if(
+			from_date=='' || from_date==undefined ||
+			to_date=='' || to_date==undefined 
+		) {
+			alert('Main From/To Dates cannot be empty');
+			$(this).val('');
+			return false;
+		}
+
+		from_date = new Date(from_date);
+		to_date = new Date(to_date);
+		var _from_date;
+		$('.iternary_from_date, .iternary_to_date').each(function(idx){
+			_from_date = new Date($( this ).val());
+			if(from_date > _from_date || _from_date > to_date) {
+				alert(_from_date.toDateString() + ' must be within ' + from_date.toDateString() + ' and ' + to_date.toDateString());
+				$(this).val('');
+				return false;
+			}
+		});
+	});
+	
 	$(document).on('click', '.add-new-feature', function(){
 		var $lastRow = $(".feature-row").last();
 		var html = $("<div />").append($lastRow.clone()).html();
