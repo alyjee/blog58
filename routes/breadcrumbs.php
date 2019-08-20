@@ -23,6 +23,21 @@ Breadcrumbs::register('dashboard.packages.index', function ($breadcrumbs) {
 	    $breadcrumbs->push('Edit Hotel', route('dashboard.packages.edit', ['id'=>1]));
 	});
 
+Breadcrumbs::register('dashboard.suppliers.index', function ($breadcrumbs) {
+	$breadcrumbs->parent('dashboard.index');
+	$breadcrumbs->push('Suppliers', route('dashboard.suppliers.index'));
+});
+	
+		Breadcrumbs::register('dashboard.suppliers.create', function ($breadcrumbs) {
+			$breadcrumbs->parent('dashboard.suppliers.index');
+			$breadcrumbs->push('Add Supplier', route('dashboard.suppliers.create'));
+		});
+	
+		Breadcrumbs::register('dashboard.suppliers.edit', function ($breadcrumbs) {
+			$breadcrumbs->parent('dashboard.suppliers.index');
+			$breadcrumbs->push('Edit Supplier', route('dashboard.suppliers.edit', ['id'=>1]));
+		});
+
 Breadcrumbs::register('dashboard.hotels.index', function ($breadcrumbs) {
     $breadcrumbs->parent('dashboard.index');
     $breadcrumbs->push('Hotels', route('dashboard.hotels.index'));

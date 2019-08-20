@@ -10,7 +10,7 @@ class Hotel extends Model
     //
     public $timestamps = true;
 
-    protected $fillable = ['id', 'name', 'category', 'room_basis', 'distance_from_haram', 'archive', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'supplier_id', 'name', 'category', 'room_basis', 'distance_from_haram', 'archive', 'created_at', 'updated_at'];
 
     public static $categories = [];
 
@@ -29,6 +29,14 @@ class Hotel extends Model
 
     public static function getHotelsForSelect(){
         return Hotel::where('archive',0)->pluck('name', 'id')->toArray();
+    }
+
+    public function supplier(){
+        return $this->belongsTo('\App\Supplier');
+    }
+
+    public function category(){
+        return $this->belongsTo('\App\Category', 'category', 'id');
     }
 
     public static function getHotelCategories(){

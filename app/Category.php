@@ -18,7 +18,9 @@ class Category extends Model
     *
     * Database Relations
     */
-
+    public function hotels(){
+        return $this->hasMany('\App\Hotel', 'category', 'id');
+    }
     
     
 }

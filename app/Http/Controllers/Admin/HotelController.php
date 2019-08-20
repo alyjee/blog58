@@ -32,6 +32,8 @@ class HotelController extends Controller
                     <span class="label label-danger m-l-5"><i class="fa fa-trash"></i></span>
                 </a>';
 
+                $hotel['category'] = $hotel->category()->first()->name;
+                $hotel['supplier_id'] = $hotel->supplier()->first()->name;
                 $hotel['actions'] = $actions;
                 return $hotel;
             });
@@ -48,7 +50,8 @@ class HotelController extends Controller
     public function create()
     {
         $categories = Hotel::getHotelCategories();
-        return view('pages.hotel.create', ['categories'=>$categories]);
+        $suppliersSelect = \App\Supplier::getSuppliersForSelect();
+        return view('pages.hotel.create', ['categories'=>$categories, 'suppliersSelect'=>$suppliersSelect]);
     }
 
     /**

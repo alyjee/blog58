@@ -66,4 +66,11 @@ Route::group(['prefix' => 'dashboard', 'as'=>'dashboard.'], function() {
     // Route::get('/rooms/edit/{id}', ['as' =>'rooms.edit', 'uses'=>'Admin\RoomController@edit']);
     // Route::post('/rooms/update/{id}', ['as' =>'rooms.update', 'uses'=>'Admin\RoomController@update']);
     // Route::get('/rooms/archive/{id}', ['as' =>'rooms.archive', 'uses'=>'Admin\RoomController@archive']);
+
+    Route::get('/suppliers', ['as' =>'suppliers.index', 'uses'=>'Admin\SupplierController@index']);
+    Route::get('/suppliers/create', ['as' =>'suppliers.create', 'uses'=>'Admin\SupplierController@create']);
+    Route::post('/suppliers/store', ['as' =>'suppliers.store', 'uses'=>'Admin\SupplierController@store']);
+    Route::get('/suppliers/edit/{id}', ['as' =>'suppliers.edit', 'uses'=>'Admin\SupplierController@edit']);
+    Route::post('/suppliers/update/{id}', ['as' =>'suppliers.update', 'uses'=>'Admin\SupplierController@update']);
+    Route::get('/suppliers/archive/{id}', ['as' =>'suppliers.archive', 'uses'=>'Admin\SupplierController@archive']);
 });

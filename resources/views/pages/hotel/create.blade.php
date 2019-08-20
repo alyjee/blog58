@@ -21,7 +21,15 @@
 	                        @endif
 	            		</div>
 
-	            		<div class="form-group {{ $errors->has('category') ? ' has-error' : '' }}">
+	            		<div class="form-group {{ $errors->has('supplier_id') ? ' has-error' : '' }}">
+		            		{!! Form::label('supplier_id', 'Supplier') !!}
+		            		{!! Form::select('supplier_id', $suppliersSelect, null, ['placeholder'=>'Select Hotel Supplier', 'class'=>'form-control']) !!}
+		            		@if ($errors->has('supplier_id'))
+	                            <div class="form-control-feedback">{{ $errors->first('supplier_id') }}</div>
+	                        @endif
+	            		</div>
+						
+						<div class="form-group {{ $errors->has('category') ? ' has-error' : '' }}">
 		            		{!! Form::label('category', 'Category') !!}
 		            		{!! Form::select('category', $categories, null, ['placeholder'=>'Select Hotel Category', 'class'=>'form-control']) !!}
 		            		@if ($errors->has('category'))

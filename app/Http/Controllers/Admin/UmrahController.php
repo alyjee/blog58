@@ -71,6 +71,18 @@ class UmrahController extends Controller
         $today_date = Carbon::today()->format('d M Y');
         $form_ref_number = UmrahForm::getRefNum();
         $hotelSelect = Hotel::getHotelsForSelect();
+        $hotelSelect = array(
+            'animals' => array(
+                'cats',
+                'dogs',
+                'monkeys',
+            ),
+            'robots' => array(
+                'bender',
+                'johnny 5',
+                'metal gear',
+            ),
+        );
         $packageSelect = Package::getPackagesForSelect();
         $flightTypeSelect = UmrahForm::getFlightTypes();
         $flightStatusSelect = UmrahForm::getFlightStatuses();

@@ -110,6 +110,11 @@
                     type: "number",
                     width: 25
                 }, {
+                    name: "supplier_id",
+                    title: "Supplier",
+                    type: "text",
+                    width: 70
+                }, {
                     name: "name",
                     title: "Name",
                     type: "text",
@@ -169,6 +174,38 @@
                     title: "Actions",
                     type: "text",
                     width: 100
+                }, {
+                    type: "control",
+                    editButton: false,
+                    deleteButton: false,
+                    modeSwitchButton: false
+                }]
+            })
+        }(),
+        function() {
+            $("#suppliersGrid").jsGrid({
+                height: "500px",
+                width: "100%",
+                filtering: !0,
+                editing: 0,
+                sorting: !0,
+                paging: !0,
+                autoload: !0,
+                pageSize: 15,
+                pageButtonCount: 5,
+                controller: suppliers,
+                fields: [{
+                    name: "id",
+                    title: "ID",
+                    type: "number"
+                }, {
+                    name: "name",
+                    title: "Name",
+                    type: "text"
+                }, {
+                    name: "actions",
+                    title: "Actions",
+                    type: "text"
                 }, {
                     type: "control",
                     editButton: false,

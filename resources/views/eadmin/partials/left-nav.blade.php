@@ -48,6 +48,17 @@
             <li>
                 <a href="javascript://" class="waves-effect">
                     <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
+                    <span class="hide-menu">Suppliers <span class="fa arrow"></span></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('dashboard.suppliers.index') }}">View All</a></li>
+                    <li><a href="{{ route('dashboard.suppliers.create') }}">Add New</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript://" class="waves-effect">
+                    <i class="zmdi zmdi-apps zmdi-hc-fw fa-fw"></i>
                     <span class="hide-menu">Hotels <span class="fa arrow"></span></span>
                 </a>
                 <ul class="nav nav-second-level">

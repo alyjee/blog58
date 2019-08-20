@@ -42,6 +42,12 @@
 </script>
 @endisset
 
+@isset($suppliers)
+<script type="text/javascript">
+	suppliers.data = {!! $suppliers !!};	
+</script>
+@endisset
+
 @isset($proposedForms)
 <script type="text/javascript">
 	proposedForms.data = {!! $proposedForms !!};	
