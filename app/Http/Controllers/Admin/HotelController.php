@@ -79,10 +79,11 @@ class HotelController extends Controller
     public function edit($id)
     {
         try {
+            $suppliersSelect = \App\Supplier::getSuppliersForSelect();
             $categories = Hotel::getHotelCategories();
             $hotel = Hotel::where('id', $id)->first();
             if($hotel)
-                return view('pages.hotel.create', ['hotel' => $hotel, 'categories'=>$categories]);
+                return view('pages.hotel.create', ['hotel' => $hotel, 'categories'=>$categories, 'suppliersSelect'=>$suppliersSelect]);
             return redirect()->back()->withErrors(['Failed to find hotel'])->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->withErrors([$e->getMessage()]);
@@ -99,6 +100,7 @@ class HotelController extends Controller
     public function update(StoreHotel $request, $id)
     {
         try {
+            $suppliersSelect = \App\Supplier::getSuppliersForSelect();
             $inputs = $request->except('_token');
             $hotel = Hotel::where('id', $id)->update($inputs);
             if($hotel){
@@ -119,6 +121,7 @@ class HotelController extends Controller
     public function archive($id)
     {
         try {
+            $suppliersSelect = \App\Supplier::getSuppliersForSelect();
             $hotel = Hotel::where('id', $id)->update(['archive'=>1]);
             if($hotel){
                 return redirect()->route('dashboard.hotels.index');
