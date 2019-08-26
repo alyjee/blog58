@@ -54,8 +54,8 @@
 </script>
 @endisset
 
-<!-- <script type="text/javascript" src="{{ asset('public/eadmin/plugins/bower_components/jsgrid/dist/jsgrid.min.js') }}"></script> -->
-<script type="text/javascript" src="://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+<script type="text/javascript" src="{{ asset('public/eadmin/plugins/bower_components/jsgrid/dist/jsgrid.min.js') }}"></script>
+<!-- <script type="text/javascript" src="://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script> -->
 
 <script src="{{ asset('public/eadmin/material/js/jsgrid-init_v1.1.js') }}"></script>
 
