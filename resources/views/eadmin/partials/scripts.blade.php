@@ -104,4 +104,4 @@
 		});
 	});
 </script>
-<script src="{{ asset('js/custom.js') }}"></script>
+<script src="{{ asset('public/js/custom.js') }}"></script>
