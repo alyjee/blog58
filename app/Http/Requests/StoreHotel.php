@@ -33,16 +33,14 @@ class StoreHotel extends FormRequest
             return [
                 'category' => 'required|int',
                 'name' => 'required|max:500',
-                'room_basis' => 'required',
-                'distance_from_haram' => 'required',
+                'supplier_id' => 'required',
             ];
         }
 
         return [
             'category' => 'required|int',
             'name' => 'required|max:500',
-            'room_basis' => 'required',
-            'distance_from_haram' => 'required'
+            'supplier_id' => 'required',
         ];
     }
 }
