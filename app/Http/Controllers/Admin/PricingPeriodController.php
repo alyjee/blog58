@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -55,6 +54,7 @@ class PricingPeriodController extends Controller
             $feature['name'] = $inputs['feature']['name'][$key];
             $feature['price'] = $inputs['feature']['price'][$key];
             $feature['weekend_price'] = (!empty($inputs['feature']['weekend_price'][$key])) ? $inputs['feature']['weekend_price'][$key] : $inputs['feature']['price'][$key];
+            $feature['feature_basis'] = $inputs['feature']['feature_basis'][$key];
             $features[] = $feature;
         }
 
@@ -160,6 +160,7 @@ class PricingPeriodController extends Controller
             $feature['name'] = $inputs['feature']['name'][$key];
             $feature['price'] = $inputs['feature']['price'][$key];
             $feature['weekend_price'] = (!empty($inputs['feature']['weekend_price'][$key])) ? $inputs['feature']['weekend_price'][$key] : $inputs['feature']['price'][$key];
+            $feature['feature_basis'] = $inputs['feature']['feature_basis'][$key];
             $features[] = $feature;
         }
 
