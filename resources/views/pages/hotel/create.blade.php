@@ -37,7 +37,7 @@
 	                        @endif
 	            		</div>
 
-	            		<div class="form-group {{ $errors->has('room_basis') ? ' has-error' : '' }}">
+	            		<div class="hide form-group {{ $errors->has('room_basis') ? ' has-error' : '' }}">
 		            		{!! Form::label('room_basis', 'Room Basis') !!}
 		            		{!! Form::text('room_basis', null,['placeholder'=>'Enter Room Basis e.g. BB, Room only Basis', 'class'=>'form-control']) !!}
 		            		@if ($errors->has('room_basis'))
