@@ -159,7 +159,7 @@ class HotelController extends Controller
                 $inputVals = [
                     'inputLabel' => 'Feature',
                     'inputName' => $prefix.'[feature_name][]',
-                    'inputValue' => $pf->name,
+                    'inputValue' => $pf->name.' - '.$pf->feature_basis,
                     'readonly' => 'readonly',
                     'type' => 'text',
                     'inputClass' => 'form-control dynamic-pf-input'
