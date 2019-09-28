@@ -55,7 +55,7 @@ class StorePhase2 extends FormRequest
                 'iternary_hotel_nights.*' => 'required|int',
                 'iternary_hotel.*' => 'required',
                 'iternary_hotel_category.*' => 'required',
-                'iternary_hotel_meal_plan.*' => 'required',
+                // 'iternary_hotel_meal_plan.*' => 'required',
 
                 'day.*' => 'required_with:airline',
                 'date.*' => 'required_with:airline',
@@ -100,7 +100,7 @@ class StorePhase2 extends FormRequest
             'iternary_hotel_nights.*' => 'required|int',
             'iternary_hotel.*' => 'required',
             'iternary_hotel_category.*' => 'required',
-            'iternary_hotel_meal_plan.*' => 'required',
+            // 'iternary_hotel_meal_plan.*' => 'required',
 
             'day.*' => 'required_with:airline',
             'date.*' => 'required_with:airline',
